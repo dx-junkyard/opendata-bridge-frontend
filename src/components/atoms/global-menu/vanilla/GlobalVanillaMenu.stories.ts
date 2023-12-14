@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { GlobalVanillaMenu } from './GlobalVanillaMenu';
 
 const meta = {
-  title: 'OpendataBridge/atoms/GlobalMenu/Vanilla',
+  title: 'OpendataBridge/Atoms/GlobalMenu/Vanilla',
   component: GlobalVanillaMenu,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
