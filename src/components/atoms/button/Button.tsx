@@ -1,20 +1,18 @@
-'use client';
 import React from 'react';
-import './button.scss';
+
+type ButtonColorType = 'primary' | 'secondary';
+
+type ButtonSizeType = 'xl' | 'large' | 'medium';
 
 interface ButtonProps {
   /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
    * What background color to use
    */
-  backgroundColor?: string;
+  color: ButtonColorType;
   /**
    * How large should the button be?
    */
-  size?: 'small' | 'medium' | 'large';
+  size: ButtonSizeType;
   /**
    * Button contents
    */
@@ -22,36 +20,40 @@ interface ButtonProps {
   /**
    * Optional click handler
    */
-  onClick?: () => void;
+  onClick: () => void;
 }
+
+const selectColor = (color: ButtonColorType) => {
+  switch (color) {
+    case 'primary':
+      return 'bg-blue-700 text-white';
+    case 'secondary':
+      return 'bg-white text-blue-700 border border-blue-700';
+  }
+};
+
+const selectSize = (size: ButtonSizeType) => {
+  switch (size) {
+    case 'xl':
+      return 'min-w-[136px] h-[48px] text-xs';
+    case 'large':
+      return 'min-w-[96px] h-[48px] text-xs';
+  }
+};
 
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}: ButtonProps) => {
-  const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
+export const Button = ({ color, size, label, onClick }: ButtonProps) => {
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' '
-      )}
-      {...props}
+      className={
+        [selectColor(color), selectSize(size)].join(' ') + ' rounded-lg'
+      }
+      onClick={onClick}
     >
       {label}
-      <style jsx>{`
-        button {
-          background-color: ${backgroundColor};
-        }
-      `}</style>
     </button>
   );
 };
