@@ -13,25 +13,23 @@ interface HeaderProps {
 }
 
 export const Header = ({ user, onLogin, onLogout }: HeaderProps) => (
-  <header>
-    <div className="flex items-center storybook-header bg-white text-black">
-      <div className="flex items-center">
-        <Image src="/logo.svg" alt={'logo'} width={54} height={54} />
-        <h1 className="font-bold text-2xl leading-none">Opendata Bridge</h1>
-      </div>
-      <div className="flex items-center space-x-8">
-        {user ? (
-          <>
-            <GlobalUserMenu user={user} />
-            <GlobalVanillaMenu title={'ログアウト'} href={'/'} />
-          </>
-        ) : (
-          <>
-            <GlobalUserMenu user={undefined} />
-            <GlobalVanillaMenu title={'ログイン'} href={'/'} />
-          </>
-        )}
-      </div>
+  <header className="flex items-center header bg-white text-black">
+    <div className="flex items-center">
+      <Image src="/logo.svg" alt={'logo'} width={54} height={54} />
+      <h1 className="font-bold text-2xl leading-none">Opendata Bridge</h1>
+    </div>
+    <div className="flex items-center space-x-8">
+      {user ? (
+        <>
+          <GlobalUserMenu user={user} />
+          <GlobalVanillaMenu title={'ログアウト'} href={'/'} />
+        </>
+      ) : (
+        <>
+          <GlobalUserMenu user={undefined} />
+          <GlobalVanillaMenu title={'ログイン'} href={'/'} />
+        </>
+      )}
     </div>
   </header>
 );
