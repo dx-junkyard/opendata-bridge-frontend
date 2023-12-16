@@ -35,7 +35,7 @@ const selectColor = (color: ButtonColorType) => {
 const selectSize = (size: ButtonSizeType) => {
   switch (size) {
     case 'xl':
-      return 'min-w-[136px] h-[48px] text-xs';
+      return 'min-w-[136px] h-[56px] text-xs';
     case 'large':
       return 'min-w-[96px] h-[48px] text-xs';
   }
