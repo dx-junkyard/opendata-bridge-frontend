@@ -1,26 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Header } from './Header';
+import { GlobalVanillaMenu } from './GlobalVanillaMenu';
 
 const meta = {
-  title: 'OpendataBridge/Organizms/Header',
-  component: Header,
+  title: 'OpendataBridge/Atoms/GlobalMenu/Vanilla',
+  component: GlobalVanillaMenu,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-    layout: 'fullscreen',
+    layout: 'centered',
   },
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof GlobalVanillaMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const LoggedIn: Story = {
   args: {
-    user: {
-      name: 'dx-junkyard',
-    },
+    title: 'ログイン',
+    href: '/',
   },
 };
 
-export const LoggedOut: Story = {};
+export const LoggedOut: Story = {
+  args: {
+    title: 'ログアウト',
+    href: '/',
+  },
+};

@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-
-import { StoryPage } from './StoryPage';
+import { Footer } from './Footer';
 
 const meta = {
-  title: 'Example/Page',
-  component: StoryPage,
+  title: 'OpendataBridge/Organizms/Footer',
+  component: Footer,
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ['autodocs'],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof StoryPage>;
+} satisfies Meta<typeof Footer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

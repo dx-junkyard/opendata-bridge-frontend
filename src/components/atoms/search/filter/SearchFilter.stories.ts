@@ -1,26 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Header } from './Header';
+import { SearchFilter } from '@/components/atoms/search/filter/SearchFilter';
 
 const meta = {
-  title: 'OpendataBridge/Organizms/Header',
-  component: Header,
+  title: 'OpendataBridge/Atoms/Search/Filter',
+  component: SearchFilter,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-    layout: 'fullscreen',
+    layout: 'center',
   },
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof SearchFilter>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LoggedIn: Story = {
+export const Selected: Story = {
   args: {
-    user: {
-      name: 'dx-junkyard',
-    },
+    label: 'selected',
+    isSelected: true,
   },
 };
 
-export const LoggedOut: Story = {};
+export const NotSelected: Story = {
+  args: {
+    label: 'notSelected',
+    isSelected: false,
+  },
+};
