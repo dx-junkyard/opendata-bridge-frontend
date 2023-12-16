@@ -9,7 +9,7 @@ interface SearchWindowProps {
 
 export const SearchWindow = ({ query, updateQuery }: SearchWindowProps) => {
   return (
-    <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-4">
+    <div className="bg-white text-black px-[220px] py-[20px] flex flex-col space-y-4">
       <div className="flex flex-col space-y-2">
         <h1 className="text-sm">オープンデータを検索する</h1>
         <div className="flex space-x-4">
