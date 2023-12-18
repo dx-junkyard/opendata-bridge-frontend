@@ -1,16 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
 
-import { StoryPage } from './StoryPage';
+import { SearchPage } from './SearchPage';
 
 const meta = {
-  title: 'Example/Page',
-  component: StoryPage,
+  title: 'OpendataBridge/Pages/SearchPage',
+  component: SearchPage,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof StoryPage>;
+} satisfies Meta<typeof SearchPage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
