@@ -11,14 +11,14 @@ const projects: Project[] = [
     id: 'dummy1',
     name: 'dummy1',
     description: 'dummy1',
-    url: '/dummy1',
+    url: '/project/dummy1',
     thumbnails: ['/dummy.png', '/dummy.png'],
   },
   {
     id: 'dummy2',
     name: 'dummy2',
     description: 'dummy2',
-    url: '/dummy2',
+    url: '/project/dummy2',
     thumbnails: ['/dummy.png', '/dummy.png'],
   },
 ];

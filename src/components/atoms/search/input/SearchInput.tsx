@@ -10,7 +10,7 @@ interface SearchInputProps {
 export const SearchInput = ({ query, updateQuery }: SearchInputProps) => {
   return (
     <div className="w-full h-[56px] bg-white flex justify-center items-center text-black border-black border rounded-lg">
-      <FontAwesomeIcon className="px-4" icon={faMagnifyingGlass} />
+      <FontAwesomeIcon className="px-4 h-[18px]" icon={faMagnifyingGlass} />
       <input
         className="w-full h-full text-xl text-left rounded-lg focus:outline-none"
         type="text"
