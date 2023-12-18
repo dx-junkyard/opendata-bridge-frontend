@@ -1,14 +1,11 @@
 'use client';
 import React, { FC, useState } from 'react';
-
-import { Header } from '../organizms/header/Header';
-import './story-page.scss';
 import { Hero } from '@/components/molecules/hero/Hero';
-import { User } from '@/types/user';
-import { Footer } from '@/components/organizms/footer/Footer';
 import { SearchWindow } from '@/components/organizms/search-window/SearchWindow';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
+import { Header } from '@/components/organizms/header/Header';
+import { Footer } from '@/components/organizms/footer/Footer';
 
 const projects: Project[] = [
   // dummyのプロジェクト
@@ -28,17 +25,12 @@ const projects: Project[] = [
   },
 ];
 
-export const StoryPage: FC = () => {
-  const [user, setUser] = useState<User>();
+export const SearchPage: FC = () => {
   const [query, setQuery] = useState<string>('');
 
   return (
     <>
-      <Header
-        user={user}
-        onLogin={() => setUser({ name: 'dx-junkyard' })}
-        onLogout={() => setUser(undefined)}
-      />
+      <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
       <article>
         <Hero />
         <SearchWindow query={query} updateQuery={setQuery} />
