@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Project } from '@/types/project';
 import { Header } from '@/components/organizms/header/Header';
 import { Footer } from '@/components/organizms/footer/Footer';
+import { DetailProject } from '@/components/templates/detail-project/DetailProject';
 
 // dummyのプロジェクト
 const project: Project = {
@@ -16,9 +17,7 @@ export const DetailPage: FC = () => {
   return (
     <>
       <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
-      <article>
-        <h1>プロジェクト詳細情報</h1>
-      </article>
+      <DetailProject project={project} />
       <Footer />
     </>
   );
