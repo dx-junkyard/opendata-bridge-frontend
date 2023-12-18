@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Hero } from '@/components/molecules/hero/Hero';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
-import { Project } from '@/types/project';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
