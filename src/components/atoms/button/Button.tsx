@@ -2,7 +2,7 @@ import React from 'react';
 
 type ButtonColorType = 'primary' | 'secondary';
 
-type ButtonSizeType = 'xl' | 'large' | 'medium';
+type ButtonSizeType = '2xl' | 'xl' | 'large' | 'medium';
 
 interface ButtonProps {
   /**
@@ -20,7 +20,7 @@ interface ButtonProps {
   /**
    * Optional click handler
    */
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const selectColor = (color: ButtonColorType) => {
@@ -34,6 +34,8 @@ const selectColor = (color: ButtonColorType) => {
 
 const selectSize = (size: ButtonSizeType) => {
   switch (size) {
+    case '2xl':
+      return 'min-w-[382px] h-[56px] text-sm';
     case 'xl':
       return 'min-w-[136px] h-[56px] text-xs';
     case 'large':

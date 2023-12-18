@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 
-interface ResourceCardProps {
+interface DatasetCardProps {
   dataset: Dataset;
 }
 
-export const DatasetCard = ({ dataset }: ResourceCardProps) => {
+export const DatasetCard = ({ dataset }: DatasetCardProps) => {
   return (
     <Link
       href={dataset.url}
