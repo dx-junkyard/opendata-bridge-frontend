@@ -2,7 +2,7 @@ import React from 'react';
 
 type ButtonColorType = 'primary' | 'secondary';
 
-type ButtonSizeType = '2xl' | 'xl' | 'large' | 'medium';
+type ButtonSizeType = '3xl' | '2xl' | 'xl' | 'large' | 'medium';
 
 interface ButtonProps {
   /**
@@ -34,12 +34,14 @@ const selectColor = (color: ButtonColorType) => {
 
 const selectSize = (size: ButtonSizeType) => {
   switch (size) {
+    case '3xl':
+      return 'w-[382px] h-[56px] text-sm';
     case '2xl':
-      return 'min-w-[382px] h-[56px] text-sm';
+      return 'w-[230px] h-[56px] text-sm';
     case 'xl':
-      return 'min-w-[136px] h-[56px] text-xs';
+      return 'w-[136px] h-[56px] text-xs';
     case 'large':
-      return 'min-w-[96px] h-[48px] text-xs';
+      return 'w-[96px] h-[48px] text-xs';
   }
 };
 

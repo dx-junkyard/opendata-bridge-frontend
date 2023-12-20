@@ -12,6 +12,7 @@ const project: Project = {
   tags: ['tag1', 'tag2', 'tag3'],
   url: '/dummy1',
   thumbnails: ['/dummy.png', '/dummy.png'],
+  recipe: '',
 };
 
 export const DetailPage: FC = () => {

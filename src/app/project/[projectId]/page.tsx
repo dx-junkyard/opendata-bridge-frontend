@@ -8,6 +8,7 @@ const project: Project = {
   tags: ['tag1', 'tag2'],
   url: '/dummy1',
   thumbnails: ['/dummy.png', '/dummy.png'],
+  recipe: '',
 };
 
 const Detail = ({ params }: { params: { projectId: string } }) => {

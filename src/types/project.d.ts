@@ -5,4 +5,5 @@ export type Project = {
   tags: string[];
   url: string;
   thumbnails: string[];
+  recipe: string;
 };

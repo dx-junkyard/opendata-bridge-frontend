@@ -2,7 +2,6 @@
 import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
-import { Button } from '@/components/atoms/button/Button';
 import { DatasetCard } from '@/components/molecules/dataset-card/DatasetCard';
 import { ActionCard } from '@/components/molecules/action-card/ActionCard';
 import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
