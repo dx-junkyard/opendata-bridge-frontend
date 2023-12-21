@@ -49,13 +49,13 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
             </div>
           )}
         </div>
-        <div className="w-full bg-white grid grid-cols-2 gap-4 justify-items-center">
+        <div className="w-full bg-white grid grid-cols-1 gap-4 justify-items-center">
           <Button color={'secondary'} size={'2xl'} label={'ファイルの追加'} />
-          <Button
-            color={'secondary'}
-            size={'2xl'}
-            label={'登録済みオープンデータから選ぶ'}
-          />
+          {/*<Button*/}
+          {/*  color={'secondary'}*/}
+          {/*  size={'2xl'}*/}
+          {/*  label={'登録済みオープンデータから選ぶ'}*/}
+          {/*/>*/}
         </div>
       </div>
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
