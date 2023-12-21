@@ -6,6 +6,7 @@ import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
 import { ResourceOption } from '@/components/molecules/resource-option/ResourceOption';
 import { Button } from '@/components/atoms/button/Button';
 import CopyButton from '@/components/atoms/copy-button/CopyBotton';
+import { SuccessFormattingModal } from '@/components/molecules/success-formating-modal/SuccessFormattingModal';
 
 interface UseRecipeProps {
   project: Project;
@@ -70,13 +71,7 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
             <CopyButton value={recipe} />
           </div>
         </div>
-        <div className="w-full bg-white flex justify-center items-center">
-          <Button
-            color={'primary'}
-            size={'2xl'}
-            label={'データ整形を実行する'}
-          />
-        </div>
+        <SuccessFormattingModal />
       </div>
     </article>
   );
