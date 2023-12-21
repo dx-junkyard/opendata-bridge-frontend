@@ -10,6 +10,7 @@ module.exports = ({ config }) => {
     ...config.resolve.alias,
     '@/components': path.resolve(__dirname, '../src/components'),
     '@/types': path.resolve(__dirname, '../src/types'),
+    '@/hooks': path.resolve(__dirname, '../src/hooks'),
   };
 
   return config;

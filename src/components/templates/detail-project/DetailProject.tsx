@@ -2,9 +2,9 @@
 import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
-import { Button } from '@/components/atoms/button/Button';
 import { DatasetCard } from '@/components/molecules/dataset-card/DatasetCard';
 import { ActionCard } from '@/components/molecules/action-card/ActionCard';
+import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
 
 interface DetailProjectProps {
   project: Project;
@@ -16,26 +16,7 @@ export const DetailProject = ({ project }: DetailProjectProps) => {
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-2">
         <h1 className="text-4xl">プロジェクト詳細情報</h1>
         <ProjectCard project={project} />
-        <div className="flex space-x-8">
-          <Button
-            color={'primary'}
-            size={'large'}
-            label={'ラベルA'}
-            onClick={() => {}}
-          />
-          <Button
-            color={'primary'}
-            size={'large'}
-            label={'ラベルB'}
-            onClick={() => {}}
-          />
-          <Button
-            color={'primary'}
-            size={'large'}
-            label={'ラベルC'}
-            onClick={() => {}}
-          />
-        </div>
+        <ProjectTags tags={project.tags} />
       </div>
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-2">
         <h2 className="text-xl">変換元のオープンデータのリンク一覧</h2>
@@ -78,7 +59,6 @@ export const DetailProject = ({ project }: DetailProjectProps) => {
           thumbnail="/dummy1_1.png"
           buttonLabel="レシピを開発する"
         />
-        {/*<h2 className="text-bold text-xl">データ整形レシピを開発する</h2>*/}
       </div>
     </article>
   );

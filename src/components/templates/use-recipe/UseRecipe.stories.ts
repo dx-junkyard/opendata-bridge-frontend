@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DetailProject } from '@/components/templates/detail-project/DetailProject';
+import { UseRecipe } from '@/components/templates/use-recipe/UseRecipe';
 
 const meta = {
-  title: 'OpendataBridge/Templates/DetailProject',
-  component: DetailProject,
+  title: 'OpendataBridge/Templates/UseRecipe',
+  component: UseRecipe,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof DetailProject>;
+} satisfies Meta<typeof UseRecipe>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -22,6 +22,7 @@ export const Default: Story = {
       tags: ['tag1', 'tag2', 'tag3'],
       thumbnails: ['/dummy.png', '/dummy.png'],
       url: '',
+      recipe: '{"dummy": "dummy"}',
     },
   },
 };
