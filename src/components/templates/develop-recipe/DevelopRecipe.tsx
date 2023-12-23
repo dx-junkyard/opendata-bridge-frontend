@@ -7,6 +7,7 @@ import { Button } from '@/components/atoms/button/Button';
 import CopyButton from '@/components/atoms/copy-button/CopyBotton';
 import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
+import { Alert } from '@/components/atoms/alert/Alert';
 
 interface DevelopRecipeProps {
   project: Project;
@@ -60,6 +61,10 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
             onClick={() => {}}
           />
         </div>
+      </div>
+      <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
+        <h2 className="text-xl">プロンプト実行結果</h2>
+        <Alert title={'プロンプト実行が成功しました'} type={'info'} />
       </div>
     </article>
   );
