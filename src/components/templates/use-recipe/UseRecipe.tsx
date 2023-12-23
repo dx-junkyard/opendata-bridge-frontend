@@ -20,7 +20,9 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
     new File([''], '変換対象データB.csv', { type: 'text/csv' }),
   ]);
 
-  const recipe = JSON.stringify(JSON.parse(project.recipe), null, '\t');
+  const recipe = project.recipe
+    ? JSON.stringify(JSON.parse(project.recipe), null, '\t')
+    : '';
 
   return (
     <article>
