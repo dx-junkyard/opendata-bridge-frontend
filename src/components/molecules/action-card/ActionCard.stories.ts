@@ -16,7 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const TryRecipe: Story = {
+export const UseRecipeCard: Story = {
   args: {
     title: 'データ整形レシピを実行する',
     description: '作成済みのデータ整形レシピを使って、データ整形を実行します',
@@ -26,7 +26,7 @@ export const TryRecipe: Story = {
   },
 };
 
-export const DevelopRecipe: Story = {
+export const DevelopRecipeCard: Story = {
   args: {
     title: 'データ整形レシピを開発する',
     description: 'AIを使ってデータ整形用のレシピを開発します',

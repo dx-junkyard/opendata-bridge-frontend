@@ -3,18 +3,17 @@ import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
-import { ResourceOption } from '@/components/molecules/resource-option/ResourceOption';
 import { Button } from '@/components/atoms/button/Button';
 import CopyButton from '@/components/atoms/copy-button/CopyBotton';
 import { SuccessFormattingModal } from '@/components/molecules/success-formating-modal/SuccessFormattingModal';
 import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/FileList/InputFileList';
 
-interface UseRecipeProps {
+interface DevelopRecipeProps {
   project: Project;
 }
 
-export const UseRecipe = ({ project }: UseRecipeProps) => {
+export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
   const { fileList, addFile, removeFile } = useFileList([
     new File([''], '変換対象データA.csv', { type: 'text/csv' }),
     new File([''], '変換対象データB.csv', { type: 'text/csv' }),
@@ -25,7 +24,7 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
   return (
     <article>
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-2">
-        <h1 className="text-4xl">データ整形レシピを実行する</h1>
+        <h1 className="text-4xl">データ整形レシピを開発する</h1>
         <ProjectCard project={project} />
         <ProjectTags tags={project.tags} />
       </div>
