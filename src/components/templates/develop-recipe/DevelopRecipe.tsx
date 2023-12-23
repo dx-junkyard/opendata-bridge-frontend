@@ -6,7 +6,7 @@ import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
 import { Button } from '@/components/atoms/button/Button';
 import CopyButton from '@/components/atoms/copy-button/CopyBotton';
 import { useFileList } from '@/hooks/use-file-list';
-import { InputFileList } from '@/components/organizms/InputFileList/InputFileList';
+import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
 
 interface DevelopRecipeProps {
   project: Project;

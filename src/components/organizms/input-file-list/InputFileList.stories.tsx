@@ -1,4 +1,4 @@
-import { InputFileList } from '@/components/organizms/InputFileList/InputFileList';
+import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
