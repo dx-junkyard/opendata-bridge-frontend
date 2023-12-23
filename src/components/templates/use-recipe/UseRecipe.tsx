@@ -8,7 +8,7 @@ import { Button } from '@/components/atoms/button/Button';
 import CopyButton from '@/components/atoms/copy-button/CopyBotton';
 import { SuccessFormattingModal } from '@/components/molecules/success-formating-modal/SuccessFormattingModal';
 import { useFileList } from '@/hooks/use-file-list';
-import { InputFileList } from '@/components/organizms/FileList/InputFileList';
+import { InputFileList } from '@/components/organizms/InputFileList/InputFileList';
 
 interface UseRecipeProps {
   project: Project;
