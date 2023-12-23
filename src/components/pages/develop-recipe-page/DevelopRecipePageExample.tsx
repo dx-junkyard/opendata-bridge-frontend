@@ -14,7 +14,7 @@ const project: Project = {
   recipe: '{"dummy": "dummy"}',
 };
 
-export const DevelopRecipePage: FC = () => {
+export const DevelopRecipePageExample: FC = () => {
   return (
     <>
       <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />

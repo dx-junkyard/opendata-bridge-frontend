@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Project } from '@/types/project';
 import { Header } from '@/components/organizms/header/Header';
 import { Footer } from '@/components/organizms/footer/Footer';
-import { DetailProject } from '@/components/templates/detail-project/DetailProject';
+import { UseRecipe } from '@/components/templates/use-recipe/UseRecipe';
 
 // dummyのプロジェクト
 const project: Project = {
@@ -11,14 +11,14 @@ const project: Project = {
   description: 'dummy1',
   tags: ['tag1', 'tag2', 'tag3'],
   thumbnails: ['/dummy.png', '/dummy.png'],
-  recipe: '',
+  recipe: '{"dummy": "dummy"}',
 };
 
-export const DetailPage: FC = () => {
+export const UseRecipePageExample: FC = () => {
   return (
     <>
       <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
-      <DetailProject project={project} />
+      <UseRecipe project={project} />
       <Footer />
     </>
   );

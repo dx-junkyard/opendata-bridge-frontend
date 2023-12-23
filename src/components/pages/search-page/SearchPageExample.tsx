@@ -25,7 +25,7 @@ const projects: Project[] = [
   },
 ];
 
-export const SearchPage: FC = () => {
+export const SearchPageExample: FC = () => {
   const [query, setQuery] = useState<string>('');
 
   return (

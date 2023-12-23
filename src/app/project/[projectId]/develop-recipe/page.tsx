@@ -1,5 +1,5 @@
-import { DetailProject } from '@/components/templates/detail-project/DetailProject';
 import { Project } from '@/types/project';
+import { DevelopRecipe } from '@/components/templates/develop-recipe/DevelopRecipe';
 
 const project: Project = {
   id: 'dummy1',
@@ -10,10 +10,10 @@ const project: Project = {
   recipe: '',
 };
 
-const DetailProjectPage = ({ params }: { params: { projectId: string } }) => {
+const DevelopRecipePage = ({ params }: { params: { projectId: string } }) => {
   console.info(`Detail: ${params.projectId}`);
 
-  return <DetailProject project={project} />;
+  return <DevelopRecipe project={project} />;
 };
 
-export default DetailProjectPage;
+export default DevelopRecipePage;
