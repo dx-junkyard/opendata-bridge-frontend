@@ -1,0 +1,7 @@
+.alert {
+  @apply text-left w-full bg-white text-black rounded-xl border-2 p-[24px] space-y-2;
+
+  &__icon {
+    @apply px-4;
+  }
+}

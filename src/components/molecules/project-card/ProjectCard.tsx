@@ -9,7 +9,7 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Link
-      href={project.url}
+      href={`/project/${project.id}`}
       className="grid border-gray-300 border-b w-full h-[187px] grid-cols-2 bg-white"
     >
       <div className="flex flex-col justify-center">

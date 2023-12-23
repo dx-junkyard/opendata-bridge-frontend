@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { UseRecipe } from '@/components/templates/use-recipe/UseRecipe';
+import { DevelopRecipe } from '@/components/templates/develop-recipe/DevelopRecipe';
 
 const meta = {
-  title: 'OpendataBridge/Templates/UseRecipe',
-  component: UseRecipe,
+  title: 'OpendataBridge/Templates/DevelopRecipe',
+  component: DevelopRecipe,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof UseRecipe>;
+} satisfies Meta<typeof DevelopRecipe>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

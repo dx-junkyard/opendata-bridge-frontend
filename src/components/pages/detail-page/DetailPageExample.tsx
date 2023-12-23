@@ -10,12 +10,11 @@ const project: Project = {
   name: 'dummy1',
   description: 'dummy1',
   tags: ['tag1', 'tag2', 'tag3'],
-  url: '/dummy1',
   thumbnails: ['/dummy.png', '/dummy.png'],
   recipe: '',
 };
 
-export const DetailPage: FC = () => {
+export const DetailPageExample: FC = () => {
   return (
     <>
       <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />

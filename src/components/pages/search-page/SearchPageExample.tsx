@@ -14,7 +14,6 @@ const projects: Project[] = [
     name: 'dummy1',
     description: 'dummy1',
     tags: ['tag1', 'tag2'],
-    url: '/dummy1',
     thumbnails: ['/dummy.png', '/dummy.png'],
   },
   {
@@ -22,12 +21,11 @@ const projects: Project[] = [
     name: 'dummy2',
     description: 'dummy2',
     tags: ['tag1', 'tag2'],
-    url: '/dummy2',
     thumbnails: ['/dummy.png', '/dummy.png'],
   },
 ];
 
-export const SearchPage: FC = () => {
+export const SearchPageExample: FC = () => {
   const [query, setQuery] = useState<string>('');
 
   return (

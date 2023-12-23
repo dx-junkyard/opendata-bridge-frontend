@@ -21,7 +21,6 @@ export const Default: Story = {
       description: 'test',
       tags: ['tag1', 'tag2', 'tag3'],
       thumbnails: ['/dummy.png', '/dummy.png'],
-      url: '',
     },
   },
 };

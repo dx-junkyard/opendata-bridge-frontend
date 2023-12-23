@@ -1,7 +1,7 @@
 import { SearchProject } from '@/components/templates/search-project/SearchProject';
 
-const Search = () => {
+const SearchProjectPage = () => {
   return <SearchProject />;
 };
 
-export default Search;
+export default SearchProjectPage;

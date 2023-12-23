@@ -23,7 +23,6 @@ export const Default: Story = {
       name: 'Project Card',
       description: 'This is a project card.',
       tags: ['tag1', 'tag2', 'tag3'],
-      url: '',
       thumbnails: [],
     },
   },
