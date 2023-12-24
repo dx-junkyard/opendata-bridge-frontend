@@ -23,7 +23,8 @@
     "react-dom": "^18",
     "react-modal": "^3.16.1",
     "recoil": "^0.7.7",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "husky": "^8.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.4",
@@ -43,7 +44,6 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-storybook": "^0.6.15",
-    "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "postcss": "^8",
     "postcss-scss": "^4.0.9",
