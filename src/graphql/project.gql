@@ -1,0 +1,43 @@
+fragment projectEntity on ProjectEntity {
+  id
+  attributes {
+    title
+    description
+    resources {
+      data {
+        attributes {
+          title
+          url
+        }
+      }
+    }
+    prompt
+    updatedAt
+  }
+}
+
+query searchProject($query: String!) {
+  search(query: $query) {
+    projects(pagination: { page: 1, pageSize: 10 }) {
+      data {
+        ...projectEntity
+      }
+    }
+  }
+}
+
+query getProject($id: ID) {
+  project(id: $id) {
+    data {
+      ...projectEntity
+    }
+  }
+}
+
+query fetchProject {
+  projects(pagination: { page: 1, pageSize: 10 }, sort: "updatedAt:desc") {
+    data {
+      ...projectEntity
+    }
+  }
+}
