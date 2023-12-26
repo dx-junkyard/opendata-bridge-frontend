@@ -4,6 +4,7 @@ export type Project = {
   description: string;
   tags: string[];
   thumbnails: string[];
+  resources: Resource[];
   recipe?: string;
   prompt?: string;
 };
