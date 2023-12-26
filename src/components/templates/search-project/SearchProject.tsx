@@ -1,44 +1,51 @@
-'use client';
-import React, { FC, useState } from 'react';
+import React from 'react';
 import { Hero } from '@/components/molecules/hero/Hero';
 import { SearchWindow } from '@/components/organizms/search-window/SearchWindow';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
+import { LoadingProjectCard } from '@/components/molecules/loading-project-card/LoadingProjectCard';
 
-const projects: Project[] = [
-  // dummyのプロジェクト
-  {
-    id: 'dummy1',
-    name: 'dummy1',
-    description: 'dummy1',
-    tags: ['tag1', 'tag2'],
-    thumbnails: ['/dummy.png', '/dummy.png'],
-    resources: [],
-    recipe: '',
-  },
-  {
-    id: 'dummy2',
-    name: 'dummy2',
-    description: 'dummy2',
-    tags: ['tag1', 'tag2'],
-    thumbnails: ['/dummy.png', '/dummy.png'],
-    resources: [],
-    recipe: '',
-  },
-];
+interface SearchProjectProps {
+  query: string;
+  updateQuery: (query: string) => void;
+  isTyping: boolean;
+  updateIsTyping: (isTyping: boolean) => void;
+  projectList: Project[];
+  isLoading: boolean;
+}
 
-export const SearchProject: FC = () => {
-  const [query, setQuery] = useState<string>('');
-
+export const SearchProject = ({
+  query,
+  updateQuery,
+  isTyping,
+  updateIsTyping,
+  projectList,
+  isLoading,
+}: SearchProjectProps) => {
   return (
     <article>
       <Hero />
-      <SearchWindow query={query} updateQuery={setQuery} />
+      <SearchWindow
+        query={query}
+        updateQuery={updateQuery}
+        updateIsTyping={updateIsTyping}
+      />
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col">
-        <h1 className="text-sm">検索結果 : {projects.length}件</h1>
-        {projects.map((project) => (
-          <ProjectCard project={project} key={project.id} />
-        ))}
+        {!isLoading && !isTyping ? (
+          <>
+            <h1 className="text-sm">検索結果 : {projectList.length}件</h1>
+            {projectList.map((project) => (
+              <ProjectCard project={project} key={project.id} />
+            ))}
+          </>
+        ) : (
+          <>
+            <h1 className="text-sm">検索中...</h1>
+            <LoadingProjectCard />
+            <LoadingProjectCard />
+            <LoadingProjectCard />
+          </>
+        )}
       </div>
     </article>
   );

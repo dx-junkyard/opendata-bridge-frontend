@@ -6,6 +6,7 @@ import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
 import { Header } from '@/components/organizms/header/Header';
 import { Footer } from '@/components/organizms/footer/Footer';
+import { SearchProject } from '@/components/templates/search-project/SearchProject';
 
 const projects: Project[] = [
   // dummyのプロジェクト
@@ -28,21 +29,17 @@ const projects: Project[] = [
 ];
 
 export const SearchPageExample: FC = () => {
-  const [query, setQuery] = useState<string>('');
-
   return (
     <>
       <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
-      <article>
-        <Hero />
-        <SearchWindow query={query} updateQuery={setQuery} />
-        <div className="bg-white text-black px-[220px] py-[50px] flex flex-col">
-          <h1 className="text-sm">検索結果 : {projects.length}件</h1>
-          {projects.map((project) => (
-            <ProjectCard project={project} key={project.id} />
-          ))}
-        </div>
-      </article>
+      <SearchProject
+        query={''}
+        updateQuery={() => {}}
+        isTyping={false}
+        updateIsTyping={() => {}}
+        projectList={projects}
+        isLoading={false}
+      />
       <Footer />
     </>
   );
