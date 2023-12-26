@@ -7,6 +7,7 @@ const project: Project = {
   description: 'dummy1',
   tags: ['tag1', 'tag2'],
   thumbnails: ['/dummy.png', '/dummy.png'],
+  resources: [],
   recipe: '',
 };
 

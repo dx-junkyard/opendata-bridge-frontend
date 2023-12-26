@@ -12,6 +12,7 @@ const project: Project = {
   tags: ['tag1', 'tag2', 'tag3'],
   thumbnails: ['/dummy.png', '/dummy.png'],
   recipe: '{"dummy": "dummy"}',
+  resources: [],
 };
 
 export const DevelopRecipePageExample: FC = () => {
