@@ -20,7 +20,7 @@ export const Default: Story = {
   args: {
     project: {
       id: '1',
-      name: 'Project Card',
+      title: 'Project Card',
       description: 'This is a project card.',
       tags: ['tag1', 'tag2', 'tag3'],
       thumbnails: [],

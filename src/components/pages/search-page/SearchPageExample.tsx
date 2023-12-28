@@ -1,9 +1,6 @@
 'use client';
-import React, { FC, useState } from 'react';
-import { Hero } from '@/components/molecules/hero/Hero';
-import { SearchWindow } from '@/components/organizms/search-window/SearchWindow';
+import React, { FC } from 'react';
 import { Project } from '@/types/project';
-import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
 import { Header } from '@/components/organizms/header/Header';
 import { Footer } from '@/components/organizms/footer/Footer';
 import { SearchProject } from '@/components/templates/search-project/SearchProject';
@@ -37,6 +34,8 @@ export const SearchPageExample: FC = () => {
         updateQuery={() => {}}
         isTyping={false}
         updateIsTyping={() => {}}
+        updateTagState={() => {}}
+        tags={new Map([])}
         projectList={projects}
         isLoading={false}
       />

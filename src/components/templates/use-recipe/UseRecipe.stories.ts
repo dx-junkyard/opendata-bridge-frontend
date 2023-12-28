@@ -17,7 +17,7 @@ export const Default: Story = {
   args: {
     project: {
       id: 'test',
-      name: 'test',
+      title: 'test',
       description: 'test',
       tags: ['tag1', 'tag2', 'tag3'],
       thumbnails: ['/dummy.png', '/dummy.png'],

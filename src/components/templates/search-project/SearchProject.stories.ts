@@ -18,6 +18,7 @@ export const Default: Story = {
   args: {
     query: '',
     projectList: [],
+    tags: new Map([]),
     isTyping: false,
     isLoading: true,
   },

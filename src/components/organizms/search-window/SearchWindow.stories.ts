@@ -19,6 +19,7 @@ export const Empty: Story = {
   args: {
     query: '',
     updateQuery: () => {},
+    tags: new Map([]),
   },
 };
 
@@ -26,5 +27,6 @@ export const Query: Story = {
   args: {
     query: 'test',
     updateQuery: () => {},
+    tags: new Map([]),
   },
 };

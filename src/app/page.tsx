@@ -3,6 +3,7 @@ import { fetchAllTagsService } from '@/service/fetch-all-tags-service';
 import SearchProjectPageCsr from '@/app/SearchProjectPageCsr';
 
 const SearchProjectPage = async () => {
+  // ビルド時にSSGしてしまう
   const projectTags: ProjectTag[] =
     (await fetchAllTagsService())
       .map((tagEntity) => {
