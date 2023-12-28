@@ -32,8 +32,6 @@ export const useSearchProject = (
       .map((tag) => tag[0].id)
       .join(',');
 
-    console.info(enableTags);
-
     updateEnableTags(enableTags);
   }, [tags]);
 

@@ -62,7 +62,9 @@ export const buildProject = (project: ProjectEntity): Project | undefined => {
     thumbnails,
     resources,
     // Optionalな項目は空文字を返す
-    recipe: projectAttribute?.recipe || '',
+    recipe: projectAttribute?.recipe
+      ? JSON.stringify(projectAttribute.recipe)
+      : '',
     prompt: projectAttribute?.prompt || '',
   };
 };
