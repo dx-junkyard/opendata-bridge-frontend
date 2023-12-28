@@ -1,27 +1,19 @@
-'use client';
-import { SearchProject } from '@/components/templates/search-project/SearchProject';
-import { useSearchProject } from '@/hooks/use-search-project';
+import { ProjectTag } from '@/types/project-tag';
+import { fetchAllTagsService } from '@/service/fetch-all-tags-service';
+import SearchProjectPageCsr from '@/app/SearchProjectPageCsr';
 
-const SearchProjectPage = () => {
-  const {
-    query,
-    updateQuery,
-    isTyping,
-    updateIsTyping,
-    projectList,
-    isLoading,
-  } = useSearchProject();
+const SearchProjectPage = async () => {
+  const projectTags: ProjectTag[] =
+    (await fetchAllTagsService())
+      .map((tagEntity) => {
+        return {
+          id: tagEntity.id || '',
+          title: tagEntity.attributes?.title || '',
+        };
+      })
+      .filter((tag) => tag.id && tag.title) || [];
 
-  return (
-    <SearchProject
-      query={query}
-      updateQuery={updateQuery}
-      isTyping={isTyping}
-      updateIsTyping={updateIsTyping}
-      projectList={projectList}
-      isLoading={isLoading}
-    />
-  );
+  return <SearchProjectPageCsr projectTags={projectTags} />;
 };
 
 export default SearchProjectPage;

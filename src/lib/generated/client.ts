@@ -1513,6 +1513,26 @@ export type GetProjectQuery = {
   } | null;
 };
 
+export type TagEntityFragment = {
+  __typename?: 'TagEntity';
+  id?: string | null;
+  attributes?: { __typename?: 'Tag'; title: string } | null;
+};
+
+export type FetchAllTagsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type FetchAllTagsQuery = {
+  __typename?: 'Query';
+  tags?: {
+    __typename?: 'TagEntityResponseCollection';
+    data: Array<{
+      __typename?: 'TagEntity';
+      id?: string | null;
+      attributes?: { __typename?: 'Tag'; title: string } | null;
+    }>;
+  } | null;
+};
+
 export const ProjectEntityFragmentDoc = gql`
   fragment projectEntity on ProjectEntity {
     id
@@ -1546,6 +1566,14 @@ export const ProjectEntityFragmentDoc = gql`
         }
       }
       updatedAt
+    }
+  }
+`;
+export const TagEntityFragmentDoc = gql`
+  fragment tagEntity on TagEntity {
+    id
+    attributes {
+      title
     }
   }
 `;
@@ -1591,6 +1619,16 @@ export const GetProjectDocument = gql`
     }
   }
   ${ProjectEntityFragmentDoc}
+`;
+export const FetchAllTagsDocument = gql`
+  query fetchAllTags {
+    tags(pagination: { page: 1, pageSize: 50 }) {
+      data {
+        ...tagEntity
+      }
+    }
+  }
+  ${TagEntityFragmentDoc}
 `;
 
 export type SdkFunctionWrapper = <T>(
@@ -1653,6 +1691,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'getProject',
+        'query',
+        variables
+      );
+    },
+    fetchAllTags(
+      variables?: FetchAllTagsQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<FetchAllTagsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<FetchAllTagsQuery>(FetchAllTagsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'fetchAllTags',
         'query',
         variables
       );
