@@ -34,9 +34,15 @@ export const SearchProject = ({
         {!isLoading && !isTyping ? (
           <>
             <h1 className="text-sm">検索結果 : {projectList.length}件</h1>
-            {projectList.map((project) => (
-              <ProjectCard project={project} key={project.id} />
-            ))}
+            {projectList.length > 0 ? (
+              projectList.map((project) => (
+                <ProjectCard project={project} key={project.id} />
+              ))
+            ) : (
+              <div className="flex justify-center items-center h-[200px]">
+                <h2>オープンデータが見つかりませんでした</h2>
+              </div>
+            )}
           </>
         ) : (
           <>
