@@ -5,9 +5,14 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 interface SearchInputProps {
   query: string;
   updateQuery: (query: string) => void;
+  updateIsTyping: (isTyping: boolean) => void;
 }
 
-export const SearchInput = ({ query, updateQuery }: SearchInputProps) => {
+export const SearchInput = ({
+  query,
+  updateQuery,
+  updateIsTyping,
+}: SearchInputProps) => {
   return (
     <div className="w-full h-[56px] bg-white flex justify-center items-center text-black border-black border rounded-lg">
       <FontAwesomeIcon className="px-4 h-[18px]" icon={faMagnifyingGlass} />
@@ -16,7 +21,15 @@ export const SearchInput = ({ query, updateQuery }: SearchInputProps) => {
         type="text"
         value={query}
         placeholder={'公園'}
-        onChange={(e) => updateQuery(e.target.value)}
+        onChange={(e) => {
+          updateIsTyping(true);
+          updateQuery(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            updateIsTyping(false);
+          }
+        }}
       />
     </div>
   );

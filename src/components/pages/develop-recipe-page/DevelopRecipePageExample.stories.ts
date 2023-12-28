@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { UseRecipePageExample } from '@/components/pages/use-recipe-page/UseRecipePageExample';
 import { DevelopRecipePageExample } from '@/components/pages/develop-recipe-page/DevelopRecipePageExample';
 
 const meta = {

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
@@ -9,6 +9,9 @@ import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
 import { Alert } from '@/components/atoms/alert/Alert';
 import { TableView } from '@/components/molecules/table/TableView';
+import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
+import { useInputRecipe } from '@/hooks/use-input-recipe';
+import { useInputPrompt } from '@/hooks/use-input-prompt';
 
 interface DevelopRecipeProps {
   project: Project;
@@ -20,7 +23,10 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
     new File([''], '変換対象データB.csv', { type: 'text/csv' }),
   ]);
 
-  const prompt = project.prompt || '';
+  const { recipe, updateRecipe } = useInputRecipe(project.recipe);
+
+  const { prompt, updatePrompt, actionUsePrompt, isLoading, result } =
+    useInputPrompt(project.prompt);
 
   return (
     <article>
@@ -48,7 +54,8 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
           <textarea
             className="border rounded px-[6px] py-[4px] placeholder-gray-500"
             value={prompt}
-            rows={5}
+            rows={20}
+            onChange={(e) => updatePrompt(e.target.value)}
           />
           <div className="absolute top-6 right-2">
             <CopyButton value={prompt} />
@@ -59,36 +66,28 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
             color={'primary'}
             size={'2xl'}
             label={'プロンプトを実行する'}
-            onClick={() => {}}
+            onClick={actionUsePrompt}
           />
         </div>
       </div>
-      <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
-        <h2 className="text-xl">プロンプト実行結果</h2>
-        <Alert title={'プロンプト実行が成功しました'} type={'info'} />
-        <div className="w-full flex flex-col">
-          <h3 className="text-sm">プロンプトによって整形されたデータ</h3>
-          <TableView />
-        </div>
-        <div className="w-full bg-white flex justify-center items-center">
-          <Button
-            color={'secondary'}
-            size={'2xl'}
-            label={'整形後のファイルをダウンロード'}
-          />
-        </div>
-        <div className="w-full flex flex-col relative">
-          <h3 className="text-sm">生成されたレシピ(JSON)</h3>
-          <textarea
-            className="border rounded px-[6px] py-[4px] placeholder-gray-500"
-            value={prompt}
-            rows={5}
-          />
-          <div className="absolute top-6 right-2">
-            <CopyButton value={prompt} />
+      {result && !isLoading && (
+        <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
+          <h2 className="text-xl">プロンプト実行結果</h2>
+          <Alert title={'プロンプト実行が成功しました'} type={'info'} />
+          <div className="w-full flex flex-col">
+            <h3 className="text-sm">プロンプトによって整形されたデータ</h3>
+            <TableView />
           </div>
+          <div className="w-full bg-white flex justify-center items-center">
+            <Button
+              color={'secondary'}
+              size={'2xl'}
+              label={'整形後のファイルをダウンロード'}
+            />
+          </div>
+          <InputRecipe recipe={recipe} updateRecipe={updateRecipe} />
         </div>
-      </div>
+      )}
     </article>
   );
 };

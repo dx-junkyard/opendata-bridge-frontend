@@ -16,7 +16,7 @@ export const SearchFilter = ({
   return (
     <Button
       color={color}
-      size={'large'}
+      size={'xl'}
       label={label}
       onClick={() => onClick(label)}
     />

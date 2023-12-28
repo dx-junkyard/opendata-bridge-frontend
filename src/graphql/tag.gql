@@ -1,0 +1,14 @@
+fragment tagEntity on TagEntity {
+  id
+  attributes {
+    title
+  }
+}
+
+query fetchAllTags {
+  tags(pagination: { page: 1, pageSize: 50 }) {
+    data {
+      ...tagEntity
+    }
+  }
+}

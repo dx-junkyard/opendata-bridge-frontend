@@ -1,42 +1,65 @@
-'use client';
-import React, { FC, useState } from 'react';
+import React from 'react';
 import { Hero } from '@/components/molecules/hero/Hero';
 import { SearchWindow } from '@/components/organizms/search-window/SearchWindow';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
+import { LoadingProjectCard } from '@/components/molecules/loading-project-card/LoadingProjectCard';
+import { ProjectTag } from '@/types/project-tag';
+import { TagMap } from '@/hooks/use-filter-tag';
 
-const projects: Project[] = [
-  // dummyのプロジェクト
-  {
-    id: 'dummy1',
-    name: 'dummy1',
-    description: 'dummy1',
-    tags: ['tag1', 'tag2'],
-    thumbnails: ['/dummy.png', '/dummy.png'],
-    recipe: '',
-  },
-  {
-    id: 'dummy2',
-    name: 'dummy2',
-    description: 'dummy2',
-    tags: ['tag1', 'tag2'],
-    thumbnails: ['/dummy.png', '/dummy.png'],
-    recipe: '',
-  },
-];
+interface SearchProjectProps {
+  query: string;
+  tags: TagMap;
+  updateQuery: (query: string) => void;
+  updateTagState: (tag: ProjectTag, selected: boolean) => void;
+  isTyping: boolean;
+  updateIsTyping: (isTyping: boolean) => void;
+  projectList: Project[];
+  isLoading: boolean;
+}
 
-export const SearchProject: FC = () => {
-  const [query, setQuery] = useState<string>('');
-
+export const SearchProject = ({
+  query,
+  tags,
+  updateQuery,
+  updateTagState,
+  isTyping,
+  updateIsTyping,
+  projectList,
+  isLoading,
+}: SearchProjectProps) => {
   return (
     <article>
       <Hero />
-      <SearchWindow query={query} updateQuery={setQuery} />
+      <SearchWindow
+        query={query}
+        updateQuery={updateQuery}
+        updateIsTyping={updateIsTyping}
+        tags={tags}
+        updateTagState={updateTagState}
+      />
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col">
-        <h1 className="text-sm">検索結果 : {projects.length}件</h1>
-        {projects.map((project) => (
-          <ProjectCard project={project} key={project.id} />
-        ))}
+        {!isLoading && !isTyping ? (
+          <>
+            <h1 className="text-sm">検索結果 : {projectList.length}件</h1>
+            {projectList.length > 0 ? (
+              projectList.map((project) => (
+                <ProjectCard project={project} key={project.id} />
+              ))
+            ) : (
+              <div className="flex justify-center items-center h-[200px]">
+                <h2>オープンデータが見つかりませんでした</h2>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <h1 className="text-sm">検索中...</h1>
+            <LoadingProjectCard />
+            <LoadingProjectCard />
+            <LoadingProjectCard />
+          </>
+        )}
       </div>
     </article>
   );

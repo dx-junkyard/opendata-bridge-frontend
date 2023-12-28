@@ -1,17 +1,15 @@
-import { Project } from '@/types/project';
 import { UseRecipe } from '@/components/templates/use-recipe/UseRecipe';
+import { getProject } from '@/service/get-project-service';
+import { notFound } from 'next/navigation';
 
-const project: Project = {
-  id: 'dummy1',
-  name: 'dummy1',
-  description: 'dummy1',
-  tags: ['tag1', 'tag2'],
-  thumbnails: ['/dummy.png', '/dummy.png'],
-  recipe: '',
-};
+const UseRecipePage = async ({ params }: { params: { projectId: string } }) => {
+  console.info(`UseRecipe: ${params.projectId}`);
 
-const UseRecipePage = ({ params }: { params: { projectId: string } }) => {
-  console.info(`Detail: ${params.projectId}`);
+  const project = await getProject(params.projectId);
+
+  if (!project) {
+    return notFound();
+  }
 
   return <UseRecipe project={project} />;
 };

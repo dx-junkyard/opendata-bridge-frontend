@@ -1,0 +1,71 @@
+fragment projectEntity on ProjectEntity {
+  id
+  attributes {
+    title
+    description
+    resources {
+      data {
+        attributes {
+          title
+          url
+          organization
+        }
+      }
+    }
+    thumbnail {
+      data {
+        attributes {
+          name
+          url
+        }
+      }
+    }
+    recipe
+    prompt
+    tags {
+      data {
+        attributes {
+          title
+        }
+      }
+    }
+    updatedAt
+  }
+}
+
+query searchProject(
+  $query: String!
+  $filterVariables: ProjectFiltersInput
+  $page: Int
+) {
+  search(query: $query) {
+    projects(
+      filters: $filterVariables
+      pagination: { page: $page, pageSize: 10 }
+    ) {
+      data {
+        ...projectEntity
+      }
+    }
+  }
+}
+
+query filterProject($filterVariables: ProjectFiltersInput, $page: Int) {
+  projects(
+    filters: $filterVariables
+    pagination: { page: $page, pageSize: 10 }
+    sort: "updatedAt:desc"
+  ) {
+    data {
+      ...projectEntity
+    }
+  }
+}
+
+query getProject($id: ID) {
+  project(id: $id) {
+    data {
+      ...projectEntity
+    }
+  }
+}

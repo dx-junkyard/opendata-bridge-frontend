@@ -23,7 +23,7 @@ export const ActionCard = ({
       <span className="text-sm text-center text-black mx-[50px] inline-block">
         {description}
       </span>
-      <Link href={url}>
+      <Link href={url} target="_blank">
         <Button color={'secondary'} size={'xl'} label={buttonLabel} />
       </Link>
     </div>

@@ -1,14 +1,14 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
-import { ResourceOption } from '@/components/molecules/resource-option/ResourceOption';
 import { Button } from '@/components/atoms/button/Button';
-import CopyButton from '@/components/atoms/copy-button/CopyBotton';
 import { SuccessFormattingModal } from '@/components/molecules/success-formating-modal/SuccessFormattingModal';
 import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
+import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
+import { useInputRecipe } from '@/hooks/use-input-recipe';
 
 interface UseRecipeProps {
   project: Project;
@@ -20,9 +20,7 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
     new File([''], '変換対象データB.csv', { type: 'text/csv' }),
   ]);
 
-  const recipe = project.recipe
-    ? JSON.stringify(JSON.parse(project.recipe), null, '\t')
-    : '';
+  const { recipe, updateRecipe } = useInputRecipe(project.recipe);
 
   return (
     <article>
@@ -45,17 +43,7 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
       </div>
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">データ整形レシピの確認・編集</h2>
-        <div className="w-full flex flex-col relative">
-          <h3 className="text-sm">データ整形レシピ(JSON)</h3>
-          <textarea
-            className="border rounded px-[6px] py-[4px] placeholder-gray-500"
-            value={recipe}
-            rows={5}
-          />
-          <div className="absolute top-6 right-2">
-            <CopyButton value={recipe} />
-          </div>
-        </div>
+        <InputRecipe recipe={recipe} updateRecipe={updateRecipe} />
         <SuccessFormattingModal />
       </div>
     </article>

@@ -12,6 +12,7 @@ export const DatasetCard = ({ dataset }: DatasetCardProps) => {
     <Link
       href={dataset.url}
       className="border-gray-300 border-b w-full h-[86px] bg-white text-black flex justify-center items-center"
+      target="_blank"
     >
       <div className="text-center">
         <FontAwesomeIcon icon={faBuilding} />

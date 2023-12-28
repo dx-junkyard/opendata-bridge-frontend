@@ -11,6 +11,19 @@ interface DetailProjectProps {
 }
 
 export const DetailProject = ({ project }: DetailProjectProps) => {
+  const datasetList = project.resources.map((resource, index) => {
+    return (
+      <DatasetCard
+        key={index}
+        dataset={{
+          title: resource.title,
+          organization: resource.organization,
+          url: resource.url,
+        }}
+      />
+    );
+  });
+
   return (
     <article>
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-2">
@@ -20,29 +33,7 @@ export const DetailProject = ({ project }: DetailProjectProps) => {
       </div>
       <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-2">
         <h2 className="text-xl">変換元のオープンデータのリンク一覧</h2>
-        <div>
-          <DatasetCard
-            dataset={{
-              title: 'ファイル名1',
-              organization: '自治体名1',
-              url: '',
-            }}
-          />
-          <DatasetCard
-            dataset={{
-              title: 'ファイル名2',
-              organization: '自治体名2',
-              url: '',
-            }}
-          />
-          <DatasetCard
-            dataset={{
-              title: 'ファイル名3',
-              organization: '自治体名3',
-              url: '',
-            }}
-          />
-        </div>
+        <div>{datasetList}</div>
       </div>
       <div className="w-full text-black bg-blue-100 grid grid-cols-2 gap-24 px-[320px] py-[50px]">
         <ActionCard
