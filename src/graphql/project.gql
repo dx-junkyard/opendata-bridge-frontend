@@ -12,14 +12,37 @@ fragment projectEntity on ProjectEntity {
         }
       }
     }
+    thumbnail {
+      data {
+        attributes {
+          name
+          url
+        }
+      }
+    }
+    recipe
     prompt
+    tags {
+      data {
+        attributes {
+          title
+        }
+      }
+    }
     updatedAt
   }
 }
 
-query searchProject($query: String!) {
+query searchProject(
+  $query: String!
+  $filterVariables: ProjectFiltersInput
+  $page: Int
+) {
   search(query: $query) {
-    projects(pagination: { page: 1, pageSize: 10 }) {
+    projects(
+      filters: $filterVariables
+      pagination: { page: $page, pageSize: 10 }
+    ) {
       data {
         ...projectEntity
       }
@@ -27,16 +50,20 @@ query searchProject($query: String!) {
   }
 }
 
-query getProject($id: ID) {
-  project(id: $id) {
+query filterProject($filterVariables: ProjectFiltersInput, $page: Int) {
+  projects(
+    filters: $filterVariables
+    pagination: { page: $page, pageSize: 10 }
+    sort: "updatedAt:desc"
+  ) {
     data {
       ...projectEntity
     }
   }
 }
 
-query fetchProject {
-  projects(pagination: { page: 1, pageSize: 10 }, sort: "updatedAt:desc") {
+query getProject($id: ID) {
+  project(id: $id) {
     data {
       ...projectEntity
     }

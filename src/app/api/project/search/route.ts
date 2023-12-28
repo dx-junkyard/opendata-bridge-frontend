@@ -1,23 +1,22 @@
-import { getSdk, ProjectEntity } from '@/lib/generated/client';
-import { gqlClient } from '@/lib/gql-client/gql-client';
+import { ProjectEntity } from '@/lib/generated/client';
 import { Project } from '@/types/project';
 import { Dataset } from '@/types/dataset';
-import {
-  fetchProject,
-  searchProjectWithQuery,
-} from '@/service/search-project-service';
+import { searchProject } from '@/service/search-project-service';
 
 export async function GET(req: Request) {
   console.info('GET ' + req.url);
 
   const { searchParams } = new URL(req.url);
-  const query = (searchParams.get('q') as string) || '';
 
-  const queryList = query.split(/ |　/).map((query) => query.trim());
+  const query = searchParams.get('q')
+    ? (searchParams.get('q') as string).replace('　', ' ')
+    : '';
 
-  const response: ProjectEntity[] = query
-    ? await searchProjectWithQuery(queryList)
-    : await fetchProject();
+  const tags = searchParams.get('tag')
+    ? (searchParams.get('tag') as string).split(',')
+    : [];
+
+  const response: ProjectEntity[] = await searchProject(query, tags);
 
   const json: Project[] = response.map((project) => {
     const projectAttribute = project?.attributes;
@@ -32,9 +31,12 @@ export async function GET(req: Request) {
 
     return {
       id: project.id || '',
-      name: projectAttribute?.title || '',
+      title: projectAttribute?.title || '',
       description: projectAttribute?.description || '',
-      tags: projectAttribute?.tags || [],
+      tags:
+        projectAttribute?.tags?.data
+          ?.map((tag) => tag.attributes?.title || '')
+          .filter((tag) => tag !== '') || [],
       thumbnails: projectAttribute?.thumbnail
         ? projectAttribute?.thumbnail.data.map(
             (data) => data?.attributes?.url || ''

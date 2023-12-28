@@ -1,8 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
-// @ts-ignore
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
 import gql from 'graphql-tag';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -61,9 +59,110 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type ContentReleasesRelease = {
+  __typename?: 'ContentReleasesRelease';
+  actions?: Maybe<ContentReleasesReleaseActionRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  name: Scalars['String']['output'];
+  releasedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ContentReleasesReleaseActionsArgs = {
+  filters?: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ContentReleasesReleaseAction = {
+  __typename?: 'ContentReleasesReleaseAction';
+  contentType: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  entry?: Maybe<GenericMorph>;
+  release?: Maybe<ContentReleasesReleaseEntityResponse>;
+  type: Enum_Contentreleasesreleaseaction_Type;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ContentReleasesReleaseActionEntity = {
+  __typename?: 'ContentReleasesReleaseActionEntity';
+  attributes?: Maybe<ContentReleasesReleaseAction>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ContentReleasesReleaseActionEntityResponse = {
+  __typename?: 'ContentReleasesReleaseActionEntityResponse';
+  data?: Maybe<ContentReleasesReleaseActionEntity>;
+};
+
+export type ContentReleasesReleaseActionEntityResponseCollection = {
+  __typename?: 'ContentReleasesReleaseActionEntityResponseCollection';
+  data: Array<ContentReleasesReleaseActionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ContentReleasesReleaseActionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ContentReleasesReleaseActionFiltersInput>>>;
+  contentType?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ContentReleasesReleaseActionFiltersInput>>>;
+  release?: InputMaybe<ContentReleasesReleaseFiltersInput>;
+  type?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ContentReleasesReleaseActionInput = {
+  contentType?: InputMaybe<Scalars['String']['input']>;
+  release?: InputMaybe<Scalars['ID']['input']>;
+  type?: InputMaybe<Enum_Contentreleasesreleaseaction_Type>;
+};
+
+export type ContentReleasesReleaseActionRelationResponseCollection = {
+  __typename?: 'ContentReleasesReleaseActionRelationResponseCollection';
+  data: Array<ContentReleasesReleaseActionEntity>;
+};
+
+export type ContentReleasesReleaseEntity = {
+  __typename?: 'ContentReleasesReleaseEntity';
+  attributes?: Maybe<ContentReleasesRelease>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ContentReleasesReleaseEntityResponse = {
+  __typename?: 'ContentReleasesReleaseEntityResponse';
+  data?: Maybe<ContentReleasesReleaseEntity>;
+};
+
+export type ContentReleasesReleaseEntityResponseCollection = {
+  __typename?: 'ContentReleasesReleaseEntityResponseCollection';
+  data: Array<ContentReleasesReleaseEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ContentReleasesReleaseFiltersInput = {
+  actions?: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<ContentReleasesReleaseFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ContentReleasesReleaseFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ContentReleasesReleaseFiltersInput>>>;
+  releasedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ContentReleasesReleaseInput = {
+  actions?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  releasedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 export type Dataset = {
   __typename?: 'Dataset';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  organization: Scalars['String']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -93,6 +192,7 @@ export type DatasetFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<DatasetFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<DatasetFiltersInput>>>;
+  organization?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -100,6 +200,7 @@ export type DatasetFiltersInput = {
 };
 
 export type DatasetInput = {
+  organization?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -135,6 +236,11 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export enum Enum_Contentreleasesreleaseaction_Type {
+  Publish = 'publish',
+  Unpublish = 'unpublish',
+}
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']['input']>;
   caption?: InputMaybe<Scalars['String']['input']>;
@@ -167,9 +273,12 @@ export type FloatFilterInput = {
 };
 
 export type GenericMorph =
+  | ContentReleasesRelease
+  | ContentReleasesReleaseAction
   | Dataset
   | I18NLocale
   | Project
+  | Tag
   | UploadFile
   | UploadFolder
   | UsersPermissionsPermission
@@ -291,16 +400,22 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
+  createContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
+  createContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
   createDataset?: Maybe<DatasetEntityResponse>;
   createProject?: Maybe<ProjectEntityResponse>;
+  createTag?: Maybe<TagEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
+  deleteContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
   deleteDataset?: Maybe<DatasetEntityResponse>;
   deleteProject?: Maybe<ProjectEntityResponse>;
+  deleteTag?: Maybe<TagEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -318,9 +433,12 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
+  updateContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
   updateDataset?: Maybe<DatasetEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateProject?: Maybe<ProjectEntityResponse>;
+  updateTag?: Maybe<TagEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -336,12 +454,24 @@ export type MutationChangePasswordArgs = {
   passwordConfirmation: Scalars['String']['input'];
 };
 
+export type MutationCreateContentReleasesReleaseArgs = {
+  data: ContentReleasesReleaseInput;
+};
+
+export type MutationCreateContentReleasesReleaseActionArgs = {
+  data: ContentReleasesReleaseActionInput;
+};
+
 export type MutationCreateDatasetArgs = {
   data: DatasetInput;
 };
 
 export type MutationCreateProjectArgs = {
   data: ProjectInput;
+};
+
+export type MutationCreateTagArgs = {
+  data: TagInput;
 };
 
 export type MutationCreateUploadFileArgs = {
@@ -360,11 +490,23 @@ export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
 };
 
+export type MutationDeleteContentReleasesReleaseArgs = {
+  id: Scalars['ID']['input'];
+};
+
+export type MutationDeleteContentReleasesReleaseActionArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type MutationDeleteDatasetArgs = {
   id: Scalars['ID']['input'];
 };
 
 export type MutationDeleteProjectArgs = {
+  id: Scalars['ID']['input'];
+};
+
+export type MutationDeleteTagArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -417,6 +559,16 @@ export type MutationResetPasswordArgs = {
   passwordConfirmation: Scalars['String']['input'];
 };
 
+export type MutationUpdateContentReleasesReleaseArgs = {
+  data: ContentReleasesReleaseInput;
+  id: Scalars['ID']['input'];
+};
+
+export type MutationUpdateContentReleasesReleaseActionArgs = {
+  data: ContentReleasesReleaseActionInput;
+  id: Scalars['ID']['input'];
+};
+
 export type MutationUpdateDatasetArgs = {
   data: DatasetInput;
   id: Scalars['ID']['input'];
@@ -429,6 +581,11 @@ export type MutationUpdateFileInfoArgs = {
 
 export type MutationUpdateProjectArgs = {
   data: ProjectInput;
+  id: Scalars['ID']['input'];
+};
+
+export type MutationUpdateTagArgs = {
+  data: TagInput;
   id: Scalars['ID']['input'];
 };
 
@@ -483,7 +640,7 @@ export type Project = {
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   recipe?: Maybe<Scalars['JSON']['output']>;
   resources?: Maybe<DatasetRelationResponseCollection>;
-  tags?: Maybe<Scalars['JSON']['output']>;
+  tags?: Maybe<TagRelationResponseCollection>;
   thumbnail?: Maybe<UploadFileRelationResponseCollection>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -491,6 +648,13 @@ export type Project = {
 
 export type ProjectResourcesArgs = {
   filters?: InputMaybe<DatasetFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ProjectTagsArgs = {
+  filters?: InputMaybe<TagFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -530,7 +694,7 @@ export type ProjectFiltersInput = {
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   recipe?: InputMaybe<JsonFilterInput>;
   resources?: InputMaybe<DatasetFiltersInput>;
-  tags?: InputMaybe<JsonFilterInput>;
+  tags?: InputMaybe<TagFiltersInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -541,7 +705,7 @@ export type ProjectInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   recipe?: InputMaybe<Scalars['JSON']['input']>;
   resources?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  tags?: InputMaybe<Scalars['JSON']['input']>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   thumbnail?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -553,6 +717,10 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  contentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
+  contentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
+  contentReleasesReleaseActions?: Maybe<ContentReleasesReleaseActionEntityResponseCollection>;
+  contentReleasesReleases?: Maybe<ContentReleasesReleaseEntityResponseCollection>;
   dataset?: Maybe<DatasetEntityResponse>;
   datasets?: Maybe<DatasetEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
@@ -561,6 +729,8 @@ export type Query = {
   project?: Maybe<ProjectEntityResponse>;
   projects?: Maybe<ProjectEntityResponseCollection>;
   search?: Maybe<SearchResponse>;
+  tag?: Maybe<TagEntityResponse>;
+  tags?: Maybe<TagEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -569,6 +739,26 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+export type QueryContentReleasesReleaseArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type QueryContentReleasesReleaseActionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type QueryContentReleasesReleaseActionsArgs = {
+  filters?: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type QueryContentReleasesReleasesArgs = {
+  filters?: InputMaybe<ContentReleasesReleaseFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type QueryDatasetArgs = {
@@ -606,6 +796,17 @@ export type QueryProjectsArgs = {
 export type QuerySearchArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   query: Scalars['String']['input'];
+};
+
+export type QueryTagArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type QueryTagsArgs = {
+  filters?: InputMaybe<TagFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type QueryUploadFileArgs = {
@@ -687,6 +888,52 @@ export type StringFilterInput = {
   null?: InputMaybe<Scalars['Boolean']['input']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Tag = {
+  __typename?: 'Tag';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type TagEntity = {
+  __typename?: 'TagEntity';
+  attributes?: Maybe<Tag>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TagEntityResponse = {
+  __typename?: 'TagEntityResponse';
+  data?: Maybe<TagEntity>;
+};
+
+export type TagEntityResponseCollection = {
+  __typename?: 'TagEntityResponseCollection';
+  data: Array<TagEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TagFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TagFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<TagFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TagFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TagInput = {
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TagRelationResponseCollection = {
+  __typename?: 'TagRelationResponseCollection';
+  data: Array<TagEntity>;
 };
 
 export type UploadFile = {
@@ -1065,6 +1312,7 @@ export type ProjectEntityFragment = {
     __typename?: 'Project';
     title: string;
     description: string;
+    recipe?: any | null;
     prompt?: string | null;
     updatedAt?: any | null;
     resources?: {
@@ -1075,7 +1323,26 @@ export type ProjectEntityFragment = {
           __typename?: 'Dataset';
           title: string;
           url: string;
+          organization: string;
         } | null;
+      }>;
+    } | null;
+    thumbnail?: {
+      __typename?: 'UploadFileRelationResponseCollection';
+      data: Array<{
+        __typename?: 'UploadFileEntity';
+        attributes?: {
+          __typename?: 'UploadFile';
+          name: string;
+          url: string;
+        } | null;
+      }>;
+    } | null;
+    tags?: {
+      __typename?: 'TagRelationResponseCollection';
+      data: Array<{
+        __typename?: 'TagEntity';
+        attributes?: { __typename?: 'Tag'; title: string } | null;
       }>;
     } | null;
   } | null;
@@ -1083,6 +1350,8 @@ export type ProjectEntityFragment = {
 
 export type SearchProjectQueryVariables = Exact<{
   query: Scalars['String']['input'];
+  filterVariables?: InputMaybe<ProjectFiltersInput>;
+  page?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 export type SearchProjectQuery = {
@@ -1098,6 +1367,7 @@ export type SearchProjectQuery = {
           __typename?: 'Project';
           title: string;
           description: string;
+          recipe?: any | null;
           prompt?: string | null;
           updatedAt?: any | null;
           resources?: {
@@ -1108,12 +1378,85 @@ export type SearchProjectQuery = {
                 __typename?: 'Dataset';
                 title: string;
                 url: string;
+                organization: string;
               } | null;
+            }>;
+          } | null;
+          thumbnail?: {
+            __typename?: 'UploadFileRelationResponseCollection';
+            data: Array<{
+              __typename?: 'UploadFileEntity';
+              attributes?: {
+                __typename?: 'UploadFile';
+                name: string;
+                url: string;
+              } | null;
+            }>;
+          } | null;
+          tags?: {
+            __typename?: 'TagRelationResponseCollection';
+            data: Array<{
+              __typename?: 'TagEntity';
+              attributes?: { __typename?: 'Tag'; title: string } | null;
             }>;
           } | null;
         } | null;
       }>;
     } | null;
+  } | null;
+};
+
+export type FilterProjectQueryVariables = Exact<{
+  filterVariables?: InputMaybe<ProjectFiltersInput>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type FilterProjectQuery = {
+  __typename?: 'Query';
+  projects?: {
+    __typename?: 'ProjectEntityResponseCollection';
+    data: Array<{
+      __typename?: 'ProjectEntity';
+      id?: string | null;
+      attributes?: {
+        __typename?: 'Project';
+        title: string;
+        description: string;
+        recipe?: any | null;
+        prompt?: string | null;
+        updatedAt?: any | null;
+        resources?: {
+          __typename?: 'DatasetRelationResponseCollection';
+          data: Array<{
+            __typename?: 'DatasetEntity';
+            attributes?: {
+              __typename?: 'Dataset';
+              title: string;
+              url: string;
+              organization: string;
+            } | null;
+          }>;
+        } | null;
+        thumbnail?: {
+          __typename?: 'UploadFileRelationResponseCollection';
+          data: Array<{
+            __typename?: 'UploadFileEntity';
+            attributes?: {
+              __typename?: 'UploadFile';
+              name: string;
+              url: string;
+            } | null;
+          }>;
+        } | null;
+        tags?: {
+          __typename?: 'TagRelationResponseCollection';
+          data: Array<{
+            __typename?: 'TagEntity';
+            attributes?: { __typename?: 'Tag'; title: string } | null;
+          }>;
+        } | null;
+      } | null;
+    }>;
   } | null;
 };
 
@@ -1132,6 +1475,7 @@ export type GetProjectQuery = {
         __typename?: 'Project';
         title: string;
         description: string;
+        recipe?: any | null;
         prompt?: string | null;
         updatedAt?: any | null;
         resources?: {
@@ -1142,42 +1486,30 @@ export type GetProjectQuery = {
               __typename?: 'Dataset';
               title: string;
               url: string;
+              organization: string;
             } | null;
+          }>;
+        } | null;
+        thumbnail?: {
+          __typename?: 'UploadFileRelationResponseCollection';
+          data: Array<{
+            __typename?: 'UploadFileEntity';
+            attributes?: {
+              __typename?: 'UploadFile';
+              name: string;
+              url: string;
+            } | null;
+          }>;
+        } | null;
+        tags?: {
+          __typename?: 'TagRelationResponseCollection';
+          data: Array<{
+            __typename?: 'TagEntity';
+            attributes?: { __typename?: 'Tag'; title: string } | null;
           }>;
         } | null;
       } | null;
     } | null;
-  } | null;
-};
-
-export type FetchProjectQueryVariables = Exact<{ [key: string]: never }>;
-
-export type FetchProjectQuery = {
-  __typename?: 'Query';
-  projects?: {
-    __typename?: 'ProjectEntityResponseCollection';
-    data: Array<{
-      __typename?: 'ProjectEntity';
-      id?: string | null;
-      attributes?: {
-        __typename?: 'Project';
-        title: string;
-        description: string;
-        prompt?: string | null;
-        updatedAt?: any | null;
-        resources?: {
-          __typename?: 'DatasetRelationResponseCollection';
-          data: Array<{
-            __typename?: 'DatasetEntity';
-            attributes?: {
-              __typename?: 'Dataset';
-              title: string;
-              url: string;
-            } | null;
-          }>;
-        } | null;
-      } | null;
-    }>;
   } | null;
 };
 
@@ -1192,18 +1524,42 @@ export const ProjectEntityFragmentDoc = gql`
           attributes {
             title
             url
+            organization
           }
         }
       }
+      thumbnail {
+        data {
+          attributes {
+            name
+            url
+          }
+        }
+      }
+      recipe
       prompt
+      tags {
+        data {
+          attributes {
+            title
+          }
+        }
+      }
       updatedAt
     }
   }
 `;
 export const SearchProjectDocument = gql`
-  query searchProject($query: String!) {
+  query searchProject(
+    $query: String!
+    $filterVariables: ProjectFiltersInput
+    $page: Int
+  ) {
     search(query: $query) {
-      projects(pagination: { page: 1, pageSize: 10 }) {
+      projects(
+        filters: $filterVariables
+        pagination: { page: $page, pageSize: 10 }
+      ) {
         data {
           ...projectEntity
         }
@@ -1212,9 +1568,13 @@ export const SearchProjectDocument = gql`
   }
   ${ProjectEntityFragmentDoc}
 `;
-export const GetProjectDocument = gql`
-  query getProject($id: ID) {
-    project(id: $id) {
+export const FilterProjectDocument = gql`
+  query filterProject($filterVariables: ProjectFiltersInput, $page: Int) {
+    projects(
+      filters: $filterVariables
+      pagination: { page: $page, pageSize: 10 }
+      sort: "updatedAt:desc"
+    ) {
       data {
         ...projectEntity
       }
@@ -1222,9 +1582,9 @@ export const GetProjectDocument = gql`
   }
   ${ProjectEntityFragmentDoc}
 `;
-export const FetchProjectDocument = gql`
-  query fetchProject {
-    projects(pagination: { page: 1, pageSize: 10 }, sort: "updatedAt:desc") {
+export const GetProjectDocument = gql`
+  query getProject($id: ID) {
+    project(id: $id) {
       data {
         ...projectEntity
       }
@@ -1267,6 +1627,21 @@ export function getSdk(
         variables
       );
     },
+    filterProject(
+      variables?: FilterProjectQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<FilterProjectQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<FilterProjectQuery>(FilterProjectDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'filterProject',
+        'query',
+        variables
+      );
+    },
     getProject(
       variables?: GetProjectQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders
@@ -1282,22 +1657,6 @@ export function getSdk(
         variables
       );
     },
-    fetchProject(
-      variables?: FetchProjectQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
-    ): Promise<FetchProjectQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<FetchProjectQuery>(FetchProjectDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        'fetchProject',
-        'query',
-        variables
-      );
-    },
   };
 }
-
 export type Sdk = ReturnType<typeof getSdk>;

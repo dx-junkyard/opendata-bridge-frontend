@@ -12,7 +12,7 @@ const projects: Project[] = [
   // dummyのプロジェクト
   {
     id: 'dummy1',
-    name: 'dummy1',
+    title: 'dummy1',
     description: 'dummy1',
     tags: ['tag1', 'tag2'],
     thumbnails: ['/dummy.png', '/dummy.png'],
@@ -20,7 +20,7 @@ const projects: Project[] = [
   },
   {
     id: 'dummy2',
-    name: 'dummy2',
+    title: 'dummy2',
     description: 'dummy2',
     tags: ['tag1', 'tag2'],
     thumbnails: ['/dummy.png', '/dummy.png'],

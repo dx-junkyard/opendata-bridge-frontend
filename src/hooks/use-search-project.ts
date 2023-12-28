@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import projectSearchFeatcher, {
   fetchUsecasePath,
 } from '@/lib/fetch/project-search-fetcher';
+import { useFilterTag } from '@/hooks/use-filter-tag';
 
 export const useSearchProject = () => {
   const [query, setQuery] = useState<string>('');
