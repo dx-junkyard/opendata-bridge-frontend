@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import projectSearchFeatcher, {
-  fetchUsecasePath,
+  searchProjectPath,
 } from '@/lib/fetch/project-search-fetcher';
 import { useFilterTag } from '@/hooks/use-filter-tag';
 import { ProjectTag } from '@/types/project-tag';
+import { Project } from '@/types/project';
 
-export const useSearchProject = (projectTags: ProjectTag[]) => {
+export const useSearchProject = (
+  projectTags: ProjectTag[],
+  initialProjectList: Project[]
+) => {
   const [query, setQuery] = useState<string>('');
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const { tags, updateTagState } = useFilterTag(projectTags);
   const [enableTags, updateEnableTags] = useState<string>('');
 
   const { data, isLoading } = useSWR(
-    !isTyping ? [fetchUsecasePath, query, enableTags] : null,
+    !isTyping ? [searchProjectPath, query, enableTags] : null,
     ([_, query, enableTags]) => projectSearchFeatcher(query, enableTags),
-    { fallbackData: [] }
+    { fallbackData: initialProjectList }
   );
 
   const updateQuery = (q: string) => setQuery(q);

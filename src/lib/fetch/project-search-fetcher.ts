@@ -1,7 +1,7 @@
 import { Project } from '@/types/project';
 import { TagMap } from '@/hooks/use-filter-tag';
 
-export const fetchUsecasePath = '/api/project/search';
+export const searchProjectPath = '/api/project/search';
 
 export default function projectSearchFeatcher(q: string, tags: string) {
   const params: { [key: string]: string } = {};
@@ -13,9 +13,9 @@ export default function projectSearchFeatcher(q: string, tags: string) {
     params['tag'] = tags;
   }
 
-  const urlSearchParam = '?' + new URLSearchParams(params).toString();
+  const urlSearchParam = new URLSearchParams(params).toString();
 
-  return fetch(`${fetchUsecasePath}${urlSearchParam}`)
+  return fetch(`${searchProjectPath}?${urlSearchParam}`)
     .then((res) => {
       return res.json() || [];
     })

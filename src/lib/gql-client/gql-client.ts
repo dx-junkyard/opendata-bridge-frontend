@@ -8,5 +8,6 @@ export const gqlClient = new GraphQLClient(
     headers: {
       authorization: `Bearer ${process.env.CMS_READ_TOKEN}`,
     },
+    fetch,
   }
 );

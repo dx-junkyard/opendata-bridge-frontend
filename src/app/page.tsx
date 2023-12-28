@@ -1,20 +1,19 @@
-import { ProjectTag } from '@/types/project-tag';
 import { fetchAllTagsService } from '@/service/fetch-all-tags-service';
 import SearchProjectPageCsr from '@/app/SearchProjectPageCsr';
+import { searchProject } from '@/service/search-project-service';
+
+export const dynamic = 'force-dynamic';
 
 const SearchProjectPage = async () => {
-  // ビルド時にSSGしてしまう
-  const projectTags: ProjectTag[] =
-    (await fetchAllTagsService())
-      .map((tagEntity) => {
-        return {
-          id: tagEntity.id || '',
-          title: tagEntity.attributes?.title || '',
-        };
-      })
-      .filter((tag) => tag.id && tag.title) || [];
+  const projectTags = await fetchAllTagsService();
+  const projectList = await searchProject();
 
-  return <SearchProjectPageCsr projectTags={projectTags} />;
+  return (
+    <SearchProjectPageCsr
+      projectTags={projectTags}
+      initialProjectList={projectList}
+    />
+  );
 };
 
 export default SearchProjectPage;
