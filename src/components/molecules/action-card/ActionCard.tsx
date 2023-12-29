@@ -7,7 +7,7 @@ interface ActionCardProps {
   description: string;
   buttonLabel: string;
   thumbnail: string;
-  url: string;
+  url?: string;
 }
 
 export const ActionCard = ({
@@ -23,9 +23,13 @@ export const ActionCard = ({
       <span className="text-sm text-center text-black mx-[50px] inline-block">
         {description}
       </span>
-      <Link href={url} target="_blank">
-        <Button color={'secondary'} size={'xl'} label={buttonLabel} />
-      </Link>
+      {url ? (
+        <Link href={url} target="_blank">
+          <Button color={'secondary'} size={'xl'} label={buttonLabel} />
+        </Link>
+      ) : (
+        <div className="h-[56px] w-full" />
+      )}
     </div>
   );
 };

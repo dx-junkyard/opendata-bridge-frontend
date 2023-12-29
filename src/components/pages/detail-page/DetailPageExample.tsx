@@ -18,8 +18,8 @@ const project: Project = {
 export const DetailPageExample: FC = () => {
   return (
     <>
-      <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
-      <DetailProject project={project} />
+      <Header user={undefined} />
+      <DetailProject project={project} isLogin={false} />
       <Footer />
     </>
   );

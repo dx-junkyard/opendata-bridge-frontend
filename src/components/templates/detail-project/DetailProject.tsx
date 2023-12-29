@@ -8,9 +8,13 @@ import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
 
 interface DetailProjectProps {
   project: Project;
+  isLogin: boolean;
 }
 
-export const DetailProject = ({ project }: DetailProjectProps) => {
+export const DetailProject = ({
+  project,
+  isLogin = false,
+}: DetailProjectProps) => {
   const datasetList = project.resources.map((resource, index) => {
     return (
       <DatasetCard
@@ -43,13 +47,22 @@ export const DetailProject = ({ project }: DetailProjectProps) => {
           thumbnail="/dummy1_1.png"
           buttonLabel="レシピを実行する"
         />
-        <ActionCard
-          title="データ整形レシピを開発する"
-          description="AIを使ってデータ整形用のレシピを開発します"
-          url={`/project/${project.id}/develop-recipe/`}
-          thumbnail="/dummy1_1.png"
-          buttonLabel="レシピを開発する"
-        />
+        {isLogin ? (
+          <ActionCard
+            title="データ整形レシピを開発する"
+            description="AIを使ってデータ整形用のレシピを開発します"
+            url={`/project/${project.id}/develop-recipe/`}
+            thumbnail="/dummy1_1.png"
+            buttonLabel="レシピを開発する"
+          />
+        ) : (
+          <ActionCard
+            title="データ整形レシピを開発する"
+            description="データ整形レシピの開発はログインユーザのみ利用できます"
+            thumbnail="/dummy1_1.png"
+            buttonLabel="レシピを開発する"
+          />
+        )}
       </div>
     </article>
   );

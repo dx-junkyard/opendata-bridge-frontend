@@ -23,5 +23,6 @@ export const Default: Story = {
       thumbnails: ['/dummy.png', '/dummy.png'],
       resources: [],
     },
+    isLogin: false,
   },
 };

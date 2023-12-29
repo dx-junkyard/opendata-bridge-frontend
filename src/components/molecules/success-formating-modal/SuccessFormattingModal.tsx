@@ -42,7 +42,6 @@ export const SuccessFormattingModal = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
       >
         <div className="bg-white h-full flex flex-col justify-center items-center space-y-5 px-[50px]">
           <div className="text-left space-y-4">

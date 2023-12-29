@@ -18,13 +18,11 @@ type Story = StoryObj<typeof meta>;
 export const LoggedIn: Story = {
   args: {
     title: 'ログイン',
-    href: '/',
   },
 };
 
 export const LoggedOut: Story = {
   args: {
     title: 'ログアウト',
-    href: '/',
   },
 };

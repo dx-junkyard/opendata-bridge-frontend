@@ -3,8 +3,11 @@ import { Inter } from 'next/font/google';
 import './globals.scss';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import React from 'react';
+import { getServerSession } from 'next-auth';
+import { User } from '@/types/user';
 import { Header } from '@/components/organizms/header/Header';
 import { Footer } from '@/components/organizms/footer/Footer';
+import { authOptions } from '@/lib/next-auth/auth-options';
 
 config.autoAddCss = false;
 
@@ -15,11 +18,19 @@ export const metadata: Metadata = {
   description: '利用目的で探せるオープンデータ検索サービス',
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await getServerSession(authOptions);
+
+  const user = session?.user?.name
+    ? ({
+        name: session.user.name,
+      } as User)
+    : undefined;
+
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
+        <Header user={user} />
         {children}
         <Footer />
       </body>

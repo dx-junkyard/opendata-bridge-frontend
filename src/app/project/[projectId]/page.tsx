@@ -1,6 +1,8 @@
 import { DetailProject } from '@/components/templates/detail-project/DetailProject';
 import { getProject } from '@/service/get-project-service';
 import { notFound } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/next-auth/auth-options';
 
 const DetailProjectPage = async ({
   params,
@@ -15,7 +17,11 @@ const DetailProjectPage = async ({
     return notFound();
   }
 
-  return <DetailProject project={project} />;
+  const session = await getServerSession(authOptions);
+
+  const isLogin = !!session?.user?.name;
+
+  return <DetailProject project={project} isLogin={isLogin} />;
 };
 
 export default DetailProjectPage;
