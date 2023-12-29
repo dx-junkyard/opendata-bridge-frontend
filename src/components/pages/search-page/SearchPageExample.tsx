@@ -28,7 +28,7 @@ const projects: Project[] = [
 export const SearchPageExample: FC = () => {
   return (
     <>
-      <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
+      <Header user={undefined} />
       <SearchProject
         query={''}
         updateQuery={() => {}}

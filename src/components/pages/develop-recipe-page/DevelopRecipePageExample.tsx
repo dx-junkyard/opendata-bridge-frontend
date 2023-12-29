@@ -18,7 +18,7 @@ const project: Project = {
 export const DevelopRecipePageExample: FC = () => {
   return (
     <>
-      <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
+      <Header user={undefined} />
       <DevelopRecipe project={project} />
       <Footer />
     </>

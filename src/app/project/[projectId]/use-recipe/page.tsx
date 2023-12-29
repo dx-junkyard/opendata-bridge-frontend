@@ -1,8 +1,6 @@
 import { UseRecipe } from '@/components/templates/use-recipe/UseRecipe';
 import { getProject } from '@/service/get-project-service';
-import { notFound, redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { notFound } from 'next/navigation';
 
 const UseRecipePage = async ({ params }: { params: { projectId: string } }) => {
   console.info(`UseRecipe: ${params.projectId}`);

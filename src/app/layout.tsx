@@ -4,10 +4,10 @@ import './globals.scss';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import React from 'react';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { User } from '@/types/user';
 import { Header } from '@/components/organizms/header/Header';
 import { Footer } from '@/components/organizms/footer/Footer';
+import { authOptions } from '@/lib/next-auth/auth-options';
 
 config.autoAddCss = false;
 

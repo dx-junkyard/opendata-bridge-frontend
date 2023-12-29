@@ -2,7 +2,7 @@ import { DetailProject } from '@/components/templates/detail-project/DetailProje
 import { getProject } from '@/service/get-project-service';
 import { notFound } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/next-auth/auth-options';
 
 const DetailProjectPage = async ({
   params,

@@ -18,7 +18,7 @@ const project: Project = {
 export const UseRecipePageExample: FC = () => {
   return (
     <>
-      <Header user={undefined} onLogin={() => {}} onLogout={() => {}} />
+      <Header user={undefined} />
       <UseRecipe project={project} />
       <Footer />
     </>
