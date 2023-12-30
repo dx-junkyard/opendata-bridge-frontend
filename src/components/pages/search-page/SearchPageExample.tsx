@@ -36,7 +36,19 @@ export const SearchPageExample: FC = () => {
         isTyping={false}
         updateIsTyping={() => {}}
         updateTagState={() => {}}
-        tags={new Map([])}
+        tags={
+          new Map([
+            [{ id: '1', title: 'test' }, true],
+            [{ id: '2', title: 'test' }, false],
+            [
+              {
+                id: '3',
+                title: 'test',
+              },
+              true,
+            ],
+          ])
+        }
         projectList={projects}
         isLoading={false}
       />

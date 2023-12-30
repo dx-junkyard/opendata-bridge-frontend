@@ -22,13 +22,15 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Link
       href={`/project/${project.id}`}
-      className="grid border-gray-300 border-b w-full h-[187px] grid-cols-2 bg-white"
+      className="grid border-gray-300 border-b w-full py-[30px] grid-cols-2 bg-white"
     >
       <div className="flex flex-col justify-center">
         <h1 className="text-sm font-bold">{project.title}</h1>
         <p className="text-xs">{project.description}</p>
       </div>
-      <div className="grid grid-cols-2 content-center gap-3">{thumbnails}</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 content-center gap-3">
+        {thumbnails}
+      </div>
     </Link>
   );
 };
