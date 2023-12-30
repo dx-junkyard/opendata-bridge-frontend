@@ -31,6 +31,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html lang="ja">
       <body className={inter.className}>
         <Header user={user} />
+        <div className="h-[80px]" />
         {children}
         <Footer />
       </body>

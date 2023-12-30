@@ -29,6 +29,7 @@ export const SearchPageExample: FC = () => {
   return (
     <>
       <Header user={undefined} />
+      <div className="h-[80px]" />
       <SearchProject
         query={''}
         updateQuery={() => {}}

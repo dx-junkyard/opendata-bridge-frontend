@@ -19,6 +19,7 @@ export const UseRecipePageExample: FC = () => {
   return (
     <>
       <Header user={undefined} />
+      <div className="h-[80px]" />
       <UseRecipe project={project} />
       <Footer />
     </>

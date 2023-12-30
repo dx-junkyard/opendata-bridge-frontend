@@ -19,6 +19,7 @@ export const DetailPageExample: FC = () => {
   return (
     <>
       <Header user={undefined} />
+      <div className="h-[80px]" />
       <DetailProject project={project} isLogin={false} />
       <Footer />
     </>
