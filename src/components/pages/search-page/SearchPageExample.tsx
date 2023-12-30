@@ -29,13 +29,26 @@ export const SearchPageExample: FC = () => {
   return (
     <>
       <Header user={undefined} />
+      <div className="h-[80px]" />
       <SearchProject
         query={''}
         updateQuery={() => {}}
         isTyping={false}
         updateIsTyping={() => {}}
         updateTagState={() => {}}
-        tags={new Map([])}
+        tags={
+          new Map([
+            [{ id: '1', title: 'test' }, true],
+            [{ id: '2', title: 'test' }, false],
+            [
+              {
+                id: '3',
+                title: 'test',
+              },
+              true,
+            ],
+          ])
+        }
         projectList={projects}
         isLoading={false}
       />

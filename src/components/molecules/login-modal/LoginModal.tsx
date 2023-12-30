@@ -1,25 +1,13 @@
 'use client';
 import { Button } from '@/components/atoms/button/Button';
 import React, { useState } from 'react';
-import Modal from 'react-modal';
+import { Modal } from 'react-responsive-modal';
 import { GlobalVanillaMenu } from '@/components/atoms/global-menu/vanilla/GlobalVanillaMenu';
 import { useLogin } from '@/hooks/use-login';
 
-const customStyles = {
-  overlay: {
-    backgroundColor: 'rgba(0,0,0,0.3)',
-  },
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '600px',
-    height: '400px',
-  },
-};
+import 'react-responsive-modal/styles.css';
+
+import './login-modal.scss';
 
 export const LoginModal = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -36,20 +24,23 @@ export const LoginModal = () => {
 
   return (
     <>
-      <button onClick={openModal}>
+      <button className="w-full" onClick={openModal}>
         <GlobalVanillaMenu title={'ログイン'} />
       </button>
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
+        open={modalIsOpen}
+        onClose={closeModal}
+        center
+        classNames={{
+          modal: 'customModal',
+        }}
       >
-        <div className="bg-white h-full flex flex-col justify-center items-center space-y-5">
-          <div className="text-left space-y-4 w-[60%] text-black">
-            <p className="text-xl font-bold">ログイン</p>
-            <p className="text-sm ">ユーザ名</p>
+        <div className="z-50 bg-white h-full flex flex-col justify-center items-center space-y-10 text-left">
+          <div className="space-y-4 text-black w-full md:w-[60%]">
+            <p className="text-2xl font-bold">ログイン</p>
+            <p className="text-sm">メールアドレス</p>
             <input
-              className="border border-blue-700 px-[10px] rounded w-full"
+              className="border border-blue-700 px-[5px] rounded w-full text-xl"
               type="email"
               value={loginForm.email}
               placeholder={'メールアドレス'}
@@ -57,7 +48,7 @@ export const LoginModal = () => {
             />
             <p className="text-sm text-black">パスワード</p>
             <input
-              className="border border-blue-700 px-[10px] rounded w-full"
+              className="border border-blue-700 px-[10px] rounded w-full text-xl"
               type="password"
               value={loginForm.password}
               placeholder={'パスワード'}

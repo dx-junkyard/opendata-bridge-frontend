@@ -1,23 +1,11 @@
 'use client';
 import { Button } from '@/components/atoms/button/Button';
 import React, { useState } from 'react';
-import Modal from 'react-modal';
+import { Modal } from 'react-responsive-modal';
 
-const customStyles = {
-  overlay: {
-    backgroundColor: 'rgba(0,0,0,0.3)',
-  },
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '496px',
-    height: '319px',
-  },
-};
+import 'react-responsive-modal/styles.css';
+
+import './success-formatting-modal.scss';
 
 export const SuccessFormattingModal = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -39,13 +27,16 @@ export const SuccessFormattingModal = () => {
         onClick={openModal}
       />
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
+        open={modalIsOpen}
+        onClose={closeModal}
+        center
+        classNames={{
+          modal: 'customModal',
+        }}
       >
-        <div className="bg-white h-full flex flex-col justify-center items-center space-y-5 px-[50px]">
+        <div className="bg-white h-full flex flex-col justify-center items-center space-y-5 md:px-[50px]">
           <div className="text-left space-y-4">
-            <p className="text-xl text-black font-bold">
+            <p className="text-2xl text-black font-bold">
               ファイルの整形に成功しました
             </p>
             <p className="text-sm text-black">

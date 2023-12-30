@@ -18,7 +18,7 @@ export const Default: Story = {
   args: {
     query: '',
     projectList: [],
-    tags: new Map([]),
+    tags: new Map([[{ id: '1', title: 'test' }, true]]),
     isTyping: false,
     isLoading: true,
   },
