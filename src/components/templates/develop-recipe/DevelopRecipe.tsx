@@ -30,12 +30,12 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
 
   return (
     <article>
-      <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-2">
-        <h1 className="text-4xl">データ整形レシピを開発する</h1>
+      <div className="bg-white text-black text-4xl px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-2">
+        <h1 className="text-2xl md:text-4xl">データ整形レシピの開発</h1>
         <ProjectCard project={project} />
         <ProjectTags tags={project.tags} />
       </div>
-      <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
+      <div className="bg-white text-black text-4xl px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">変換対象データのアップロード</h2>
         <InputFileList fileList={fileList} removeFile={removeFile} />
         <div className="w-full bg-white grid grid-cols-1 gap-4 justify-items-center">
@@ -47,7 +47,7 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
           {/*/>*/}
         </div>
       </div>
-      <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
+      <div className="bg-white text-black text-4xl px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">プロンプトを実行する</h2>
         <div className="w-full flex flex-col relative">
           <h3 className="text-sm">データ整形用プロンプト</h3>
@@ -71,7 +71,7 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
         </div>
       </div>
       {result && !isLoading && (
-        <div className="bg-white text-black px-[220px] py-[50px] flex flex-col space-y-8">
+        <div className="bg-white text-black text-4xl md:px-[220px] py-[50px] flex flex-col space-y-8">
           <h2 className="text-xl">プロンプト実行結果</h2>
           <Alert title={'プロンプト実行が成功しました'} type={'info'} />
           <div className="w-full flex flex-col">
