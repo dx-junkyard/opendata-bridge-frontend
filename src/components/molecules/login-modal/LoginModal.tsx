@@ -36,7 +36,7 @@ export const LoginModal = () => {
 
   return (
     <>
-      <button onClick={openModal}>
+      <button className="w-full" onClick={openModal}>
         <GlobalVanillaMenu title={'ログイン'} />
       </button>
       <Modal
@@ -44,7 +44,7 @@ export const LoginModal = () => {
         onRequestClose={closeModal}
         style={customStyles}
       >
-        <div className="bg-white h-full flex flex-col justify-center items-center space-y-5">
+        <div className="z-50 bg-white h-full flex flex-col justify-center items-center space-y-5">
           <div className="text-left space-y-4 w-[60%] text-black">
             <p className="text-xl font-bold">ログイン</p>
             <p className="text-sm ">ユーザ名</p>

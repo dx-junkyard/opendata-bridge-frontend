@@ -6,6 +6,7 @@ import React from 'react';
 const LogoutMenu = () => {
   return (
     <button
+      className="w-full"
       onClick={async () =>
         await signOut({
           callbackUrl: '/',
