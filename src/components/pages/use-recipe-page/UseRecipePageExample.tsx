@@ -12,7 +12,7 @@ const project: Project = {
   tags: ['tag1', 'tag2', 'tag3'],
   thumbnails: ['/dummy.png', '/dummy.png'],
   resources: [],
-  recipe: '{"dummy": "dummy"}',
+  recipes: [],
 };
 
 export const UseRecipePageExample: FC = () => {

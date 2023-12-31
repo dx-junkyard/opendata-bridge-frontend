@@ -12,7 +12,7 @@ fragment projectEntity on ProjectEntity {
         }
       }
     }
-    thumbnail {
+    thumbnails {
       data {
         attributes {
           name
@@ -20,8 +20,10 @@ fragment projectEntity on ProjectEntity {
         }
       }
     }
-    recipe
-    prompt
+    recipes {
+      prompt
+      script
+    }
     tags {
       data {
         attributes {

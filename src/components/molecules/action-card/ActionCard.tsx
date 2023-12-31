@@ -6,7 +6,7 @@ interface ActionCardProps {
   title: string;
   description: string;
   buttonLabel: string;
-  thumbnail: string;
+  thumbnails: string;
   url?: string;
 }
 
@@ -14,12 +14,12 @@ export const ActionCard = ({
   title,
   description,
   buttonLabel,
-  thumbnail,
+  thumbnails,
   url,
 }: ActionCardProps) => {
   return (
     <div className="h-[320px] bg-white flex flex-col justify-center items-center space-y-5 rounded-3xl">
-      <Image src={thumbnail} alt={title} height={100} width={100} />
+      <Image src={thumbnails} alt={title} height={100} width={100} />
       <span className="text-sm text-center text-black mx-[50px] inline-block">
         {description}
       </span>

@@ -25,6 +25,7 @@ export const Default: Story = {
       tags: ['tag1', 'tag2', 'tag3'],
       thumbnails: [],
       resources: [],
+      recipes: [],
     },
   },
 };

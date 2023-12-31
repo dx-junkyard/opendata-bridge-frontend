@@ -15,6 +15,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    recipe: '{"dummy": "dummy"}',
+    recipe: {
+      script: 'import pandas as pd',
+      prompt: 'プロンプト例',
+    },
   },
 };
