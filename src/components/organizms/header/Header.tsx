@@ -24,7 +24,7 @@ export const Header = ({ user }: HeaderProps) => {
   };
 
   return (
-    <header className="flex items-center header bg-white text-black w-full fixed">
+    <header className="flex items-center header bg-white text-black w-full fixed z-10">
       <Link href={'/'} className="flex items-center">
         <Image src="/logo.svg" alt={'logo'} width={54} height={54} />
         <h1 className="font-bold text-2xl leading-none">Opendata Bridge</h1>
@@ -33,7 +33,7 @@ export const Header = ({ user }: HeaderProps) => {
       <nav
         className={
           isOpen
-            ? 'z-10 bg-white fixed top-[80px] right-0 left-0 flex flex-col'
+            ? 'z-20 bg-white fixed top-[80px] right-0 left-0 flex flex-col'
             : 'fixed right-[-100%] md:right-4'
         }
       >
@@ -66,7 +66,7 @@ export const Header = ({ user }: HeaderProps) => {
         </ul>
       </nav>
 
-      <button className="z-20 space-y-2 md:hidden" onClick={handleMenuOpen}>
+      <button className="space-y-2 md:hidden" onClick={handleMenuOpen}>
         <span
           className={
             'block w-8 h-0.5 bg-gray-600 duration-300' +
