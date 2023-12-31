@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { GenericDataType } from '@/components/molecules/table/TableView';
 import useSWRMutation from 'swr/mutation';
+import { Recipe } from '@/types/recipe';
 
 const table: GenericDataType[] = [
   {
@@ -20,11 +21,11 @@ const table: GenericDataType[] = [
   },
 ];
 
-const recipe: string = '{"dummy": "dummy"}';
+const script: string = 'import pandas as pd';
 
 type Result = {
   table: GenericDataType[];
-  recipe: string;
+  script: string;
 };
 
 const postActionUseRecipe = (
@@ -34,7 +35,7 @@ const postActionUseRecipe = (
   return new Promise((resolve) => {
     setTimeout(resolve, 1000);
   }).then(() => {
-    return { table, recipe };
+    return { table, script };
   });
 };
 

@@ -5,6 +5,5 @@ export type Project = {
   tags: string[];
   thumbnails: string[];
   resources: Resource[];
-  recipe?: string;
-  prompt?: string;
+  recipes: Recipe[];
 };

@@ -61,6 +61,27 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type ComponentProjectRecipe = {
+  __typename?: 'ComponentProjectRecipe';
+  id: Scalars['ID']['output'];
+  prompt?: Maybe<Scalars['String']['output']>;
+  script?: Maybe<Scalars['String']['output']>;
+};
+
+export type ComponentProjectRecipeFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentProjectRecipeFiltersInput>>>;
+  not?: InputMaybe<ComponentProjectRecipeFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentProjectRecipeFiltersInput>>>;
+  prompt?: InputMaybe<StringFilterInput>;
+  script?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentProjectRecipeInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  prompt?: InputMaybe<Scalars['String']['input']>;
+  script?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type ContentReleasesRelease = {
   __typename?: 'ContentReleasesRelease';
   actions?: Maybe<ContentReleasesReleaseActionRelationResponseCollection>;
@@ -275,6 +296,7 @@ export type FloatFilterInput = {
 };
 
 export type GenericMorph =
+  | ComponentProjectRecipe
   | ContentReleasesRelease
   | ContentReleasesReleaseAction
   | Dataset
@@ -638,14 +660,19 @@ export type Project = {
   __typename?: 'Project';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description: Scalars['String']['output'];
-  prompt?: Maybe<Scalars['String']['output']>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  recipe?: Maybe<Scalars['JSON']['output']>;
+  recipes?: Maybe<Array<Maybe<ComponentProjectRecipe>>>;
   resources?: Maybe<DatasetRelationResponseCollection>;
   tags?: Maybe<TagRelationResponseCollection>;
-  thumbnail?: Maybe<UploadFileRelationResponseCollection>;
+  thumbnails?: Maybe<UploadFileRelationResponseCollection>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProjectRecipesArgs = {
+  filters?: InputMaybe<ComponentProjectRecipeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type ProjectResourcesArgs = {
@@ -662,7 +689,7 @@ export type ProjectTagsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type ProjectThumbnailArgs = {
+export type ProjectThumbnailsArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -692,9 +719,8 @@ export type ProjectFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ProjectFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ProjectFiltersInput>>>;
-  prompt?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
-  recipe?: InputMaybe<JsonFilterInput>;
+  recipes?: InputMaybe<ComponentProjectRecipeFiltersInput>;
   resources?: InputMaybe<DatasetFiltersInput>;
   tags?: InputMaybe<TagFiltersInput>;
   title?: InputMaybe<StringFilterInput>;
@@ -703,12 +729,11 @@ export type ProjectFiltersInput = {
 
 export type ProjectInput = {
   description?: InputMaybe<Scalars['String']['input']>;
-  prompt?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  recipe?: InputMaybe<Scalars['JSON']['input']>;
+  recipes?: InputMaybe<Array<InputMaybe<ComponentProjectRecipeInput>>>;
   resources?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   tags?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  thumbnail?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  thumbnails?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1314,8 +1339,6 @@ export type ProjectEntityFragment = {
     __typename?: 'Project';
     title: string;
     description: string;
-    recipe?: any | null;
-    prompt?: string | null;
     updatedAt?: any | null;
     resources?: {
       __typename?: 'DatasetRelationResponseCollection';
@@ -1329,7 +1352,7 @@ export type ProjectEntityFragment = {
         } | null;
       }>;
     } | null;
-    thumbnail?: {
+    thumbnails?: {
       __typename?: 'UploadFileRelationResponseCollection';
       data: Array<{
         __typename?: 'UploadFileEntity';
@@ -1340,6 +1363,11 @@ export type ProjectEntityFragment = {
         } | null;
       }>;
     } | null;
+    recipes?: Array<{
+      __typename?: 'ComponentProjectRecipe';
+      prompt?: string | null;
+      script?: string | null;
+    } | null> | null;
     tags?: {
       __typename?: 'TagRelationResponseCollection';
       data: Array<{
@@ -1369,8 +1397,6 @@ export type SearchProjectQuery = {
           __typename?: 'Project';
           title: string;
           description: string;
-          recipe?: any | null;
-          prompt?: string | null;
           updatedAt?: any | null;
           resources?: {
             __typename?: 'DatasetRelationResponseCollection';
@@ -1384,7 +1410,7 @@ export type SearchProjectQuery = {
               } | null;
             }>;
           } | null;
-          thumbnail?: {
+          thumbnails?: {
             __typename?: 'UploadFileRelationResponseCollection';
             data: Array<{
               __typename?: 'UploadFileEntity';
@@ -1395,6 +1421,11 @@ export type SearchProjectQuery = {
               } | null;
             }>;
           } | null;
+          recipes?: Array<{
+            __typename?: 'ComponentProjectRecipe';
+            prompt?: string | null;
+            script?: string | null;
+          } | null> | null;
           tags?: {
             __typename?: 'TagRelationResponseCollection';
             data: Array<{
@@ -1424,8 +1455,6 @@ export type FilterProjectQuery = {
         __typename?: 'Project';
         title: string;
         description: string;
-        recipe?: any | null;
-        prompt?: string | null;
         updatedAt?: any | null;
         resources?: {
           __typename?: 'DatasetRelationResponseCollection';
@@ -1439,7 +1468,7 @@ export type FilterProjectQuery = {
             } | null;
           }>;
         } | null;
-        thumbnail?: {
+        thumbnails?: {
           __typename?: 'UploadFileRelationResponseCollection';
           data: Array<{
             __typename?: 'UploadFileEntity';
@@ -1450,6 +1479,11 @@ export type FilterProjectQuery = {
             } | null;
           }>;
         } | null;
+        recipes?: Array<{
+          __typename?: 'ComponentProjectRecipe';
+          prompt?: string | null;
+          script?: string | null;
+        } | null> | null;
         tags?: {
           __typename?: 'TagRelationResponseCollection';
           data: Array<{
@@ -1477,8 +1511,6 @@ export type GetProjectQuery = {
         __typename?: 'Project';
         title: string;
         description: string;
-        recipe?: any | null;
-        prompt?: string | null;
         updatedAt?: any | null;
         resources?: {
           __typename?: 'DatasetRelationResponseCollection';
@@ -1492,7 +1524,7 @@ export type GetProjectQuery = {
             } | null;
           }>;
         } | null;
-        thumbnail?: {
+        thumbnails?: {
           __typename?: 'UploadFileRelationResponseCollection';
           data: Array<{
             __typename?: 'UploadFileEntity';
@@ -1503,6 +1535,11 @@ export type GetProjectQuery = {
             } | null;
           }>;
         } | null;
+        recipes?: Array<{
+          __typename?: 'ComponentProjectRecipe';
+          prompt?: string | null;
+          script?: string | null;
+        } | null> | null;
         tags?: {
           __typename?: 'TagRelationResponseCollection';
           data: Array<{
@@ -1550,7 +1587,7 @@ export const ProjectEntityFragmentDoc = gql`
           }
         }
       }
-      thumbnail {
+      thumbnails {
         data {
           attributes {
             name
@@ -1558,8 +1595,10 @@ export const ProjectEntityFragmentDoc = gql`
           }
         }
       }
-      recipe
-      prompt
+      recipes {
+        prompt
+        script
+      }
       tags {
         data {
           attributes {

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
@@ -20,7 +20,7 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
     new File([''], '変換対象データB.csv', { type: 'text/csv' }),
   ]);
 
-  const { recipe, updateRecipe } = useInputRecipe(project.recipe);
+  const { recipes, updateRecipe } = useInputRecipe(project.recipes);
 
   return (
     <article>
@@ -43,8 +43,19 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
       </div>
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">データ整形レシピの確認・編集</h2>
-        <InputRecipe recipe={recipe} updateRecipe={updateRecipe} />
-        <SuccessFormattingModal />
+        {recipes.map((r, index) => {
+          return (
+            <div key={index}>
+              <InputRecipe
+                recipe={r}
+                updateRecipe={(updatedRecipe) =>
+                  updateRecipe(index, updatedRecipe)
+                }
+              />
+              <SuccessFormattingModal />
+            </div>
+          );
+        })}
       </div>
     </article>
   );

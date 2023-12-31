@@ -1,16 +1,17 @@
 import { useState } from 'react';
+import { Recipe } from '@/types/recipe';
 
-export const useInputRecipe = (initialRecipe: string | undefined) => {
-  const formattedInitialRecipe = initialRecipe
-    ? JSON.stringify(JSON.parse(initialRecipe), null, '\t')
-    : '';
+export const useInputRecipe = (initialRecipe: Recipe[]) => {
+  const [recipes, setRecipes] = useState(initialRecipe);
 
-  const [recipe, setRecipe] = useState(formattedInitialRecipe);
-
-  const updateRecipe = (recipe: string) => setRecipe(recipe);
+  const updateRecipe = (index: number, recipe: Recipe) =>
+    setRecipes((prevState) => {
+      prevState[index] = recipe;
+      return prevState;
+    });
 
   return {
-    recipe,
+    recipes,
     updateRecipe,
   };
 };

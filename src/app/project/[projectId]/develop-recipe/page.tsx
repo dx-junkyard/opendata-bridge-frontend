@@ -1,6 +1,6 @@
 import { DevelopRecipe } from '@/components/templates/develop-recipe/DevelopRecipe';
 import { getProject } from '@/service/get-project-service';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/next-auth/auth-options';
 
@@ -14,7 +14,7 @@ const DevelopRecipePage = async ({
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.name) {
-    return redirect(`/`);
+    return notFound();
   }
 
   const project = await getProject(params.projectId);

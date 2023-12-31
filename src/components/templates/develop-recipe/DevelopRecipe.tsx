@@ -10,7 +10,6 @@ import { InputFileList } from '@/components/organizms/input-file-list/InputFileL
 import { Alert } from '@/components/atoms/alert/Alert';
 import { TableView } from '@/components/molecules/table/TableView';
 import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
-import { useInputRecipe } from '@/hooks/use-input-recipe';
 import { useInputPrompt } from '@/hooks/use-input-prompt';
 
 interface DevelopRecipeProps {
@@ -23,10 +22,8 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
     new File([''], '変換対象データB.csv', { type: 'text/csv' }),
   ]);
 
-  const { recipe, updateRecipe } = useInputRecipe(project.recipe);
-
   const { prompt, updatePrompt, actionUsePrompt, isLoading, result } =
-    useInputPrompt(project.prompt);
+    useInputPrompt(project.recipes.at(0).prompt);
 
   return (
     <article>
@@ -85,7 +82,12 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
               label={'整形後のファイルをダウンロード'}
             />
           </div>
-          <InputRecipe recipe={recipe} updateRecipe={updateRecipe} />
+          <InputRecipe
+            recipe={{
+              script: result.script,
+              prompt: '',
+            }}
+          />
         </div>
       )}
     </article>

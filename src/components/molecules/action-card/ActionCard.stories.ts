@@ -21,7 +21,7 @@ export const UseRecipeCard: Story = {
     title: 'データ整形レシピを実行する',
     description: '作成済みのデータ整形レシピを使って、データ整形を実行します',
     url: '',
-    thumbnail: '/dummy1_1.png',
+    thumbnails: '/dummy1_1.png',
     buttonLabel: 'レシピを実行する',
   },
 };
@@ -31,7 +31,7 @@ export const DevelopRecipeCard: Story = {
     title: 'データ整形レシピを開発する',
     description: 'AIを使ってデータ整形用のレシピを開発します',
     url: '',
-    thumbnail: '/dummy1_1.png',
+    thumbnails: '/dummy1_1.png',
     buttonLabel: 'レシピを開発する',
   },
 };
