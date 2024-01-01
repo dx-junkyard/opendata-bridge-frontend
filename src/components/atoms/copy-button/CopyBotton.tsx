@@ -11,7 +11,7 @@ const CopyButton = ({ value }: { value: string }) => {
   };
 
   return (
-    <div className="text-2xl" onClick={() => onCopy()}>
+    <div className="rounded hover:bg-zinc-500" onClick={() => onCopy()}>
       {isCopied ? (
         <FontAwesomeIcon icon={faCheck} />
       ) : (
