@@ -14,11 +14,13 @@ const InputRecipe = ({ recipe, updateRecipe }: InputRecipeProps) => {
       <h3 className="text-sm">データ整形スクリプト(python)</h3>
       <CodeEditor
         code={recipe.script || ''}
-        updateCode={(code) => {
-          if (updateRecipe) {
-            updateRecipe({ ...recipe, script: code });
-          }
-        }}
+        updateCode={
+          updateRecipe
+            ? (code) => {
+                updateRecipe({ ...recipe, script: code });
+              }
+            : undefined
+        }
         language="python"
       />
     </div>

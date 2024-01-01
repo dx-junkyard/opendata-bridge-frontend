@@ -52,7 +52,7 @@ export const DetailProject = ({
       {script && (
         <div className="bg-white text-black px-[10px] md:px-[220px] pt-[50px] pb-[100px] flex flex-col space-y-2 ">
           <h2 className="text-xl">変換用のPythonコード</h2>
-          <CodeEditor code={script} updateCode={() => {}} language="python" />
+          <CodeEditor code={script} language="python" />
         </div>
       )}
       {isLogin && (
