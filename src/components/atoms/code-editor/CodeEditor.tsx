@@ -7,7 +7,7 @@ import { editor } from 'monaco-editor';
 
 interface CodeEditorProps {
   code: string;
-  updateCode: (updatedCode: string) => void;
+  updateCode?: (updatedCode: string) => void;
   language: 'markdown' | 'python';
 }
 
@@ -16,7 +16,7 @@ const CodeEditor = memo(({ code, updateCode, language }: CodeEditorProps) => {
     value: string | undefined,
     event: editor.IModelContentChangedEvent
   ) {
-    updateCode(value || '');
+    updateCode && updateCode(value || '');
   }
 
   return (
@@ -35,6 +35,9 @@ const CodeEditor = memo(({ code, updateCode, language }: CodeEditorProps) => {
         defaultLanguage={language}
         defaultValue={code}
         onChange={handleEditorChange}
+        options={{
+          readOnly: !updateCode,
+        }}
       />
     </div>
   );
