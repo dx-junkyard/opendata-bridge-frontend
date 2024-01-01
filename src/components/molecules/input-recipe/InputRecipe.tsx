@@ -1,6 +1,7 @@
 import React from 'react';
 import CopyButton from '@/components/atoms/copy-button/CopyBotton';
 import { Recipe } from '@/types/recipe';
+import CodeEditor from '@/components/atoms/code-editor/CodeEditor';
 
 interface InputRecipeProps {
   recipe: Recipe;
@@ -11,21 +12,15 @@ const InputRecipe = ({ recipe, updateRecipe }: InputRecipeProps) => {
   return (
     <div className="w-full flex flex-col relative">
       <h3 className="text-sm">データ整形スクリプト(python)</h3>
-      <textarea
-        className="border rounded px-[6px] py-[4px] placeholder-gray-500"
-        value={recipe.script}
-        onChange={(e) =>
-          updateRecipe &&
-          updateRecipe({
-            ...recipe,
-            script: e.target.value,
-          })
-        }
-        rows={10}
+      <CodeEditor
+        code={recipe.script || ''}
+        updateCode={(code) => {
+          if (updateRecipe) {
+            updateRecipe({ ...recipe, script: code });
+          }
+        }}
+        language="python"
       />
-      <div className="absolute top-6 right-2">
-        <CopyButton value={recipe.script || ''} />
-      </div>
     </div>
   );
 };

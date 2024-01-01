@@ -20,7 +20,16 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
     new File([''], '変換対象データB.csv', { type: 'text/csv' }),
   ]);
 
-  const { recipes, updateRecipe } = useInputRecipe(project.recipes);
+  const { recipes, updateRecipe } = useInputRecipe(
+    project.recipes.length > 0
+      ? project.recipes
+      : [
+          {
+            script: '',
+            prompt: '',
+          },
+        ]
+  );
 
   return (
     <article>

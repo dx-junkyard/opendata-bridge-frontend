@@ -19,8 +19,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Python: Story = {
   args: {
-    initialCode: 'import pandas as pd;',
+    code: 'import pandas as pd;',
+    language: 'python',
+  },
+};
+
+export const Markdown: Story = {
+  args: {
+    code: '# title \n ## subtitle \n ### subsubtitle \n #### subsubsubtitle \n ##### subsubsubsubtitle \n ###### subsubsubsubsubtitle \n ####### subsubsubsubsubsubtitle \n',
+    language: 'markdown',
   },
 };
