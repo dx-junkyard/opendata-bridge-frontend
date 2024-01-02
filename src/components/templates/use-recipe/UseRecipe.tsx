@@ -9,6 +9,7 @@ import { InputFileList } from '@/components/organizms/input-file-list/InputFileL
 import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
 import { useInputRecipe } from '@/hooks/use-input-recipe';
 import UploadButton from '@/components/atoms/upload-button/UploadButton';
+import SelectFileModal from '@/components/molecules/modal/select-file-modal/SelectFileModal';
 
 interface UseRecipeProps {
   project: Project;
@@ -38,7 +39,8 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">変換対象データのアップロード</h2>
         <InputFileList fileList={fileList} removeFile={removeFile} />
-        <div className="w-full bg-white grid grid-cols-1 gap-4 justify-items-center">
+        <div className="w-full bg-white grid md:grid-cols-2 gap-4 justify-items-center">
+          <SelectFileModal addFile={addFile} />
           <UploadButton
             color={'secondary'}
             size={'2xl'}

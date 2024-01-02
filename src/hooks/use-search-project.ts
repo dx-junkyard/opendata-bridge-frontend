@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import projectSearchFeatcher, {
+import projectSearchFetcher, {
   searchProjectPath,
 } from '@/lib/fetch/project-search-fetcher';
 import { useFilterTag } from '@/hooks/use-filter-tag';
@@ -18,7 +18,7 @@ export const useSearchProject = (
 
   const { data, isLoading } = useSWR(
     !isTyping ? [searchProjectPath, query, enableTags] : null,
-    ([_, query, enableTags]) => projectSearchFeatcher(query, enableTags),
+    ([_, query, enableTags]) => projectSearchFetcher(query, enableTags),
     { fallbackData: initialProjectList }
   );
 

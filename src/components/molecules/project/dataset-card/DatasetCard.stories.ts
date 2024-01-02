@@ -19,9 +19,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     dataset: {
+      id: '1',
       title: 'ファイル名',
       organization: '自治体名',
       url: '',
+      assetUrl: '',
     },
   },
 };

@@ -2,10 +2,12 @@
 import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
-import { DatasetCard } from '@/components/molecules/project/dataset-card/DatasetCard';
 import { ActionCard } from '@/components/atoms/action-card/ActionCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
 import CodeEditor from '@/components/atoms/code-editor/CodeEditor';
+import DatasetCardList from '@/components/molecules/project/dataset-card-list/DatasetCardList';
+import { Dataset } from '@/types/dataset';
+import { useRouter } from 'next/navigation';
 
 interface DetailProjectProps {
   project: Project;
@@ -16,27 +18,9 @@ export const DetailProject = ({
   project,
   isLogin = false,
 }: DetailProjectProps) => {
-  const datasetList =
-    project.resources.length > 0 ? (
-      project.resources.map((resource, index) => {
-        return (
-          <DatasetCard
-            key={index}
-            dataset={{
-              title: resource.title,
-              organization: resource.organization,
-              url: resource.url,
-            }}
-          />
-        );
-      })
-    ) : (
-      <div className="w-full h-[100px] bg-gray-50 rounded-xl text-gray-600 flex justify-center items-center text-center">
-        <p>登録データがありません</p>
-      </div>
-    );
-
   const script = project.recipes[0]?.script || '';
+
+  const router = useRouter();
 
   return (
     <article>
@@ -47,7 +31,14 @@ export const DetailProject = ({
       </div>
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-2">
         <h2 className="text-xl">変換元のオープンデータのリンク一覧</h2>
-        <div>{datasetList}</div>
+        <div>
+          <DatasetCardList
+            datasetList={project.resources}
+            onClickItem={(dataset: Dataset) => {
+              router.push(dataset.url);
+            }}
+          />
+        </div>
       </div>
       {script && (
         <div className="bg-white text-black px-[10px] md:px-[220px] pt-[50px] pb-[100px] flex flex-col space-y-2 ">
