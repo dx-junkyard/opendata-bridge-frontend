@@ -35,13 +35,13 @@ const selectColor = (color: ButtonColorType) => {
 const selectSize = (size: ButtonSizeType) => {
   switch (size) {
     case '3xl':
-      return 'w-[382px] h-[56px] text-sm';
+      return 'w-[382px] min-w-[382px] h-[56px] text-sm';
     case '2xl':
-      return 'w-[230px] h-[56px] text-sm';
+      return 'w-[230px] min-w-[230px] h-[56px] text-sm';
     case 'xl':
-      return 'w-[136px] h-[56px] text-xs';
+      return 'w-[136px] min-w-[136px] h-[56px] text-xs';
     case 'large':
-      return 'w-[96px] h-[48px] text-xs';
+      return 'w-[96px] min-w-[96px] h-[48px] text-xs';
   }
 };
 
