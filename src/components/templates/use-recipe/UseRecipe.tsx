@@ -3,7 +3,6 @@ import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
-import { Button } from '@/components/atoms/button/Button';
 import { SuccessFormattingModal } from '@/components/molecules/success-formating-modal/SuccessFormattingModal';
 import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
