@@ -19,10 +19,7 @@ interface DevelopRecipeProps {
 }
 
 export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
-  const { fileList, addFile, removeFile } = useFileList([
-    new File([''], '変換対象データA.csv', { type: 'text/csv' }),
-    new File([''], '変換対象データB.csv', { type: 'text/csv' }),
-  ]);
+  const { fileList, addFile, removeFile } = useFileList([]);
 
   const { prompt, updatePrompt, actionUsePrompt, isLoading, result } =
     useInputPrompt(project.recipes[0]?.prompt || '');
