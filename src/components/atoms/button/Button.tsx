@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 type ButtonColorType = 'primary' | 'secondary';
 
@@ -21,6 +23,10 @@ interface ButtonProps {
    * Optional click handler
    */
   onClick?: () => void;
+  /**
+   * Is this the principal call to action on the page?
+   */
+  isLoading?: boolean;
 }
 
 const selectColor = (color: ButtonColorType) => {
@@ -48,7 +54,13 @@ const selectSize = (size: ButtonSizeType) => {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ color, size, label, onClick }: ButtonProps) => {
+export const Button = ({
+  color,
+  size,
+  label,
+  onClick,
+  isLoading = false,
+}: ButtonProps) => {
   return (
     <button
       type="button"
@@ -56,8 +68,21 @@ export const Button = ({ color, size, label, onClick }: ButtonProps) => {
         [selectColor(color), selectSize(size)].join(' ') + ' rounded-lg'
       }
       onClick={onClick}
+      disabled={isLoading}
     >
-      {label}
+      {isLoading ? (
+        <span>
+          <FontAwesomeIcon
+            className="animate-spin"
+            icon={faCircleNotch}
+            width={24}
+            height={24}
+          />{' '}
+          登録中
+        </span>
+      ) : (
+        label
+      )}
     </button>
   );
 };

@@ -17,6 +17,7 @@ interface SelectFileModalProps {
 
 const SelectFileModal = ({ addFile }: SelectFileModalProps) => {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function openModal() {
     setIsOpen(true);
@@ -26,7 +27,7 @@ const SelectFileModal = ({ addFile }: SelectFileModalProps) => {
     setIsOpen(false);
   }
 
-  const { datasetList, isLoading } = useFetchDataset();
+  const { datasetList } = useFetchDataset();
 
   return (
     <div className="w-full bg-white flex justify-center items-center">
@@ -35,13 +36,14 @@ const SelectFileModal = ({ addFile }: SelectFileModalProps) => {
         size={'2xl'}
         label={'登録済みオープンデータから選ぶ'}
         onClick={openModal}
+        isLoading={isLoading}
       />
       <Modal
         open={modalIsOpen}
         onClose={closeModal}
         center
         classNames={{
-          modal: 'customModal',
+          modal: 'select-file-modal',
         }}
       >
         <div className="bg-white h-full flex flex-col justify-center items-center space-y-5 w-full">
@@ -56,9 +58,11 @@ const SelectFileModal = ({ addFile }: SelectFileModalProps) => {
             <DatasetCardList
               datasetList={datasetList}
               onClickItem={async (dataset: Dataset) => {
+                setIsLoading(true);
+                closeModal();
                 const asset = await fetch(`/api/dataset/asset/${dataset.id}`);
                 addFile(new File([await asset.text()], dataset.title));
-                closeModal();
+                setIsLoading(false);
               }}
             />
           </div>

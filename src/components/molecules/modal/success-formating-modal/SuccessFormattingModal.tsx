@@ -31,7 +31,7 @@ export const SuccessFormattingModal = () => {
         onClose={closeModal}
         center
         classNames={{
-          modal: 'customModal',
+          modal: 'success-formatting-modal',
         }}
       >
         <div className="bg-white h-full flex flex-col justify-center items-center space-y-5 md:px-[50px]">
