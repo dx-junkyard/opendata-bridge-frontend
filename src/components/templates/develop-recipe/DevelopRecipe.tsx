@@ -1,26 +1,25 @@
 'use client';
 import React from 'react';
 import { Project } from '@/types/project';
-import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
-import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
+import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
+import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
 import { Button } from '@/components/atoms/button/Button';
 import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
 import { Alert } from '@/components/atoms/alert/Alert';
-import { TableView } from '@/components/molecules/table/TableView';
+import { TableView } from '@/components/atoms/table/TableView';
 import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
 import { useInputPrompt } from '@/hooks/use-input-prompt';
 import CodeEditor from '@/components/atoms/code-editor/CodeEditor';
+import UploadButton from '@/components/atoms/upload-button/UploadButton';
+import SelectFileModal from '@/components/molecules/modal/select-file-modal/SelectFileModal';
 
 interface DevelopRecipeProps {
   project: Project;
 }
 
 export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
-  const { fileList, addFile, removeFile } = useFileList([
-    new File([''], '変換対象データA.csv', { type: 'text/csv' }),
-    new File([''], '変換対象データB.csv', { type: 'text/csv' }),
-  ]);
+  const { fileList, addFile, removeFile } = useFileList([]);
 
   const { prompt, updatePrompt, actionUsePrompt, isLoading, result } =
     useInputPrompt(project.recipes[0]?.prompt || '');
@@ -35,13 +34,14 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">変換対象データのアップロード</h2>
         <InputFileList fileList={fileList} removeFile={removeFile} />
-        <div className="w-full bg-white grid grid-cols-1 gap-4 justify-items-center">
-          <Button color={'secondary'} size={'2xl'} label={'ファイルの追加'} />
-          {/*<Button*/}
-          {/*  color={'secondary'}*/}
-          {/*  size={'2xl'}*/}
-          {/*  label={'登録済みオープンデータから選ぶ'}*/}
-          {/*/>*/}
+        <div className="w-full bg-white grid md:grid-cols-2 gap-4 justify-items-center">
+          <SelectFileModal addFile={addFile} />
+          <UploadButton
+            color={'secondary'}
+            size={'2xl'}
+            label={'ファイルの追加'}
+            addFile={addFile}
+          />
         </div>
       </div>
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">

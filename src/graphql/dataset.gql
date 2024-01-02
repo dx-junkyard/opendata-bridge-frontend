@@ -1,0 +1,32 @@
+fragment datasetEntity on DatasetEntity {
+  id
+  attributes {
+    title
+    url
+    organization
+    file {
+      data {
+        attributes {
+          name
+          url
+        }
+      }
+    }
+  }
+}
+
+query fetchDataset($page: Int) {
+  datasets(pagination: { page: $page, pageSize: 10 }, sort: "updatedAt:desc") {
+    data {
+      ...datasetEntity
+    }
+  }
+}
+
+query getDataset($id: ID) {
+  dataset(id: $id) {
+    data {
+      ...datasetEntity
+    }
+  }
+}

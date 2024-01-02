@@ -1,4 +1,4 @@
-import { ResourceOption } from '@/components/molecules/resource-option/ResourceOption';
+import { ResourceOption } from '@/components/atoms/resource-option/ResourceOption';
 import React from 'react';
 
 interface InputFileListProps {

@@ -3,7 +3,7 @@ import { TagMap } from '@/hooks/use-filter-tag';
 
 export const searchProjectPath = '/api/project/search';
 
-export default function projectSearchFeatcher(q: string, tags: string) {
+export default async function projectSearchFetcher(q: string, tags: string) {
   const params: { [key: string]: string } = {};
 
   if (q !== '') {
@@ -15,11 +15,6 @@ export default function projectSearchFeatcher(q: string, tags: string) {
 
   const urlSearchParam = new URLSearchParams(params).toString();
 
-  return fetch(`${searchProjectPath}?${urlSearchParam}`)
-    .then((res) => {
-      return res.json() || [];
-    })
-    .then((res: Project[]) => {
-      return res;
-    });
+  const res = await fetch(`${searchProjectPath}?${urlSearchParam}`);
+  return ((await res.json()) || []) as Project[];
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Hero } from '@/components/molecules/hero/Hero';
+import { Hero } from '@/components/atoms/hero/Hero';
 import { SearchWindow } from '@/components/organizms/search-window/SearchWindow';
 import { Project } from '@/types/project';
-import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
-import { LoadingProjectCard } from '@/components/molecules/loading-project-card/LoadingProjectCard';
+import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
+import { LoadingProjectCard } from '@/components/molecules/project/loading-project-card/LoadingProjectCard';
 import { ProjectTag } from '@/types/project-tag';
 import { TagMap } from '@/hooks/use-filter-tag';
 

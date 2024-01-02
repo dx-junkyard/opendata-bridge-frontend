@@ -185,6 +185,7 @@ export type ContentReleasesReleaseInput = {
 export type Dataset = {
   __typename?: 'Dataset';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  file: UploadFileEntityResponse;
   organization: Scalars['String']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   title: Scalars['String']['output'];
@@ -223,6 +224,7 @@ export type DatasetFiltersInput = {
 };
 
 export type DatasetInput = {
+  file?: InputMaybe<Scalars['ID']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -1332,6 +1334,92 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type DatasetEntityFragment = {
+  __typename?: 'DatasetEntity';
+  id?: string | null;
+  attributes?: {
+    __typename?: 'Dataset';
+    title: string;
+    url: string;
+    organization: string;
+    file: {
+      __typename?: 'UploadFileEntityResponse';
+      data?: {
+        __typename?: 'UploadFileEntity';
+        attributes?: {
+          __typename?: 'UploadFile';
+          name: string;
+          url: string;
+        } | null;
+      } | null;
+    };
+  } | null;
+};
+
+export type FetchDatasetQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type FetchDatasetQuery = {
+  __typename?: 'Query';
+  datasets?: {
+    __typename?: 'DatasetEntityResponseCollection';
+    data: Array<{
+      __typename?: 'DatasetEntity';
+      id?: string | null;
+      attributes?: {
+        __typename?: 'Dataset';
+        title: string;
+        url: string;
+        organization: string;
+        file: {
+          __typename?: 'UploadFileEntityResponse';
+          data?: {
+            __typename?: 'UploadFileEntity';
+            attributes?: {
+              __typename?: 'UploadFile';
+              name: string;
+              url: string;
+            } | null;
+          } | null;
+        };
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetDatasetQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+export type GetDatasetQuery = {
+  __typename?: 'Query';
+  dataset?: {
+    __typename?: 'DatasetEntityResponse';
+    data?: {
+      __typename?: 'DatasetEntity';
+      id?: string | null;
+      attributes?: {
+        __typename?: 'Dataset';
+        title: string;
+        url: string;
+        organization: string;
+        file: {
+          __typename?: 'UploadFileEntityResponse';
+          data?: {
+            __typename?: 'UploadFileEntity';
+            attributes?: {
+              __typename?: 'UploadFile';
+              name: string;
+              url: string;
+            } | null;
+          } | null;
+        };
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type ProjectEntityFragment = {
   __typename?: 'ProjectEntity';
   id?: string | null;
@@ -1572,6 +1660,24 @@ export type FetchAllTagsQuery = {
   } | null;
 };
 
+export const DatasetEntityFragmentDoc = gql`
+  fragment datasetEntity on DatasetEntity {
+    id
+    attributes {
+      title
+      url
+      organization
+      file {
+        data {
+          attributes {
+            name
+            url
+          }
+        }
+      }
+    }
+  }
+`;
 export const ProjectEntityFragmentDoc = gql`
   fragment projectEntity on ProjectEntity {
     id
@@ -1617,6 +1723,29 @@ export const TagEntityFragmentDoc = gql`
       title
     }
   }
+`;
+export const FetchDatasetDocument = gql`
+  query fetchDataset($page: Int) {
+    datasets(
+      pagination: { page: $page, pageSize: 10 }
+      sort: "updatedAt:desc"
+    ) {
+      data {
+        ...datasetEntity
+      }
+    }
+  }
+  ${DatasetEntityFragmentDoc}
+`;
+export const GetDatasetDocument = gql`
+  query getDataset($id: ID) {
+    dataset(id: $id) {
+      data {
+        ...datasetEntity
+      }
+    }
+  }
+  ${DatasetEntityFragmentDoc}
 `;
 export const SearchProjectDocument = gql`
   query searchProject(
@@ -1691,6 +1820,36 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
+    fetchDataset(
+      variables?: FetchDatasetQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<FetchDatasetQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<FetchDatasetQuery>(FetchDatasetDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'fetchDataset',
+        'query',
+        variables
+      );
+    },
+    getDataset(
+      variables?: GetDatasetQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<GetDatasetQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetDatasetQuery>(GetDatasetDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getDataset',
+        'query',
+        variables
+      );
+    },
     searchProject(
       variables: SearchProjectQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders

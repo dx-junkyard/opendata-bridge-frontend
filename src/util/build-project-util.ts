@@ -14,9 +14,11 @@ const buildDataset = (datasetEntity: DatasetEntity): Dataset => {
   const datasetAttribute = datasetEntity?.attributes;
 
   return {
+    id: datasetEntity?.id || '',
     title: datasetAttribute?.title || '',
     url: datasetAttribute?.url || '',
     organization: datasetAttribute?.organization || '',
+    assetUrl: datasetAttribute?.file?.data?.attributes?.url || '',
   };
 };
 
@@ -42,9 +44,11 @@ export const buildProject = (project: ProjectEntity): Project | undefined => {
     .map((dataset) => buildDataset(dataset))
     .filter(
       (dataset) =>
+        dataset.id !== '' ||
         dataset.url !== '' ||
         dataset.title !== '' ||
-        dataset.organization !== ''
+        dataset.organization !== '' ||
+        dataset.assetUrl !== ''
     );
 
   const tags: string[] = (projectAttribute?.tags?.data || [])

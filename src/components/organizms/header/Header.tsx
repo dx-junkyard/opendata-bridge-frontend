@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { User } from '@/types/user';
 import { GlobalUserMenu } from '@/components/atoms/global-menu/user/GlobalUserMenu';
 import Link from 'next/link';
-import { LoginModal } from '@/components/molecules/login-modal/LoginModal';
-import LogoutMenu from '@/components/molecules/logout-menu/LogoutMenu';
+import { LoginModal } from '@/components/molecules/user/login-modal/LoginModal';
+import LogoutMenu from '@/components/molecules/user/logout-menu/LogoutMenu';
 
 interface HeaderProps {
   user?: User;
