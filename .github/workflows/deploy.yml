@@ -29,7 +29,7 @@ jobs:
           rm -rf ./.next/cache
 
       - name: Zip artifact for deployment
-        run: zip --symlink release.zip ./* -r
+        run: zip --symlink release.zip ./* .next -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
