@@ -1,4 +1,4 @@
-import SearchFilterList from '@/components/molecules/search-filter-list/SearchFilterList';
+import SearchFilterList from '@/components/molecules/search/search-filter-list/SearchFilterList';
 import { Meta, type StoryObj } from '@storybook/react';
 
 const meta = {

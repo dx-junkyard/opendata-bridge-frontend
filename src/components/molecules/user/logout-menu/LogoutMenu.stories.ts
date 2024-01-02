@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import LogoutMenu from '@/components/molecules/logout-menu/LogoutMenu';
+import LogoutMenu from '@/components/molecules/user/logout-menu/LogoutMenu';
 
 const meta = {
   title: 'OpendataBridge/Molecules/LogoutMenu',

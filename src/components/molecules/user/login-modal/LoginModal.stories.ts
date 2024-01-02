@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react';
-import { LoginModal } from '@/components/molecules/login-modal/LoginModal';
+import { LoginModal } from '@/components/molecules/user/login-modal/LoginModal';
 
 const meta = {
   title: 'OpendataBridge/Molecules/LoginModal',

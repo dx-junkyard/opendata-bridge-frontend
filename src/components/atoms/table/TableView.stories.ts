@@ -1,5 +1,5 @@
 import { Meta, type StoryObj } from '@storybook/react';
-import { TableView } from '@/components/molecules/table/TableView';
+import { TableView } from '@/components/atoms/table/TableView';
 
 const meta = {
   title: 'OpendataBridge/Molecules/TableView',

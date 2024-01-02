@@ -1,4 +1,4 @@
-import { SuccessFormattingModal } from '@/components/molecules/success-formating-modal/SuccessFormattingModal';
+import { SuccessFormattingModal } from '@/components/molecules/modal/success-formating-modal/SuccessFormattingModal';
 import { Meta, type StoryObj } from '@storybook/react';
 
 const meta = {

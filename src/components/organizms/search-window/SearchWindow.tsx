@@ -2,7 +2,7 @@ import { SearchInput } from '@/components/atoms/search/input/SearchInput';
 import { Button } from '@/components/atoms/button/Button';
 import { ProjectTag } from '@/types/project-tag';
 import { TagMap } from '@/hooks/use-filter-tag';
-import SearchFilterList from '@/components/molecules/search-filter-list/SearchFilterList';
+import SearchFilterList from '@/components/molecules/search/search-filter-list/SearchFilterList';
 
 interface SearchWindowProps {
   query: string;

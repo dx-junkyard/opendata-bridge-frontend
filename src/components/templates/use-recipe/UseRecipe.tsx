@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
 import { Project } from '@/types/project';
-import { ProjectCard } from '@/components/molecules/project-card/ProjectCard';
-import { ProjectTags } from '@/components/molecules/project-tags/ProjectTags';
-import { SuccessFormattingModal } from '@/components/molecules/success-formating-modal/SuccessFormattingModal';
+import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
+import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
+import { SuccessFormattingModal } from '@/components/molecules/modal/success-formating-modal/SuccessFormattingModal';
 import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
 import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
