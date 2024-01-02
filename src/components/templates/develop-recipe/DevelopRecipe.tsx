@@ -11,6 +11,8 @@ import { TableView } from '@/components/atoms/table/TableView';
 import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
 import { useInputPrompt } from '@/hooks/use-input-prompt';
 import CodeEditor from '@/components/atoms/code-editor/CodeEditor';
+import UploadButton from '@/components/atoms/upload-button/UploadButton';
+import SelectFileModal from '@/components/molecules/modal/select-file-modal/SelectFileModal';
 
 interface DevelopRecipeProps {
   project: Project;
@@ -35,13 +37,14 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">変換対象データのアップロード</h2>
         <InputFileList fileList={fileList} removeFile={removeFile} />
-        <div className="w-full bg-white grid grid-cols-1 gap-4 justify-items-center">
-          <Button color={'secondary'} size={'2xl'} label={'ファイルの追加'} />
-          {/*<Button*/}
-          {/*  color={'secondary'}*/}
-          {/*  size={'2xl'}*/}
-          {/*  label={'登録済みオープンデータから選ぶ'}*/}
-          {/*/>*/}
+        <div className="w-full bg-white grid md:grid-cols-2 gap-4 justify-items-center">
+          <SelectFileModal addFile={addFile} />
+          <UploadButton
+            color={'secondary'}
+            size={'2xl'}
+            label={'ファイルの追加'}
+            addFile={addFile}
+          />
         </div>
       </div>
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
