@@ -20,8 +20,8 @@ export const SearchWindow = ({
   updateTagState,
 }: SearchWindowProps) => {
   return (
-    <div className="bg-white w-full text-black px-[10px] md:px-[220px] py-[20px] flex flex-col space-y-4">
-      <div className="flex flex-col space-y-1 md:space-y-2">
+    <div className="bg-white w-full text-black px-[10px] xl:px-[220px] py-[20px] flex flex-col space-y-4">
+      <div className="flex flex-col space-y-1 xl:space-y-2">
         <h1 className="text-sm">オープンデータを検索する</h1>
         <div className="flex space-x-4">
           <SearchInput

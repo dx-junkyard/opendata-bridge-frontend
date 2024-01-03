@@ -31,15 +31,15 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
 
   return (
     <article>
-      <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-2">
-        <h1 className="text-2xl md:text-4xl">データ整形レシピの実行</h1>
+      <div className="bg-white text-black px-[10px] xl:px-[220px] py-[50px] flex flex-col space-y-2">
+        <h1 className="text-2xl xl:text-4xl">データ整形レシピの実行</h1>
         <ProjectCard project={project} />
         <ProjectTags tags={project.tags} />
       </div>
-      <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
+      <div className="bg-white text-black px-[10px] xl:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">変換対象データのアップロード</h2>
         <InputFileList fileList={fileList} removeFile={removeFile} />
-        <div className="w-full bg-white grid md:grid-cols-2 gap-4 justify-items-center">
+        <div className="w-full bg-white grid xl:grid-cols-2 gap-4 justify-items-center">
           <SelectFileModal addFile={addFile} />
           <UploadButton
             color={'secondary'}
@@ -49,7 +49,7 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
           />
         </div>
       </div>
-      <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-8">
+      <div className="bg-white text-black px-[10px] xl:px-[220px] py-[50px] flex flex-col space-y-8">
         <h2 className="text-xl">データ整形レシピの確認・編集</h2>
         {recipes.map((r, index) => {
           return (
