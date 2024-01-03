@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
