@@ -34,7 +34,7 @@ export const SuccessFormattingModal = () => {
           modal: 'success-formatting-modal',
         }}
       >
-        <div className="bg-white h-full flex flex-col justify-center items-center space-y-5 md:px-[50px]">
+        <div className="bg-white h-full flex flex-col justify-center items-center space-y-5 xl:px-[50px]">
           <div className="text-left space-y-4">
             <p className="text-2xl text-black font-bold">
               ファイルの整形に成功しました

@@ -67,8 +67,8 @@ const SelectFileModal = ({ addFile }: SelectFileModalProps) => {
             />
           </div>
 
-          <div className="grid md:grid-cols-4 gap-3 place-content-center w-full">
-            <div className="md:col-start-4">
+          <div className="grid xl:grid-cols-4 gap-3 place-content-center w-full">
+            <div className="xl:col-start-4">
               <Button
                 color={'secondary'}
                 size={'xl'}

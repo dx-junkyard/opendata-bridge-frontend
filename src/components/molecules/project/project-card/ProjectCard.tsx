@@ -28,7 +28,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         <h1 className="text-sm font-bold">{project.title}</h1>
         <p className="text-xs">{project.description}</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 content-center gap-3">
+      <div className="grid grid-cols-1 xl:grid-cols-2 content-center gap-3">
         {thumbnails}
       </div>
     </Link>

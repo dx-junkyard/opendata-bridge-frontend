@@ -20,25 +20,25 @@ export const DetailProject = ({
 
   return (
     <article>
-      <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-2">
-        <h1 className="text-2xl md:text-4xl">プロジェクト詳細情報</h1>
+      <div className="bg-white text-black px-[10px] xl:px-[220px] py-[50px] flex flex-col space-y-2">
+        <h1 className="text-2xl xl:text-4xl">プロジェクト詳細情報</h1>
         <ProjectCard project={project} />
         <ProjectTags tags={project.tags} />
       </div>
-      <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-2">
+      <div className="bg-white text-black px-[10px] xl:px-[220px] py-[50px] flex flex-col space-y-2">
         <h2 className="text-xl">変換元のオープンデータのリンク一覧</h2>
         <div>
           <DatasetLinkCardList datasetList={project.resources} />
         </div>
       </div>
       {script && (
-        <div className="bg-white text-black px-[10px] md:px-[220px] pt-[50px] pb-[100px] flex flex-col space-y-2 ">
+        <div className="bg-white text-black px-[10px] xl:px-[220px] pt-[50px] pb-[100px] flex flex-col space-y-2 ">
           <h2 className="text-xl">変換用のPythonコード</h2>
           <CodeEditor code={script} language="python" />
         </div>
       )}
       {isLogin && (
-        <div className="w-full text-black bg-blue-100 grid grid-cols-1 md:grid-cols-2 gap-24 px-[10px] md:px-[320px] py-[50px]">
+        <div className="w-full text-black bg-blue-100 grid grid-cols-1 xl:grid-cols-2 gap-24 px-[10px] xl:px-[320px] py-[50px]">
           <ActionCard
             title="データ整形レシピの実行"
             description="作成済みのデータ整形レシピを使って、データ整形を実行します"
