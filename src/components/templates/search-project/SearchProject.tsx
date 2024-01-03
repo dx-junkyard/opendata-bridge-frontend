@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hero } from '@/components/atoms/hero/Hero';
+import { Hero } from '@/components/atoms/ui-parts/hero/Hero';
 import { SearchWindow } from '@/components/organizms/search-window/SearchWindow';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';

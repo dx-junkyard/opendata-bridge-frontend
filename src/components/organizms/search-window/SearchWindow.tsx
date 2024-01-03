@@ -1,5 +1,5 @@
 import { SearchInput } from '@/components/atoms/search/input/SearchInput';
-import { Button } from '@/components/atoms/button/Button';
+import { Button } from '@/components/atoms/ui-parts/button/Button';
 import { ProjectTag } from '@/types/project-tag';
 import { TagMap } from '@/hooks/use-filter-tag';
 import SearchFilterList from '@/components/molecules/search/search-filter-list/SearchFilterList';

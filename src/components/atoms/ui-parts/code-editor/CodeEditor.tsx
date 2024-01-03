@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
 import Editor from '@monaco-editor/react';
-import DownloadButton from '@/components/atoms/download-button/DownloadButton';
-import CopyButton from '@/components/atoms/copy-button/CopyBotton';
+import DownloadButton from '@/components/atoms/ui-parts/download-button/DownloadButton';
+import CopyButton from '@/components/atoms/ui-parts/copy-button/CopyBotton';
 import { editor } from 'monaco-editor';
 
 interface CodeEditorProps {

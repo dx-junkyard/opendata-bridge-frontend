@@ -1,4 +1,4 @@
-import { Button } from '@/components/atoms/button/Button';
+import { Button } from '@/components/atoms/ui-parts/button/Button';
 import React from 'react';
 
 interface ProjectTagsProps {

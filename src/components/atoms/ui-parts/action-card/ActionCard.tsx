@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Button } from '@/components/atoms/button/Button';
+import { Button } from '@/components/atoms/ui-parts/button/Button';
 import Link from 'next/link';
 
 interface ActionCardProps {

@@ -15,17 +15,17 @@ const DatasetCardList = ({
     <div className="w-full">
       {datasetList.map((dataset, index) => {
         return (
-          <DatasetCard
-            key={index}
-            dataset={{
-              id: dataset.id,
-              title: dataset.title,
-              organization: dataset.organization,
-              url: dataset.url,
-              assetUrl: dataset.assetUrl,
-            }}
-            onClick={() => onClickItem(dataset)}
-          />
+          <button key={index} onClick={() => onClickItem(dataset)}>
+            <DatasetCard
+              dataset={{
+                id: dataset.id,
+                title: dataset.title,
+                organization: dataset.organization,
+                url: dataset.url,
+                assetUrl: dataset.assetUrl,
+              }}
+            />
+          </button>
         );
       })}
     </div>

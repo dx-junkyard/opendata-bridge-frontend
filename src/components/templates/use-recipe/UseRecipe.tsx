@@ -8,8 +8,8 @@ import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
 import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
 import { useInputRecipe } from '@/hooks/use-input-recipe';
-import UploadButton from '@/components/atoms/upload-button/UploadButton';
 import SelectFileModal from '@/components/molecules/modal/select-file-modal/SelectFileModal';
+import UploadButton from '@/components/atoms/ui-parts/upload-button/UploadButton';
 
 interface UseRecipeProps {
   project: Project;

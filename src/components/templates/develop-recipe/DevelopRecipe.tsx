@@ -3,16 +3,16 @@ import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
-import { Button } from '@/components/atoms/button/Button';
+import { Button } from '@/components/atoms/ui-parts/button/Button';
 import { useFileList } from '@/hooks/use-file-list';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
-import { Alert } from '@/components/atoms/alert/Alert';
-import { TableView } from '@/components/atoms/table/TableView';
+import { Alert } from '@/components/atoms/ui-parts/alert/Alert';
 import InputRecipe from '@/components/molecules/input-recipe/InputRecipe';
 import { useInputPrompt } from '@/hooks/use-input-prompt';
-import CodeEditor from '@/components/atoms/code-editor/CodeEditor';
-import UploadButton from '@/components/atoms/upload-button/UploadButton';
+import CodeEditor from '@/components/atoms/ui-parts/code-editor/CodeEditor';
 import SelectFileModal from '@/components/molecules/modal/select-file-modal/SelectFileModal';
+import UploadButton from '@/components/atoms/ui-parts/upload-button/UploadButton';
+import { TableView } from '@/components/atoms/ui-parts/table/TableView';
 
 interface DevelopRecipeProps {
   project: Project;
