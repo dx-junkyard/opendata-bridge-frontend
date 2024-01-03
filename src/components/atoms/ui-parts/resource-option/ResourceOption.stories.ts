@@ -1,5 +1,5 @@
-import { ResourceOption } from '@/components/atoms/resource-option/ResourceOption';
 import { Meta, type StoryObj } from '@storybook/react';
+import { ResourceOption } from '@/components/atoms/ui-parts/resource-option/ResourceOption';
 
 const meta = {
   title: 'OpendataBridge/Molecules/ResourceOption',

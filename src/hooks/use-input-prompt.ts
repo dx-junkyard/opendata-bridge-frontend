@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import useSWR from 'swr';
-import { GenericDataType } from '@/components/atoms/table/TableView';
 import useSWRMutation from 'swr/mutation';
-import { Recipe } from '@/types/recipe';
+import { GenericDataType } from '@/components/atoms/ui-parts/table/TableView';
 
 const table: GenericDataType[] = [
   {
