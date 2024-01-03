@@ -1,5 +1,5 @@
-import { ResourceOption } from '@/components/atoms/resource-option/ResourceOption';
 import React from 'react';
+import { ResourceOption } from '@/components/atoms/ui-parts/resource-option/ResourceOption';
 
 interface InputFileListProps {
   fileList: File[];

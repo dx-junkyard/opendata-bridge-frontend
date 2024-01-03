@@ -1,7 +1,7 @@
 import React from 'react';
-import CopyButton from '@/components/atoms/copy-button/CopyBotton';
+import CopyButton from '@/components/atoms/ui-parts/copy-button/CopyBotton';
 import { Recipe } from '@/types/recipe';
-import CodeEditor from '@/components/atoms/code-editor/CodeEditor';
+import CodeEditor from '@/components/atoms/ui-parts/code-editor/CodeEditor';
 
 interface InputRecipeProps {
   recipe: Recipe;

@@ -1,19 +1,14 @@
 import { Dataset } from '@/types/dataset';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
 
 interface DatasetCardProps {
   dataset: Dataset;
-  onClick: () => void;
 }
 
-export const DatasetCard = ({ dataset, onClick }: DatasetCardProps) => {
+export const DatasetCard = ({ dataset }: DatasetCardProps) => {
   return (
-    <button
-      className="border-gray-300 border-b w-full h-[86px] bg-white text-black flex justify-center items-center hover:bg-gray-50"
-      onClick={onClick}
-    >
+    <div className="border-gray-300 border-b w-full h-[86px] bg-white text-black flex justify-center items-center hover:bg-gray-50">
       <div className="text-center">
         <FontAwesomeIcon icon={faBuilding} />
       </div>
@@ -26,6 +21,6 @@ export const DatasetCard = ({ dataset, onClick }: DatasetCardProps) => {
       <div className="text-center">
         <FontAwesomeIcon icon={faChevronRight} />
       </div>
-    </button>
+    </div>
   );
 };

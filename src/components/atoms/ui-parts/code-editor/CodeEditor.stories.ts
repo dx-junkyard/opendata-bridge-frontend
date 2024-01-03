@@ -1,9 +1,10 @@
-import { Alert } from '@/components/atoms/alert/Alert';
+import CodeEditor from '@/components/atoms/ui-parts/code-editor/CodeEditor';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '@/components/atoms/ui-parts/button/Button';
 
 const meta = {
-  title: 'OpendataBridge/Atoms/Alert',
-  component: Alert,
+  title: 'OpendataBridge/atoms/CodeEditor',
+  component: CodeEditor,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
@@ -12,24 +13,22 @@ const meta = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {},
-} satisfies Meta<typeof Alert>;
+} satisfies Meta<typeof CodeEditor>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Info: Story = {
+export const Python: Story = {
   args: {
-    title: 'プロンプト実行が成功しました',
-    type: 'info',
+    code: 'import pandas as pd;',
+    language: 'python',
   },
 };
 
-export const Error: Story = {
+export const Markdown: Story = {
   args: {
-    title: 'プロンプト実行が失敗しました',
-    message: 'プロンプト実行時にエラーが発生したため、処理を中断しました。',
-    type: 'error',
+    code: '# title \n ## subtitle \n ### subsubtitle \n #### subsubsubtitle \n ##### subsubsubsubtitle \n ###### subsubsubsubsubtitle \n ####### subsubsubsubsubsubtitle \n',
+    language: 'markdown',
   },
 };

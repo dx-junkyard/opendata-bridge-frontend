@@ -1,21 +1,18 @@
 import { Dataset } from '@/types/dataset';
 import { DatasetCard } from '@/components/molecules/project/dataset-card/DatasetCard';
 import React from 'react';
+import Link from 'next/link';
 
 interface DatasetCardListProps {
   datasetList: Dataset[];
-  onClickItem: (dataset: Dataset) => void;
 }
 
-const DatasetCardList = ({
-  datasetList,
-  onClickItem,
-}: DatasetCardListProps) => {
+const DatasetLinkCardList = ({ datasetList }: DatasetCardListProps) => {
   return datasetList.length > 0 ? (
     <div className="w-full">
       {datasetList.map((dataset, index) => {
         return (
-          <button key={index} onClick={() => onClickItem(dataset)}>
+          <Link key={index} href={dataset.url} target="_blank">
             <DatasetCard
               dataset={{
                 id: dataset.id,
@@ -25,7 +22,7 @@ const DatasetCardList = ({
                 assetUrl: dataset.assetUrl,
               }}
             />
-          </button>
+          </Link>
         );
       })}
     </div>
@@ -36,4 +33,4 @@ const DatasetCardList = ({
   );
 };
 
-export default DatasetCardList;
+export default DatasetLinkCardList;
