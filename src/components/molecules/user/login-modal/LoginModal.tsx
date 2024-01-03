@@ -36,7 +36,7 @@ export const LoginModal = () => {
         }}
       >
         <div className="z-50 bg-white h-full flex flex-col justify-center items-center space-y-10 text-left">
-          <div className="space-y-4 text-black w-full xl:w-[60%]">
+          <div className="space-y-4 text-black w-full md:w-[60%]">
             <p className="text-2xl font-bold">ログイン</p>
             <p className="text-sm">メールアドレス</p>
             <input

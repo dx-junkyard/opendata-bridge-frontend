@@ -38,7 +38,7 @@ export const SearchProject = ({
         tags={tags}
         updateTagState={updateTagState}
       />
-      <div className="w-full bg-white text-black px-[10px] xl:px-[220px] py-[50px] flex flex-col">
+      <div className="w-full bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col">
         {!isLoading && !isTyping ? (
           <>
             <h1 className="text-sm">検索結果 : {projectList.length}件</h1>

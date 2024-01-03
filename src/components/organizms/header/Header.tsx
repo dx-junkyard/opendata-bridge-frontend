@@ -34,14 +34,14 @@ export const Header = ({ user }: HeaderProps) => {
         className={
           isOpen
             ? 'z-20 bg-white fixed top-[80px] right-0 left-0 flex flex-col'
-            : 'fixed right-[-100%] xl:right-4'
+            : 'fixed right-[-100%] md:right-4'
         }
       >
         <ul
           className={
             isOpen
-              ? 'flex justify-center items-center flex-col xl:gap-6 text-xl'
-              : 'block xl:flex xl:gap-8'
+              ? 'flex justify-center items-center flex-col md:gap-6 text-xl'
+              : 'block md:flex md:gap-8'
           }
         >
           {user ? (
@@ -66,7 +66,7 @@ export const Header = ({ user }: HeaderProps) => {
         </ul>
       </nav>
 
-      <button className="space-y-2 xl:hidden" onClick={handleMenuOpen}>
+      <button className="space-y-2 md:hidden" onClick={handleMenuOpen}>
         <span
           className={
             'block w-8 h-0.5 bg-gray-600 duration-300' +
