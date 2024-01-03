@@ -1,13 +1,10 @@
-'use client';
 import React from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
-import { ActionCard } from '@/components/atoms/action-card/ActionCard';
+import { ActionCard } from '@/components/atoms/ui-parts/action-card/ActionCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
-import CodeEditor from '@/components/atoms/code-editor/CodeEditor';
-import DatasetCardList from '@/components/molecules/project/dataset-card-list/DatasetCardList';
-import { Dataset } from '@/types/dataset';
-import { useRouter } from 'next/navigation';
+import CodeEditor from '@/components/atoms/ui-parts/code-editor/CodeEditor';
+import DatasetLinkCardList from '@/components/molecules/project/dataset-link-card-list/DatasetLinkCardList';
 
 interface DetailProjectProps {
   project: Project;
@@ -20,8 +17,6 @@ export const DetailProject = ({
 }: DetailProjectProps) => {
   const script = project.recipes[0]?.script || '';
 
-  const router = useRouter();
-
   return (
     <article>
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-2">
@@ -32,12 +27,7 @@ export const DetailProject = ({
       <div className="bg-white text-black px-[10px] md:px-[220px] py-[50px] flex flex-col space-y-2">
         <h2 className="text-xl">変換元のオープンデータのリンク一覧</h2>
         <div>
-          <DatasetCardList
-            datasetList={project.resources}
-            onClickItem={(dataset: Dataset) => {
-              router.push(dataset.url);
-            }}
-          />
+          <DatasetLinkCardList datasetList={project.resources} />
         </div>
       </div>
       {script && (
