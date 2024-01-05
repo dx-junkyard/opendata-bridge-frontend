@@ -15,6 +15,7 @@ const projects: Project[] = [
     thumbnails: ['/dummy.png', '/dummy.png'],
     resources: [],
     recipes: [],
+    formattedFiles: [],
   },
   {
     id: 'dummy2',
@@ -24,6 +25,7 @@ const projects: Project[] = [
     thumbnails: ['/dummy.png', '/dummy.png'],
     resources: [],
     recipes: [],
+    formattedFiles: [],
   },
 ];
 

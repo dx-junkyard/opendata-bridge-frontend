@@ -1,5 +1,6 @@
 import { Dataset } from '@/types/dataset';
 import { Recipe } from '@/types/recipe';
+import { FormattedFile } from '@/types/formatted-file';
 
 export type Project = {
   id: string;
@@ -9,4 +10,5 @@ export type Project = {
   thumbnails: string[];
   resources: Dataset[];
   recipes: Recipe[];
+  formattedFiles: FormattedFile[];
 };

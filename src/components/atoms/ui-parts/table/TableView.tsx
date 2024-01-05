@@ -2,38 +2,31 @@ import { createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
 import { useState } from 'react';
 import { flexRender, useReactTable } from '@tanstack/react-table';
 import classes from './TableView.module.scss';
+import { GenericDataType } from '@/types/csv-file';
 
-export type GenericDataType = Record<string, any>;
+interface TableViewProps {
+  defaultData: GenericDataType[];
+}
 
-const defaultData: GenericDataType[] = [
-  {
-    id: '1',
-    name: 'name-1',
-    creator: 'creator-1',
-    createdAt: '2021-01-01',
-    description: 'description-1',
-  },
-  {
-    id: '2',
-    name: 'name-2',
-    creator: 'creator-2',
-    createdAt: '2021-01-01',
-    description: 'description-2',
-  },
-];
-
-export const TableView = () => {
+export const TableView = ({ defaultData }: TableViewProps) => {
   const columnHelper = createColumnHelper<GenericDataType>();
 
+  const defaultDataWithNumbering = defaultData.map((data, index) => {
+    return {
+      No: index + 1,
+      ...data,
+    };
+  });
+
   // キーに基づいて列を動的に生成する
-  const columns = Object.keys(defaultData[0]).map((key) =>
+  const columns = Object.keys(defaultDataWithNumbering[0]).map((key) =>
     columnHelper.accessor(key, {
       header: key,
       cell: (info) => info.getValue(),
     })
   );
 
-  const [data, setData] = useState(() => [...defaultData]);
+  const [data, setData] = useState(() => [...defaultDataWithNumbering]);
   const table = useReactTable({
     data,
     columns,

@@ -69,7 +69,24 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
           <Alert title={'プロンプト実行が成功しました'} type={'info'} />
           <div className="w-full flex flex-col">
             <h3 className="text-sm">プロンプトによって整形されたデータ</h3>
-            <TableView />
+            <TableView
+              defaultData={[
+                {
+                  id: '1',
+                  name: 'name-1',
+                  creator: 'creator-1',
+                  createdAt: '2021-01-01',
+                  description: 'description-1',
+                },
+                {
+                  id: '2',
+                  name: 'name-2',
+                  creator: 'creator-2',
+                  createdAt: '2021-01-01',
+                  description: 'description-2',
+                },
+              ]}
+            />
           </div>
           <div className="w-full bg-white flex justify-center items-center">
             <Button

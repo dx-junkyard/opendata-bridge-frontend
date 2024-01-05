@@ -26,6 +26,7 @@ export const Default: Story = {
       thumbnails: [],
       resources: [],
       recipes: [],
+      formattedFiles: [],
     },
   },
 };

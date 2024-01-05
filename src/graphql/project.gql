@@ -31,6 +31,14 @@ fragment projectEntity on ProjectEntity {
         }
       }
     }
+    formattedFiles {
+      data {
+        attributes {
+          name
+          url
+        }
+      }
+    }
     updatedAt
   }
 }

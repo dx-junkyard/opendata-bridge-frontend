@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useSWRMutation from 'swr/mutation';
-import { GenericDataType } from '@/components/atoms/ui-parts/table/TableView';
+import { GenericDataType } from '@/types/csv-file';
 
 const table: GenericDataType[] = [
   {
