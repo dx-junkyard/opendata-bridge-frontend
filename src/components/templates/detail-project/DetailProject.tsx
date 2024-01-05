@@ -4,7 +4,6 @@ import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
 import { ActionCard } from '@/components/atoms/ui-parts/action-card/ActionCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
-import CodeEditor from '@/components/atoms/ui-parts/code-editor/CodeEditor';
 import DatasetLinkCardList from '@/components/molecules/project/dataset-link-card-list/DatasetLinkCardList';
 import { CsvFile } from '@/types/csv-file';
 import { TableView } from '@/components/atoms/ui-parts/table/TableView';
