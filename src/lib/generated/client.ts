@@ -1,8 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
-// @ts-ignore
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
 import gql from 'graphql-tag';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -662,6 +660,7 @@ export type Project = {
   __typename?: 'Project';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description: Scalars['String']['output'];
+  formattedFiles?: Maybe<UploadFileRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   recipes?: Maybe<Array<Maybe<ComponentProjectRecipe>>>;
   resources?: Maybe<DatasetRelationResponseCollection>;
@@ -669,6 +668,12 @@ export type Project = {
   thumbnails?: Maybe<UploadFileRelationResponseCollection>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ProjectFormattedFilesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type ProjectRecipesArgs = {
@@ -731,6 +736,7 @@ export type ProjectFiltersInput = {
 
 export type ProjectInput = {
   description?: InputMaybe<Scalars['String']['input']>;
+  formattedFiles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   recipes?: InputMaybe<Array<InputMaybe<ComponentProjectRecipeInput>>>;
   resources?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
@@ -1463,6 +1469,17 @@ export type ProjectEntityFragment = {
         attributes?: { __typename?: 'Tag'; title: string } | null;
       }>;
     } | null;
+    formattedFiles?: {
+      __typename?: 'UploadFileRelationResponseCollection';
+      data: Array<{
+        __typename?: 'UploadFileEntity';
+        attributes?: {
+          __typename?: 'UploadFile';
+          name: string;
+          url: string;
+        } | null;
+      }>;
+    } | null;
   } | null;
 };
 
@@ -1519,6 +1536,17 @@ export type SearchProjectQuery = {
             data: Array<{
               __typename?: 'TagEntity';
               attributes?: { __typename?: 'Tag'; title: string } | null;
+            }>;
+          } | null;
+          formattedFiles?: {
+            __typename?: 'UploadFileRelationResponseCollection';
+            data: Array<{
+              __typename?: 'UploadFileEntity';
+              attributes?: {
+                __typename?: 'UploadFile';
+                name: string;
+                url: string;
+              } | null;
             }>;
           } | null;
         } | null;
@@ -1579,6 +1607,17 @@ export type FilterProjectQuery = {
             attributes?: { __typename?: 'Tag'; title: string } | null;
           }>;
         } | null;
+        formattedFiles?: {
+          __typename?: 'UploadFileRelationResponseCollection';
+          data: Array<{
+            __typename?: 'UploadFileEntity';
+            attributes?: {
+              __typename?: 'UploadFile';
+              name: string;
+              url: string;
+            } | null;
+          }>;
+        } | null;
       } | null;
     }>;
   } | null;
@@ -1633,6 +1672,17 @@ export type GetProjectQuery = {
           data: Array<{
             __typename?: 'TagEntity';
             attributes?: { __typename?: 'Tag'; title: string } | null;
+          }>;
+        } | null;
+        formattedFiles?: {
+          __typename?: 'UploadFileRelationResponseCollection';
+          data: Array<{
+            __typename?: 'UploadFileEntity';
+            attributes?: {
+              __typename?: 'UploadFile';
+              name: string;
+              url: string;
+            } | null;
           }>;
         } | null;
       } | null;
@@ -1709,6 +1759,14 @@ export const ProjectEntityFragmentDoc = gql`
         data {
           attributes {
             title
+          }
+        }
+      }
+      formattedFiles {
+        data {
+          attributes {
+            name
+            url
           }
         }
       }
@@ -1912,5 +1970,4 @@ export function getSdk(
     },
   };
 }
-
 export type Sdk = ReturnType<typeof getSdk>;

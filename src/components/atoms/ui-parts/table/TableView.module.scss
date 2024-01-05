@@ -1,5 +1,4 @@
 .table {
-  width: 100%;
   border-collapse: collapse;
 }
 
@@ -8,6 +7,8 @@
   text-align: left;
   padding: 8px;
   border: 1px solid #ddd;
+  width: 0;
+  white-space: nowrap;
 }
 
 .td {

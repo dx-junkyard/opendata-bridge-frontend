@@ -6,18 +6,20 @@ import { ActionCard } from '@/components/atoms/ui-parts/action-card/ActionCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
 import CodeEditor from '@/components/atoms/ui-parts/code-editor/CodeEditor';
 import DatasetLinkCardList from '@/components/molecules/project/dataset-link-card-list/DatasetLinkCardList';
+import { CsvFile } from '@/types/csv-file';
+import { TableView } from '@/components/atoms/ui-parts/table/TableView';
 
 interface DetailProjectProps {
   project: Project;
   isLogin: boolean;
+  formattedFile?: CsvFile;
 }
 
 export const DetailProject = ({
   project,
   isLogin = false,
+  formattedFile,
 }: DetailProjectProps) => {
-  const script = project.recipes[0]?.script || '';
-
   return (
     <article className="w-full flex flex-col justify-center items-center">
       <div className="w-full bg-white text-black px-[10px] py-[50px] flex flex-col space-y-2">
@@ -31,12 +33,18 @@ export const DetailProject = ({
           <DatasetLinkCardList datasetList={project.resources} />
         </div>
       </div>
-      {script && (
-        <div className="w-full bg-white text-black px-[10px] pt-[50px] pb-[100px] flex flex-col space-y-2 ">
-          <h2 className="text-xl">変換用のPythonコード</h2>
-          <CodeEditor code={script} language="python" />
+
+      {formattedFile && (
+        <div className="w-full bg-white text-black px-[10px] py-[50px] flex flex-col space-y-2">
+          <h2 className="text-xl">
+            整形済みデータ(自治体標準データセットに準ずる)
+          </h2>
+          <div className="w-full overflow-auto">
+            <TableView defaultData={formattedFile.content.slice(0, 5)} />
+          </div>
         </div>
       )}
+
       {isLogin && (
         <div className="w-screen text-black bg-blue-100 flex items-center justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 px-[10px] py-[50px] max-w-[1000px]">

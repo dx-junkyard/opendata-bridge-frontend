@@ -9,6 +9,7 @@ import {
 import { Dataset } from '@/types/dataset';
 import { Project } from '@/types/project';
 import { Recipe } from '@/types/recipe';
+import { FormattedFile } from '@/types/formatted-file';
 
 const buildDataset = (datasetEntity: DatasetEntity): Dataset => {
   const datasetAttribute = datasetEntity?.attributes;
@@ -34,6 +35,13 @@ const buildRecipe = (recipe: Maybe<ComponentProjectRecipe>): Recipe => {
   return {
     prompt: recipe?.prompt || '',
     script: recipe?.script || '',
+  };
+};
+
+const buildFormattedFile = (formattedFile: UploadFileEntity): FormattedFile => {
+  return {
+    name: formattedFile?.attributes?.name || '',
+    url: formattedFile?.attributes?.url || '',
   };
 };
 
@@ -63,6 +71,14 @@ export const buildProject = (project: ProjectEntity): Project | undefined => {
     buildRecipe(recipe)
   );
 
+  const formattedFiles: FormattedFile[] = (
+    projectAttribute?.formattedFiles?.data || []
+  )
+    .map((formattedFile) => buildFormattedFile(formattedFile))
+    .filter(
+      (formattedFile) => formattedFile.name !== '' && formattedFile.url !== ''
+    );
+
   // 必須の項目がない場合はundefinedを返す
   if (
     !project.id ||
@@ -80,5 +96,6 @@ export const buildProject = (project: ProjectEntity): Project | undefined => {
     thumbnails,
     resources,
     recipes: recipes,
+    formattedFiles,
   };
 };
