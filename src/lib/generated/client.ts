@@ -1,6 +1,8 @@
 import { GraphQLClient } from 'graphql-request';
+// @ts-ignore
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
 import gql from 'graphql-tag';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -1970,4 +1972,5 @@ export function getSdk(
     },
   };
 }
+
 export type Sdk = ReturnType<typeof getSdk>;

@@ -23,6 +23,7 @@ export const Default: Story = {
       thumbnails: ['/dummy.png', '/dummy.png'],
       recipes: [],
       resources: [],
+      formattedFiles: [],
     },
   },
 };

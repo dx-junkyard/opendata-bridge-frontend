@@ -13,6 +13,7 @@ const project: Project = {
   thumbnails: ['/dummy.png', '/dummy.png'],
   recipes: [],
   resources: [],
+  formattedFiles: [],
 };
 
 export const DevelopRecipePageExample: FC = () => {

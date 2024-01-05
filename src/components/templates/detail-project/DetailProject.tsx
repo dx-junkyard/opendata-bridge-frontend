@@ -39,11 +39,11 @@ export const DetailProject = ({
           <h2 className="text-xl">
             整形済みデータ(自治体標準データセットに準ずる)
           </h2>
-          <div className="grid grid-cols-2">
-            <span className="text-left">
+          <div className="grid grid-cols-10">
+            <span className="text-left col-span-8">
               ※最大5行までプレビュー表示されます
             </span>
-            <div className="flex items-center justify-end">
+            <div className="flex items-center justify-end col-span-2">
               <DownloadButton
                 filename={formattedFile.name}
                 value={formattedFile.raw}
