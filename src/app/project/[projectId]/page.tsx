@@ -45,6 +45,7 @@ const fetchCsvFile = async (formattedFile: FormattedFile): Promise<CsvFile> => {
   return {
     name: formattedFile.name,
     content: csvData,
+    raw: csvString,
   };
 };
 

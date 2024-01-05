@@ -7,6 +7,7 @@ import { ProjectTags } from '@/components/molecules/project/project-tags/Project
 import DatasetLinkCardList from '@/components/molecules/project/dataset-link-card-list/DatasetLinkCardList';
 import { CsvFile } from '@/types/csv-file';
 import { TableView } from '@/components/atoms/ui-parts/table/TableView';
+import DownloadButton from '@/components/atoms/ui-parts/download-button/DownloadButton';
 
 interface DetailProjectProps {
   project: Project;
@@ -38,6 +39,17 @@ export const DetailProject = ({
           <h2 className="text-xl">
             整形済みデータ(自治体標準データセットに準ずる)
           </h2>
+          <div className="grid grid-cols-2">
+            <span className="text-left">
+              ※最大5行までプレビュー表示されます
+            </span>
+            <div className="flex items-center justify-end">
+              <DownloadButton
+                filename={formattedFile.name}
+                value={formattedFile.raw}
+              />
+            </div>
+          </div>
           <div className="w-full overflow-auto">
             <TableView defaultData={formattedFile.content.slice(0, 5)} />
           </div>
