@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
@@ -23,6 +23,28 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
 
   const { prompt, updatePrompt, actionUsePrompt, isLoading, result } =
     useInputPrompt(project.recipes[0]?.prompt || '');
+
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const eventSource = new EventSource(
+      'http://127.0.0.1:8000/chat?message=ローカルにあるREADMEファイルをpythonプログラムを読み取って回答してください'
+    );
+
+    eventSource.onmessage = (event) => {
+      const json = JSON.parse(event.data);
+      if (json.end_of_message) {
+        console.info("It's the end of the message.");
+        eventSource.close();
+      } else if (json.message || json.code) {
+        setMessage((prev) => prev + (json.message || json.code));
+      }
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []);
 
   return (
     <article className="w-full flex flex-col justify-center items-center">
@@ -63,6 +85,7 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
           />
         </div>
       </div>
+      <textarea className="w-full text-black" value={message} rows={30} />
       {result && !isLoading && (
         <div className="w-full bg-white text-black px-[10px] py-[50px] flex flex-col space-y-8">
           <h2 className="text-xl">プロンプト実行結果</h2>
