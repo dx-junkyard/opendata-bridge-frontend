@@ -62,6 +62,9 @@ const postActionUseRecipe = async (
     arg.setCode((prev) => prev + codeList.join(''));
   }
 
+  // 3秒待つ
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   if (arg.setOutput) {
     const output = await fetch('/api/asset/' + arg.uuid).then((res) =>
       res.text()
