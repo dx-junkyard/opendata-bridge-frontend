@@ -1,0 +1,9 @@
+query fetchUpload($name: String) {
+  uploadFiles(filters: { name: { eq: $name } }) {
+    data {
+      attributes {
+        url
+      }
+    }
+  }
+}
