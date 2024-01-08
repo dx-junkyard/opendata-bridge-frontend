@@ -2,7 +2,6 @@ import { GraphQLClient } from 'graphql-request';
 // @ts-ignore
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
 import gql from 'graphql-tag';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -1712,6 +1711,21 @@ export type FetchAllTagsQuery = {
   } | null;
 };
 
+export type FetchUploadQueryVariables = Exact<{
+  name?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type FetchUploadQuery = {
+  __typename?: 'Query';
+  uploadFiles?: {
+    __typename?: 'UploadFileEntityResponseCollection';
+    data: Array<{
+      __typename?: 'UploadFileEntity';
+      attributes?: { __typename?: 'UploadFile'; url: string } | null;
+    }>;
+  } | null;
+};
+
 export const DatasetEntityFragmentDoc = gql`
   fragment datasetEntity on DatasetEntity {
     id
@@ -1860,6 +1874,17 @@ export const FetchAllTagsDocument = gql`
   }
   ${TagEntityFragmentDoc}
 `;
+export const FetchUploadDocument = gql`
+  query fetchUpload($name: String) {
+    uploadFiles(filters: { name: { eq: $name } }) {
+      data {
+        attributes {
+          url
+        }
+      }
+    }
+  }
+`;
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -1970,7 +1995,21 @@ export function getSdk(
         variables
       );
     },
+    fetchUpload(
+      variables?: FetchUploadQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders
+    ): Promise<FetchUploadQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<FetchUploadQuery>(FetchUploadDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'fetchUpload',
+        'query',
+        variables
+      );
+    },
   };
 }
-
 export type Sdk = ReturnType<typeof getSdk>;
