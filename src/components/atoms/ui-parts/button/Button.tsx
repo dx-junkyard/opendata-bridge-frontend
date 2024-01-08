@@ -27,6 +27,8 @@ interface ButtonProps {
    * Is this the principal call to action on the page?
    */
   isLoading?: boolean;
+
+  loadingLabel?: string;
 }
 
 const selectColor = (color: ButtonColorType) => {
@@ -60,6 +62,7 @@ export const Button = ({
   label,
   onClick,
   isLoading = false,
+  loadingLabel = '登録中',
 }: ButtonProps) => {
   return (
     <button
@@ -78,7 +81,7 @@ export const Button = ({
             width={24}
             height={24}
           />{' '}
-          登録中
+          {loadingLabel}
         </span>
       ) : (
         label

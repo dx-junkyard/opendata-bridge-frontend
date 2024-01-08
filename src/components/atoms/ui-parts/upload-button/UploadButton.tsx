@@ -55,7 +55,7 @@ const UploadButton = ({ color, size, label, addFile }: UploadButtonProps) => {
         className="hidden"
         name={label}
         type="file"
-        accept="text/*"
+        accept="*/*"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           const files = e.target.files;
           if (files && files[0]) {
