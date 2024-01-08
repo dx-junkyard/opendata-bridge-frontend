@@ -13,17 +13,22 @@ const postActionUseRecipe = async (
     arg: {
       file: File;
       prompt: string;
-      setResult: (func: (prev: any) => any) => void;
+      setResult: (func: ((prev: any) => any) | string) => void;
       uuid: string;
-      setCode: (func: (prev: any) => any) => void;
-      setOutput?: (CsvFile: CsvFile) => void;
+      setCode: (func: ((prev: any) => any) | string) => void;
+      setOutput: (CsvFile: CsvFile | undefined) => void;
     };
   }
 ) => {
+  // 成果物を一度リセット
+  arg.setResult('');
+  arg.setCode('');
+  arg.setOutput(undefined);
+
   const body = new FormData();
   body.append('file', arg.file);
   body.append('message', arg.prompt);
-  body.append('extension', arg.file.name.split('.').pop() || '');
+  body.append('extension', arg.file.name.split('.').at(-1) || '');
   body.append('uuid', arg.uuid);
 
   const chatUrl = `${process.env.NEXT_PUBLIC_CHAT_API || ''}/chat`;
