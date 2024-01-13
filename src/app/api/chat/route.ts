@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 }
 
 const readStream = async (
-  reader: ReadableStreamDefaultReader<string | undefined>,
+  reader: ReadableStreamDefaultReader,
   writer: WritableStreamDefaultWriter
 ) => {
   while (1) {
