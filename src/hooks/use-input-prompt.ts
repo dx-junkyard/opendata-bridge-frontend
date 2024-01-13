@@ -31,11 +31,7 @@ const postActionUseRecipe = async (
   body.append('extension', arg.file.name.split('.').at(-1) || '');
   body.append('uuid', arg.uuid);
 
-  const chatUrl = `${process.env.NEXT_PUBLIC_CHAT_API || ''}/chat`;
-
-  console.log(chatUrl);
-
-  const response = await fetch(chatUrl, {
+  const response = await fetch('/api/chat', {
     method: 'POST',
     body,
   });
@@ -74,12 +70,16 @@ const postActionUseRecipe = async (
     const output = await fetch('/api/asset/' + arg.uuid).then((res) =>
       res.text()
     );
-    const csvData = parse(output, { columns: true });
-    arg.setOutput({
-      name: 'output.csv',
-      content: csvData,
-      raw: output,
-    } as CsvFile);
+    try {
+      const csvData = parse(output, { columns: true });
+      arg.setOutput({
+        name: 'output.csv',
+        content: csvData,
+        raw: output,
+      } as CsvFile);
+    } catch (e) {
+      console.error(e);
+    }
   }
 };
 
