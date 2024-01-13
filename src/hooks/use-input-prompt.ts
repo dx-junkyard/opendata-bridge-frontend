@@ -31,11 +31,7 @@ const postActionUseRecipe = async (
   body.append('extension', arg.file.name.split('.').at(-1) || '');
   body.append('uuid', arg.uuid);
 
-  const chatUrl = `${process.env.NEXT_PUBLIC_CHAT_API || ''}/chat`;
-
-  console.log(chatUrl);
-
-  const response = await fetch(chatUrl, {
+  const response = await fetch('/api/chat', {
     method: 'POST',
     body,
   });
