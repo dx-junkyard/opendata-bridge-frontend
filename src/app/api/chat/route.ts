@@ -1,10 +1,3 @@
-import {
-  ReadableStreamDefaultReader,
-  TextDecoderStream,
-  TransformStream,
-  WritableStreamDefaultWriter,
-} from 'stream/web';
-
 const chatUrl = `${process.env.CHAT_API || ''}/chat`;
 
 export async function POST(req: Request) {
@@ -34,6 +27,7 @@ export async function POST(req: Request) {
   // 非同期で実行する
   readStream(reader, writer);
 
+  // @ts-ignore
   return new Response(responseStream.readable, {
     headers: {
       'Content-Type': 'text/event-stream',
@@ -44,7 +38,7 @@ export async function POST(req: Request) {
 }
 
 const readStream = async (
-  reader: ReadableStreamDefaultReader,
+  reader: ReadableStreamDefaultReader<string | undefined>,
   writer: WritableStreamDefaultWriter
 ) => {
   while (1) {

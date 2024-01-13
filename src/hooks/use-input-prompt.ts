@@ -70,12 +70,16 @@ const postActionUseRecipe = async (
     const output = await fetch('/api/asset/' + arg.uuid).then((res) =>
       res.text()
     );
-    const csvData = parse(output, { columns: true });
-    arg.setOutput({
-      name: 'output.csv',
-      content: csvData,
-      raw: output,
-    } as CsvFile);
+    try {
+      const csvData = parse(output, { columns: true });
+      arg.setOutput({
+        name: 'output.csv',
+        content: csvData,
+        raw: output,
+      } as CsvFile);
+    } catch (e) {
+      console.error(e);
+    }
   }
 };
 
