@@ -21,7 +21,8 @@ export const getDataset = async (id: string): Promise<Dataset | undefined> => {
     dataset.url === '' ||
     dataset.title === '' ||
     dataset.organization === '' ||
-    dataset.assetUrl === ''
+    dataset.assetUrl === '' ||
+    dataset.extension === ''
   ) {
     return undefined;
   } else {

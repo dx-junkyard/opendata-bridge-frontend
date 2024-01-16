@@ -1,6 +1,5 @@
 import {
   ComponentProjectRecipe,
-  DatasetEntity,
   Maybe,
   ProjectEntity,
   TagEntity,
@@ -10,18 +9,7 @@ import { Dataset } from '@/types/dataset';
 import { Project } from '@/types/project';
 import { Recipe } from '@/types/recipe';
 import { FormattedFile } from '@/types/formatted-file';
-
-const buildDataset = (datasetEntity: DatasetEntity): Dataset => {
-  const datasetAttribute = datasetEntity?.attributes;
-
-  return {
-    id: datasetEntity?.id || '',
-    title: datasetAttribute?.title || '',
-    url: datasetAttribute?.url || '',
-    organization: datasetAttribute?.organization || '',
-    assetUrl: datasetAttribute?.file?.data?.attributes?.url || '',
-  };
-};
+import { buildDataset } from '@/util/build-dataset-util';
 
 const buildTag = (tagEntity: TagEntity): string => {
   return tagEntity?.attributes?.title || '';
@@ -56,7 +44,8 @@ export const buildProject = (project: ProjectEntity): Project | undefined => {
         dataset.url !== '' ||
         dataset.title !== '' ||
         dataset.organization !== '' ||
-        dataset.assetUrl !== ''
+        dataset.assetUrl !== '' ||
+        dataset.extension !== ''
     );
 
   const tags: string[] = (projectAttribute?.tags?.data || [])

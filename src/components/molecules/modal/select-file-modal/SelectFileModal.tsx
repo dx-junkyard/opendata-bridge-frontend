@@ -9,7 +9,6 @@ import './select-file-modal.scss';
 import { useFetchDataset } from '@/hooks/use-fetch-dataset';
 import DatasetCardList from '@/components/molecules/project/dataset-card-list/DatasetCardList';
 import { Dataset } from '@/types/dataset';
-import fetchAsset from '@/service/fetch-asset';
 
 interface SelectFileModalProps {
   addFile: (file: File) => void;
@@ -61,7 +60,12 @@ const SelectFileModal = ({ addFile }: SelectFileModalProps) => {
                 setIsLoading(true);
                 closeModal();
                 const asset = await fetch(`/api/dataset/asset/${dataset.id}`);
-                addFile(new File([await asset.text()], dataset.title));
+                addFile(
+                  new File(
+                    [await asset.text()],
+                    `${dataset.title}.${dataset.extension}`
+                  )
+                );
                 setIsLoading(false);
               }}
             />

@@ -1,14 +1,15 @@
 const chatUrl = `${process.env.CHAT_API || ''}/chat`;
 
 export async function POST(req: Request) {
-  console.info('POST ' + req.url);
+  const formData = await req.formData();
+
+  console.info(`POST:${req.url} extension:${formData.get('extension')} `);
 
   // レスポンス用のストリームを作成
   const responseStream = new TransformStream();
   const writer = responseStream.writable.getWriter();
 
   // リクエストをchat-apiに転送
-  const formData = await req.formData();
   const response = await fetch(chatUrl, {
     method: 'POST',
     body: formData,

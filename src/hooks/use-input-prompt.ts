@@ -67,10 +67,10 @@ const postActionUseRecipe = async (
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
   if (arg.setOutput) {
-    const output = await fetch('/api/asset/' + arg.uuid).then((res) =>
-      res.text()
-    );
     try {
+      const output = await fetch('/api/asset/' + arg.uuid).then((res) =>
+        res.text()
+      );
       const csvData = parse(output, { columns: true });
       arg.setOutput({
         name: 'output.csv',

@@ -12,6 +12,7 @@ fragment datasetEntity on DatasetEntity {
         }
       }
     }
+    extension
   }
 }
 

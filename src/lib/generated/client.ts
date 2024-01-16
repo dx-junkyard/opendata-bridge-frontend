@@ -2,6 +2,7 @@ import { GraphQLClient } from 'graphql-request';
 // @ts-ignore
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
 import gql from 'graphql-tag';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -184,6 +185,7 @@ export type ContentReleasesReleaseInput = {
 export type Dataset = {
   __typename?: 'Dataset';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  extension: Enum_Dataset_Extension;
   file: UploadFileEntityResponse;
   organization: Scalars['String']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -212,6 +214,7 @@ export type DatasetEntityResponseCollection = {
 export type DatasetFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<DatasetFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  extension?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<DatasetFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<DatasetFiltersInput>>>;
@@ -223,6 +226,7 @@ export type DatasetFiltersInput = {
 };
 
 export type DatasetInput = {
+  extension?: InputMaybe<Enum_Dataset_Extension>;
   file?: InputMaybe<Scalars['ID']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -263,6 +267,18 @@ export type DateTimeFilterInput = {
 export enum Enum_Contentreleasesreleaseaction_Type {
   Publish = 'publish',
   Unpublish = 'unpublish',
+}
+
+export enum Enum_Dataset_Extension {
+  Csv = 'csv',
+  Doc = 'doc',
+  Docs = 'docs',
+  Geojson = 'geojson',
+  Pdf = 'pdf',
+  Txt = 'txt',
+  Xls = 'xls',
+  Xlsx = 'xlsx',
+  Zip = 'zip',
 }
 
 export type FileInfoInput = {
@@ -1349,6 +1365,7 @@ export type DatasetEntityFragment = {
     title: string;
     url: string;
     organization: string;
+    extension: Enum_Dataset_Extension;
     file: {
       __typename?: 'UploadFileEntityResponse';
       data?: {
@@ -1379,6 +1396,7 @@ export type FetchDatasetQuery = {
         title: string;
         url: string;
         organization: string;
+        extension: Enum_Dataset_Extension;
         file: {
           __typename?: 'UploadFileEntityResponse';
           data?: {
@@ -1411,6 +1429,7 @@ export type GetDatasetQuery = {
         title: string;
         url: string;
         organization: string;
+        extension: Enum_Dataset_Extension;
         file: {
           __typename?: 'UploadFileEntityResponse';
           data?: {
@@ -1741,6 +1760,7 @@ export const DatasetEntityFragmentDoc = gql`
           }
         }
       }
+      extension
     }
   }
 `;
@@ -2012,4 +2032,5 @@ export function getSdk(
     },
   };
 }
+
 export type Sdk = ReturnType<typeof getSdk>;

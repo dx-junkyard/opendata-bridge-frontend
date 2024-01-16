@@ -27,6 +27,7 @@ const DatasetCardList = ({
                 organization: dataset.organization,
                 url: dataset.url,
                 assetUrl: dataset.assetUrl,
+                extension: dataset.extension,
               }}
             />
           </button>
