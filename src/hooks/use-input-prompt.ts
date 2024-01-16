@@ -49,13 +49,19 @@ const postActionUseRecipe = async (
     const messageList = value.split('\n').map((line) => {
       const jsonString = line.slice(6);
       if (jsonString === '') return '';
-      const json = JSON.parse(jsonString);
 
-      if (json.code) codeList.push(json.code);
+      try {
+        const json = JSON.parse(jsonString);
 
-      if (json.message) {
-        return json.message;
-      } else {
+        if (json.code) codeList.push(json.code);
+
+        if (json.message) {
+          return json.message;
+        } else {
+          return '';
+        }
+      } catch (e) {
+        console.error(e);
         return '';
       }
     });
