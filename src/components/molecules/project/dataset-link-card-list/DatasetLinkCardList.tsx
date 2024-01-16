@@ -20,6 +20,7 @@ const DatasetLinkCardList = ({ datasetList }: DatasetCardListProps) => {
                 organization: dataset.organization,
                 url: dataset.url,
                 assetUrl: dataset.assetUrl,
+                extension: dataset.extension,
               }}
             />
           </Link>

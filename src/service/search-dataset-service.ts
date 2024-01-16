@@ -17,6 +17,7 @@ export const searchDataset = async (page: number = 1): Promise<Dataset[]> => {
         dataset.url !== '' ||
         dataset.title !== '' ||
         dataset.organization !== '' ||
-        dataset.assetUrl !== ''
+        dataset.assetUrl !== '' ||
+        dataset.extension !== ''
     ) as Dataset[];
 };

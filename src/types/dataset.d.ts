@@ -4,4 +4,5 @@ export type Dataset = {
   url: string;
   organization: string;
   assetUrl: string;
+  extension: string;
 };

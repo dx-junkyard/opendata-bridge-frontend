@@ -24,6 +24,7 @@ export const Default: Story = {
       organization: '自治体名',
       url: '',
       assetUrl: '',
+      extension: 'csv',
     },
   },
 };

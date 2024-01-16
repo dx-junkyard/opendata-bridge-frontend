@@ -10,7 +10,7 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "codegen": "graphql-codegen -r dotenv/config --config codegen.ts"
+    "codegen": "graphql-codegen -r dotenv/config --config codegen.ts dotenv_config_path=.env.production.local"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
