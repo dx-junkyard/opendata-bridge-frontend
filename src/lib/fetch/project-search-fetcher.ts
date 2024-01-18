@@ -1,5 +1,4 @@
 import { Project } from '@/types/project';
-import { TagMap } from '@/hooks/use-filter-tag';
 
 export const searchProjectPath = '/api/project/search';
 

@@ -77,7 +77,7 @@ export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
         <div className="w-full bg-white text-black px-[10px] py-[50px] flex flex-col space-y-8">
           <h2 className="text-xl">プロンプト実行結果</h2>
           <MarkdownArea value={result} />
-          {output && !isLoading && (
+          {output.content.length > 0 && !isLoading && (
             <div className="w-full flex flex-col">
               <h3 className="text-sm">プロンプトによって整形されたデータ</h3>
               <div className="grid grid-cols-10">
