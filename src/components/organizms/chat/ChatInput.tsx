@@ -64,7 +64,7 @@ export const ChatInput: FC<ChatInputProps> = ({
 
         <TextareaAutosize
           className="ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring text-md flex w-full resize-none rounded-md border-none bg-transparent px-14 py-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-          placeholder={`Ask anything. Type "/" for prompts, "@" for files, and "#" for tools.`}
+          placeholder={`データ整形の方法についてご指示ください。例 : CSV形式に変換して保存してください。`}
           onValueChange={updatePrompt}
           value={prompt}
           minRows={1}
