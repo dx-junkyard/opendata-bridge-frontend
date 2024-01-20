@@ -1,8 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
-// @ts-ignore
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
 import gql from 'graphql-tag';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -1740,7 +1738,11 @@ export type FetchUploadQuery = {
     __typename?: 'UploadFileEntityResponseCollection';
     data: Array<{
       __typename?: 'UploadFileEntity';
-      attributes?: { __typename?: 'UploadFile'; url: string } | null;
+      attributes?: {
+        __typename?: 'UploadFile';
+        url: string;
+        updatedAt?: any | null;
+      } | null;
     }>;
   } | null;
 };
@@ -1896,10 +1898,11 @@ export const FetchAllTagsDocument = gql`
 `;
 export const FetchUploadDocument = gql`
   query fetchUpload($name: String) {
-    uploadFiles(filters: { name: { eq: $name } }) {
+    uploadFiles(filters: { name: { eq: $name } }, sort: "updatedAt:desc") {
       data {
         attributes {
           url
+          updatedAt
         }
       }
     }
@@ -2032,5 +2035,4 @@ export function getSdk(
     },
   };
 }
-
 export type Sdk = ReturnType<typeof getSdk>;

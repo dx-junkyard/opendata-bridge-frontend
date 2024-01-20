@@ -1,8 +1,9 @@
 query fetchUpload($name: String) {
-  uploadFiles(filters: { name: { eq: $name } }) {
+  uploadFiles(filters: { name: { eq: $name } }, sort: "updatedAt:desc") {
     data {
       attributes {
         url
+        updatedAt
       }
     }
   }

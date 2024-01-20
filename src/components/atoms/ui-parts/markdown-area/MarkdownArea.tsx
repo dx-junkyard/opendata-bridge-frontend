@@ -18,7 +18,7 @@ interface MarkdownAreaProps {
 
 const MarkdownArea = ({ value }: MarkdownAreaProps) => {
   return (
-    <div className="w-full border border-black rounded-md text-black p-3">
+    <div className="w-full text-black p-3">
       <MemoizedReactMarkdown
         className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0"
         remarkPlugins={[remarkGfm, remarkMath]}

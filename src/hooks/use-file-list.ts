@@ -17,5 +17,9 @@ export const useFileList = (initialFileList: File[]) => {
     setFileList((prev) => prev.filter((_, i) => i !== index));
   };
 
-  return { fileList, addFile, removeFile };
+  const resetFileList = () => {
+    setFileList([]);
+  };
+
+  return { fileList, addFile, removeFile, resetFileList };
 };
