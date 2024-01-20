@@ -1,12 +1,13 @@
 import { FC } from 'react';
-import { Message } from './Message';
+import { ChatMessage } from './ChatMessage';
+import { Message } from '@/types/message';
 
 interface ChatMessagesProps {
-  chatMessages: { role: string; content: string }[];
+  chatMessages: Message[];
 }
 
 export const ChatMessages: FC<ChatMessagesProps> = ({ chatMessages }) => {
   return chatMessages.map((message, index) => {
-    return <Message key={index} message={message} />;
+    return <ChatMessage key={index} message={message} />;
   });
 };

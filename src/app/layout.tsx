@@ -31,8 +31,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html lang="ja">
       <body className={`${inter.className}`}>
         <Header user={user} />
-        <div className="h-[80px]" />
-        <div className="w-full flex justify-center items-center max-w-[1000px] mx-auto">
+        <div className="w-full pt-[80px] flex justify-center items-center max-w-[1000px] mx-auto">
           {children}
         </div>
         <Footer />

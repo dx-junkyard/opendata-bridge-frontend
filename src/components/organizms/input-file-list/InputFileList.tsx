@@ -8,7 +8,7 @@ interface InputFileListProps {
 
 export const InputFileList = ({ fileList, removeFile }: InputFileListProps) => {
   return (
-    <div>
+    <div className="my-2">
       {fileList.length > 0 ? (
         fileList.map((file, index) => (
           <ResourceOption
@@ -21,7 +21,7 @@ export const InputFileList = ({ fileList, removeFile }: InputFileListProps) => {
           />
         ))
       ) : (
-        <div className="w-full h-[100px] bg-gray-50 rounded-xl text-gray-600 flex justify-center items-center text-center">
+        <div className="w-full h-[50px] bg-gray-50 rounded-xl text-gray-600 flex justify-center items-center text-center">
           <p>変換対象データがありません</p>
         </div>
       )}
