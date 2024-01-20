@@ -23,7 +23,7 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
 
   return (
     <div className="relative flex h-full flex-col items-center">
-      <div className="flex h-[500px] w-full flex-col overflow-auto border-b">
+      <div className="flex h-[590px] w-full flex-col overflow-auto border-b">
         {messages.length > 0 ? (
           <ChatMessages chatMessages={messages} />
         ) : (
