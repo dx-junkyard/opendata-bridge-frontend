@@ -16,13 +16,20 @@ const DetailProjectPage = async ({
 }) => {
   console.info(`Detail: ${params.projectId}`);
 
+  const session = await getServerSession(authOptions);
+
+  const isGuest =
+    (process.env.PRIVATE_MODE === 'true' && !session?.user?.name) || false;
+
+  if (isGuest) {
+    return notFound();
+  }
+
   const project = await getProject(params.projectId);
 
   if (!project) {
     return notFound();
   }
-
-  const session = await getServerSession(authOptions);
 
   const isLogin = !!session?.user?.name;
 

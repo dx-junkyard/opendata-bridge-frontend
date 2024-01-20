@@ -1,7 +1,25 @@
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/next-auth/auth-options';
+
 export async function POST(req: Request) {
   const formData = await req.formData();
 
   console.info(`POST:${req.url} extension:${formData.get('extension')} `);
+
+  const session = await getServerSession(authOptions);
+
+  const isGuest = !session?.user?.name;
+
+  if (isGuest) {
+    return new Response(
+      JSON.stringify({
+        status: 401,
+      }),
+      {
+        status: 401,
+      }
+    );
+  }
 
   // レスポンス用のストリームを作成
   const responseStream = new TransformStream();
