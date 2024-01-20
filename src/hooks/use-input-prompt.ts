@@ -12,7 +12,7 @@ export const postPrompt = async (
     arg,
   }: {
     arg: {
-      file: File;
+      file?: File;
       prompt: string;
       uuid: string;
       setMessages: (func: ((prev: Message[]) => Message[]) | Message[]) => void;
@@ -21,9 +21,12 @@ export const postPrompt = async (
   }
 ) => {
   const body = new FormData();
-  body.append('file', arg.file);
   body.append('message', arg.prompt);
-  body.append('extension', arg.file.name.split('.').at(-1) || '');
+
+  if (arg.file) {
+    body.append('file', arg.file);
+    body.append('extension', arg.file.name.split('.').at(-1) || '');
+  }
   body.append('uuid', arg.uuid);
 
   const response = await fetch('/api/chat', {
@@ -77,9 +80,10 @@ export const postPrompt = async (
 export const useInputPrompt = (initialPrompt: string | undefined) => {
   const [prompt, setPrompt] = useState<string>(initialPrompt || '');
   const [code, setCode] = useState<string>('');
-  const { fileList, addFile, removeFile } = useFileList([]);
-  const [output, setOutput] = useState<string>('');
+  const { fileList, addFile, removeFile, resetFileList } = useFileList([]);
+  const [isChatting, setIsChatting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [uuid, setUUid] = useState<string>(uuidv4());
 
   const updatePrompt = (newPrompt: string) => {
     setPrompt(newPrompt);
@@ -111,11 +115,13 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
           {
             role: 'assistant',
             content: lastMessage.content,
-            file: {
-              name: 'output.csv',
-              content: parseCsv(file),
-              raw: file,
-            },
+            file: file
+              ? {
+                  name: 'output.csv',
+                  content: parseCsv(file),
+                  raw: file,
+                }
+              : undefined,
           },
         ];
       } else {
@@ -127,34 +133,37 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
   const { trigger, isMutating } = useSWRMutation('/chat', postPrompt);
 
   const actionUsePrompt = async () => {
-    if (fileList.length > 0) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ]);
+    setIsChatting(true);
 
-      const uuid = uuidv4();
-      await trigger({
-        file: fileList[0],
-        prompt,
-        uuid,
-        setMessages,
-        updateLastMessage,
-      });
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ]);
 
-      // 10秒待つ
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+    await trigger({
+      file: fileList[0],
+      prompt,
+      uuid,
+      setMessages,
+      updateLastMessage,
+    });
 
-      try {
-        const data = await assetFetcher(uuid);
-        updateLastMessageWithFile(data);
-      } catch (e) {
-        console.error(e);
-      }
+    // 一定時間待つ
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    try {
+      const data = await assetFetcher(uuid);
+      updateLastMessageWithFile(data);
+    } catch (e) {
+      console.error(e);
     }
+
+    setPrompt('');
+    resetFileList();
+    setIsChatting(false);
   };
 
   return {
@@ -167,6 +176,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     removeFile,
     code,
     messages,
+    isChatting,
   };
 };
 

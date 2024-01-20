@@ -1,5 +1,3 @@
-const chatUrl = `${process.env.CHAT_API || ''}/chat`;
-
 export async function POST(req: Request) {
   const formData = await req.formData();
 
@@ -10,7 +8,16 @@ export async function POST(req: Request) {
   const writer = responseStream.writable.getWriter();
 
   // リクエストをchat-apiに転送
-  const response = await fetch(chatUrl, {
+
+  let apiUrl: string;
+
+  if (formData.get('file') && formData.get('extension')) {
+    apiUrl = `${process.env.CHAT_API || ''}/chat/file`;
+  } else {
+    apiUrl = `${process.env.CHAT_API || ''}/chat`;
+  }
+
+  const response = await fetch(apiUrl, {
     method: 'POST',
     body: formData,
   });

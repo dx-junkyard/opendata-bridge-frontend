@@ -18,6 +18,7 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
     addFile,
     removeFile,
     messages,
+    isChatting,
   } = useInputPrompt(project.recipes[0]?.prompt || '');
 
   return (
@@ -42,6 +43,7 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
           prompt={prompt}
           updatePrompt={updatePrompt}
           actionUsePrompt={actionUsePrompt}
+          isChatting={isChatting}
         />
       </div>
     </div>

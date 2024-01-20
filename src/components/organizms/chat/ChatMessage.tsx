@@ -49,7 +49,7 @@ export const ChatMessage: FC<MessageProps> = ({ message }) => {
           </div>
           <MarkdownArea value={message.content} />
 
-          {message.file && (
+          {message.file?.content.length && (
             <div className="w-full flex flex-col text-black">
               <h3 className="text-sm">整形されたデータ</h3>
               <div className="grid grid-cols-10">

@@ -3,7 +3,11 @@ import { Input } from './Input';
 import { TextareaAutosize } from './TextareaAutosize';
 import { cn } from '@/util/cn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleNotch,
+  faCirclePlus,
+  faPaperPlane,
+} from '@fortawesome/free-solid-svg-icons';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
 
 interface ChatInputProps {
@@ -13,6 +17,7 @@ interface ChatInputProps {
   prompt: string;
   updatePrompt: (value: string) => void;
   actionUsePrompt: () => void;
+  isChatting: boolean;
 }
 
 export const ChatInput: FC<ChatInputProps> = ({
@@ -22,6 +27,7 @@ export const ChatInput: FC<ChatInputProps> = ({
   prompt,
   updatePrompt,
   actionUsePrompt,
+  isChatting,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -69,21 +75,39 @@ export const ChatInput: FC<ChatInputProps> = ({
           //   onCompositionEnd={() => setIsTyping(false)}
         />
 
-        <div
-          className="absolute bottom-[14px] right-3 cursor-pointer hover:opacity-50 text-black"
-          onClick={() => {
-            actionUsePrompt();
-          }}
-        >
+        {!isChatting ? (
           <div
-            className={cn(
-              'bg-primary text-secondary rounded p-1',
-              !prompt && fileList.length > 0 && 'cursor-not-allowed opacity-50'
-            )}
+            className="absolute bottom-[14px] right-3 cursor-pointer hover:opacity-50 text-black"
+            onClick={() => {
+              actionUsePrompt();
+            }}
           >
-            <FontAwesomeIcon icon={faPaperPlane} width={30} height={30} />
+            <div
+              className={cn(
+                'bg-primary text-secondary rounded p-1',
+                !prompt && 'cursor-not-allowed opacity-50'
+              )}
+            >
+              <FontAwesomeIcon icon={faPaperPlane} width={30} height={30} />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="absolute bottom-[14px] right-3 cursor-pointer hover:opacity-50 text-black">
+            <div
+              className={cn(
+                'bg-primary text-secondary rounded p-1',
+                !prompt && 'cursor-not-allowed opacity-50'
+              )}
+            >
+              <FontAwesomeIcon
+                className="animate-spin"
+                icon={faCircleNotch}
+                width={30}
+                height={30}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
