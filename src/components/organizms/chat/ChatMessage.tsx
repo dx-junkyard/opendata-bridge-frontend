@@ -22,11 +22,16 @@ export const ChatMessage: FC<MessageProps> = ({ message }) => {
         message.role === 'user' ? '' : 'bg-gray-50'
       )}
     >
-      <div className="relative flex w-[300px] flex-col py-6 sm:w-[400px] md:w-[500px] lg:w-[600px] xl:w-[700px] ">
-        <div className="space-y-3">
+      <div className="relative flex flex-col py-6 w-full md:w-[768px]">
+        <div className="space-y-3 mx-3">
           <div className="flex items-center space-x-3">
             {message.role === 'assistant' ? (
-              <div className="bg-primary text-secondary border-primary rounded border-[1px] p-1 text-black">
+              <div
+                className={cn(
+                  'bg-primary text-secondary border-primary rounded border-[1px] p-1 text-black',
+                  `w-[${ICON_SIZE}px] h-[${ICON_SIZE}px]`
+                )}
+              >
                 <FontAwesomeIcon
                   icon={faRobot}
                   width={ICON_SIZE}
@@ -34,7 +39,12 @@ export const ChatMessage: FC<MessageProps> = ({ message }) => {
                 />
               </div>
             ) : (
-              <div className="bg-primary text-secondary border-primary rounded border-[1px] p-1 text-black">
+              <div
+                className={cn(
+                  'bg-primary text-secondary border-primary rounded border-[1px] p-1 text-black',
+                  `w-[${ICON_SIZE}px] h-[${ICON_SIZE}px]`
+                )}
+              >
                 <FontAwesomeIcon
                   icon={faFaceSmile}
                   width={ICON_SIZE}

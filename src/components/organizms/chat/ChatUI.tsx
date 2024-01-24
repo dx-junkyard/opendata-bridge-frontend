@@ -23,28 +23,30 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
 
   return (
     <div className="relative flex h-full flex-col items-center">
-      <div className="flex h-[590px] w-full flex-col overflow-auto border-b">
+      <div className="flex h-full w-full flex-col overflow-auto">
         {messages.length > 0 ? (
           <ChatMessages chatMessages={messages} />
         ) : (
           <div className="w-screen h-full bg-white text-black flex justify-center">
-            <div className="sm:w-[400px] h-[300px] md:w-[500px] lg:w-[600px] xl:w-[700px] flex justify-center flex-col">
+            <div className="w-full md:w-[768px] flex justify-center flex-col mx-3">
               <ProjectCard project={project} />
             </div>
           </div>
         )}
       </div>
 
-      <div className="relative w-[300px] items-end sm:w-[400px] md:w-[500px] lg:w-[660px] xl:w-[800px] text-black">
-        <ChatInput
-          addFile={addFile}
-          fileList={fileList}
-          removeFile={removeFile}
-          prompt={prompt}
-          updatePrompt={updatePrompt}
-          actionUsePrompt={actionUsePrompt}
-          isChatting={isChatting}
-        />
+      <div className="fixed z-50 bottom-0 items-end w-screen text-black bg-white border-t flex justify-center">
+        <div className="w-full md:w-[768px] mx-3">
+          <ChatInput
+            addFile={addFile}
+            fileList={fileList}
+            removeFile={removeFile}
+            prompt={prompt}
+            updatePrompt={updatePrompt}
+            actionUsePrompt={actionUsePrompt}
+            isChatting={isChatting}
+          />
+        </div>
       </div>
     </div>
   );
