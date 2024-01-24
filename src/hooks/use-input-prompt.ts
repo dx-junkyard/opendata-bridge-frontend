@@ -79,7 +79,6 @@ export const postPrompt = async (
 
 export const useInputPrompt = (initialPrompt: string | undefined) => {
   const [prompt, setPrompt] = useState<string>(initialPrompt || '');
-  const [code, setCode] = useState<string>('');
   const { fileList, addFile, removeFile, resetFileList } = useFileList([]);
   const [isChatting, setIsChatting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -152,7 +151,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     });
 
     // 一定時間待つ
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     try {
       const data = await assetFetcher(uuid);
@@ -174,7 +173,6 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     fileList,
     addFile,
     removeFile,
-    code,
     messages,
     isChatting,
   };

@@ -37,7 +37,12 @@ const MarkdownArea = ({ value }: MarkdownAreaProps) => {
           },
           a({ children, ...props }) {
             return (
-              <Link className="text-blue-700" href={props.href || '/'}>
+              <Link
+                className="text-blue-700"
+                href={props.href || '/'}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {children}
               </Link>
             );
