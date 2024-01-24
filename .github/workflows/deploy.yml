@@ -27,6 +27,9 @@ jobs:
           npm run build --if-present
           npm ci --omit=dev
           rm -rf ./.next/cache
+          # For standalone
+          cp -r .next/static .next/standalone/.next
+          cp -r public .next/standalone
         env:
           NEXT_PUBLIC_CHAT_API: ${{ secrets.NEXT_PUBLIC_CHAT_API }}
 

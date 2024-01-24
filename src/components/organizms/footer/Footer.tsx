@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const Footer = () => (
   <footer className="w-screen footer bg-white text-black text-center">
-    <div className="grid grid-cols-1 place-items-center content-stretch gap-y-5 md:gap-y-0 md:grid-cols-4 max-w-[1200px] mx-auto py-[30px]">
+    <div className="grid grid-cols-1 place-items-center content-stretch gap-y-5 md:gap-y-0 md:grid-cols-4 max-w-[1500px] mx-auto py-[30px]">
       <div className="font-bold text-2xl leading-none md:text-left">
         Opendata
         <br />

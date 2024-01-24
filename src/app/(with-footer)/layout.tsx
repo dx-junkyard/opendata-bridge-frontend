@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.scss';
+import '@/app/globals.scss';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import React from 'react';
 import { getServerSession } from 'next-auth';
 import { User } from '@/types/user';
 import { Header } from '@/components/organizms/header/Header';
-import { Footer } from '@/components/organizms/footer/Footer';
 import { authOptions } from '@/lib/next-auth/auth-options';
+import { Footer } from '@/components/organizms/footer/Footer';
 
 config.autoAddCss = false;
 
