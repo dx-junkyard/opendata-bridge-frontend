@@ -22,8 +22,8 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
   } = useInputPrompt(project.recipes[0]?.prompt || '');
 
   return (
-    <div className="relative flex h-full flex-col items-center">
-      <div className="flex h-full w-full flex-col overflow-auto">
+    <div className="relative flex h-full flex-col items-center mb-[200px]">
+      <div className="flex h-full w-full flex-col">
         {messages.length > 0 ? (
           <ChatMessages chatMessages={messages} />
         ) : (
