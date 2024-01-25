@@ -24,7 +24,7 @@ export const Header = ({ user }: HeaderProps) => {
   };
 
   return (
-    <header className="flex items-center header bg-white text-black w-screen fixed z-10">
+    <header className="flex items-center header bg-white text-black w-full fixed z-10">
       <Link href={'/'} className="flex items-center">
         <Image src="/logo.svg" alt={'logo'} width={54} height={54} />
         <h1 className="font-bold text-2xl leading-none">Opendata Bridge</h1>

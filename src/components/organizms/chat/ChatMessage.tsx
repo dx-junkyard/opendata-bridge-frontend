@@ -18,7 +18,7 @@ export const ChatMessage: FC<MessageProps> = ({ message }) => {
   return (
     <div
       className={cn(
-        'flex w-screen justify-center',
+        'flex w-[99vw] justify-center',
         message.role === 'user' ? '' : 'bg-gray-50'
       )}
     >
@@ -73,7 +73,7 @@ export const ChatMessage: FC<MessageProps> = ({ message }) => {
                   />
                 </div>
               </div>
-              <div className="w-full overflow-auto">
+              <div className="w-full overflow-scroll">
                 <TableView defaultData={message.file.content.slice(0, 5)} />
               </div>
             </div>

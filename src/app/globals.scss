@@ -17,3 +17,11 @@ body {
   color: rgb(var(--foreground-rgb));
   background-color: white;
 }
+
+*::-webkit-scrollbar {
+  @apply w-3 h-3 rounded-lg bg-gray-50;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-lg bg-gray-300;
+}
