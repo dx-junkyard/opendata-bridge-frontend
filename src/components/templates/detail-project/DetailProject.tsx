@@ -57,7 +57,7 @@ export const DetailProject = ({
       )}
 
       {isLogin && (
-        <div className="w-screen text-black bg-blue-100 flex items-center justify-center">
+        <div className="w-[99vw] text-black bg-blue-100 flex items-center justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 px-[10px] py-[50px] max-w-[1000px]">
             <ActionCard
               title="データ整形レシピの実行"

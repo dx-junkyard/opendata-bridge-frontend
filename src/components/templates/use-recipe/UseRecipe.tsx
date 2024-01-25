@@ -83,7 +83,7 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
                   <DownloadButton filename={output.name} value={output.raw} />
                 </div>
               </div>
-              <div className="w-full overflow-auto">
+              <div className="w-full hover:overflow-scroll">
                 <TableView defaultData={output.content.slice(0, 5)} />
               </div>
             </div>

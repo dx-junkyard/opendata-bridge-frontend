@@ -27,7 +27,7 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
         {messages.length > 0 ? (
           <ChatMessages chatMessages={messages} />
         ) : (
-          <div className="w-screen h-full bg-white text-black flex justify-center">
+          <div className="w-[99vw] h-full bg-white text-black flex justify-center">
             <div className="w-full md:w-[768px] flex justify-center flex-col mx-3">
               <ProjectCard project={project} />
             </div>
@@ -35,7 +35,7 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
         )}
       </div>
 
-      <div className="fixed z-50 bottom-0 items-end w-screen text-black bg-white border-t flex justify-center">
+      <div className="fixed z-50 bottom-0 items-end w-[99vw] text-black bg-white border-t flex justify-center">
         <div className="w-full md:w-[768px] mx-3">
           <ChatInput
             addFile={addFile}
