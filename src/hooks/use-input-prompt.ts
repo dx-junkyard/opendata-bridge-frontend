@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 import { useFileList } from './use-file-list';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,6 +17,7 @@ export const postPrompt = async (
       uuid: string;
       setMessages: (func: ((prev: Message[]) => Message[]) | Message[]) => void;
       updateLastMessage: (newMessage: string) => void;
+      checkCancel: () => boolean;
     };
   }
 ) => {
@@ -29,10 +30,19 @@ export const postPrompt = async (
   }
   body.append('uuid', arg.uuid);
 
-  const response = await fetch('/api/chat', {
-    method: 'POST',
-    body,
-  });
+  let response;
+
+  try {
+    response = await fetch('/api/chat', {
+      method: 'POST',
+      body,
+    });
+  } catch (err) {
+    arg.updateLastMessage(
+      'メッセージの受信に失敗しました。再度実行してください。'
+    );
+    return;
+  }
 
   const reader = response?.body
     ?.pipeThrough(new TextDecoderStream())
@@ -49,6 +59,12 @@ export const postPrompt = async (
   ]);
 
   while (true) {
+    if (arg.checkCancel()) {
+      console.info();
+      await reader.cancel();
+      break;
+    }
+
     const { value, done } = await reader.read();
     if (done) break;
 
@@ -84,8 +100,14 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [uuid, setUUid] = useState<string>(uuidv4());
 
+  const isCancelRef = useRef(false);
+
   const updatePrompt = (newPrompt: string) => {
     setPrompt(newPrompt);
+  };
+
+  const checkCancel = () => {
+    return isCancelRef.current;
   };
 
   const updateLastMessage = (newMessage: string) => {
@@ -131,6 +153,10 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
 
   const { trigger, isMutating } = useSWRMutation('/chat', postPrompt);
 
+  const cancelChat = () => {
+    isCancelRef.current = true;
+  };
+
   const actionUsePrompt = async () => {
     setIsChatting(true);
 
@@ -148,7 +174,14 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
       uuid,
       setMessages,
       updateLastMessage,
+      checkCancel,
     });
+
+    if (isCancelRef.current) {
+      setIsChatting(false);
+      isCancelRef.current = false;
+      return;
+    }
 
     // 一定時間待つ
     await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -163,6 +196,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     setPrompt('');
     resetFileList();
     setIsChatting(false);
+    isCancelRef.current = false;
   };
 
   return {
@@ -175,6 +209,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     removeFile,
     messages,
     isChatting,
+    cancelChat,
   };
 };
 

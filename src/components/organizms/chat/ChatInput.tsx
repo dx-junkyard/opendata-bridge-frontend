@@ -1,14 +1,11 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { Input } from './Input';
 import { TextareaAutosize } from './TextareaAutosize';
 import { cn } from '@/util/cn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleNotch,
-  faCirclePlus,
-  faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { InputFileList } from '@/components/organizms/input-file-list/InputFileList';
+import { faCirclePause } from '@fortawesome/free-regular-svg-icons';
 
 interface ChatInputProps {
   fileList: File[];
@@ -18,6 +15,7 @@ interface ChatInputProps {
   updatePrompt: (value: string) => void;
   actionUsePrompt: () => void;
   isChatting: boolean;
+  cancelChat: () => void;
 }
 
 export const ChatInput: FC<ChatInputProps> = ({
@@ -28,11 +26,21 @@ export const ChatInput: FC<ChatInputProps> = ({
   updatePrompt,
   actionUsePrompt,
   isChatting,
+  cancelChat,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleInputChange = (value: string) => {
-    updatePrompt(value);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (
+      !isTyping &&
+      event.key === 'Enter' &&
+      (event.ctrlKey || event.metaKey)
+    ) {
+      event.preventDefault();
+      actionUsePrompt();
+    }
   };
 
   return (
@@ -69,10 +77,9 @@ export const ChatInput: FC<ChatInputProps> = ({
           value={prompt}
           minRows={1}
           maxRows={18}
-          //   onKeyDown={handleKeyDown}
-          //   onPaste={handlePaste}
-          //   onCompositionStart={() => setIsTyping(true)}
-          //   onCompositionEnd={() => setIsTyping(false)}
+          onKeyDown={handleKeyDown}
+          onCompositionStart={() => setIsTyping(true)}
+          onCompositionEnd={() => setIsTyping(false)}
         />
 
         {!isChatting ? (
@@ -92,19 +99,19 @@ export const ChatInput: FC<ChatInputProps> = ({
             </div>
           </div>
         ) : (
-          <div className="absolute bottom-[14px] right-3 cursor-pointer hover:opacity-50 text-black">
+          <div
+            className="absolute bottom-[14px] right-3 cursor-pointer hover:opacity-50 text-black"
+            onClick={() => {
+              cancelChat();
+            }}
+          >
             <div
               className={cn(
                 'bg-primary text-secondary rounded p-1',
                 !prompt && 'cursor-not-allowed opacity-50'
               )}
             >
-              <FontAwesomeIcon
-                className="animate-spin"
-                icon={faCircleNotch}
-                width={30}
-                height={30}
-              />
+              <FontAwesomeIcon icon={faCirclePause} width={30} height={30} />
             </div>
           </div>
         )}
