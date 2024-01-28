@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "PORT=8080 node .next/standalone/server.js",
     "lint": "next lint",
-    "prepare": "husky install",
+    "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "codegen": "graphql-codegen -r dotenv/config --config codegen.ts dotenv_config_path=.env.production.local"
