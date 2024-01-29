@@ -30,17 +30,13 @@ export const postPrompt = async (
   }
   body.append('uuid', arg.uuid);
 
-  let response;
+  let response = await fetch('/api/chat', {
+    method: 'POST',
+    body,
+  });
 
-  try {
-    response = await fetch('/api/chat', {
-      method: 'POST',
-      body,
-    });
-  } catch (err) {
-    arg.updateLastMessage(
-      'メッセージの受信に失敗しました。再度実行してください。'
-    );
+  if (response.status !== 200) {
+    alert('メッセージの受信に失敗しました。再度実行してください。');
     return;
   }
 
