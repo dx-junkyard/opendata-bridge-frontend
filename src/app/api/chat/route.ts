@@ -35,10 +35,23 @@ export async function POST(req: Request) {
     apiUrl = `${process.env.CHAT_API || ''}/chat`;
   }
 
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    body: formData,
-  });
+  let response;
+
+  try {
+    response = await fetch(apiUrl, {
+      method: 'POST',
+      body: formData,
+    });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({
+        status: 500,
+      }),
+      {
+        status: 500,
+      }
+    );
+  }
 
   const reader = response?.body
     ?.pipeThrough(new TextDecoderStream())
