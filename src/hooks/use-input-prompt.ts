@@ -168,14 +168,22 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
       },
     ]);
 
-    await trigger({
-      file: fileList[0],
-      prompt,
-      uuid,
-      setMessages,
-      updateLastMessage,
-      checkCancel,
-    });
+    try {
+      await trigger({
+        file: fileList[0],
+        prompt,
+        uuid,
+        setMessages,
+        updateLastMessage,
+        checkCancel,
+      });
+    } catch (err) {
+      console.error(err);
+      alert('エラーが発生しました。再度送信してください。');
+      setIsChatting(false);
+      isCancelRef.current = false;
+      return;
+    }
 
     if (isCancelRef.current) {
       setIsChatting(false);
@@ -188,8 +196,9 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
 
     try {
       const data = await assetFetcher(uuid);
-      updateLastMessageWithFile(data);
+      data.length > 0 && updateLastMessageWithFile(data);
     } catch (e) {
+      alert('ファイルの取得に失敗しました。');
       console.error(e);
     }
 
@@ -217,6 +226,7 @@ const parseCsv = (csv: string) => {
   try {
     return parse(csv, { columns: true });
   } catch (e) {
+    alert('CSV変換に失敗しました。');
     return [];
   }
 };
