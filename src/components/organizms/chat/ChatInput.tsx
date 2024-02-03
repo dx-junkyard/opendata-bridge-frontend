@@ -34,6 +34,7 @@ export const ChatInput: FC<ChatInputProps> = ({
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (
+      !isChatting &&
       !isTyping &&
       event.key === 'Enter' &&
       (event.ctrlKey || event.metaKey)
