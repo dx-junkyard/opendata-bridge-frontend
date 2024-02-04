@@ -34,7 +34,7 @@ export const postPrompt = async (
     ...prev,
     {
       role: 'assistant',
-      content: 'Thinking now...\n',
+      content: '',
     },
   ]);
 

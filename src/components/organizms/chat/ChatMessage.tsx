@@ -7,14 +7,16 @@ import { faRobot } from '@fortawesome/free-solid-svg-icons';
 import { Message } from '@/types/message';
 import DownloadButton from '@/components/atoms/ui-parts/download-button/DownloadButton';
 import { TableView } from '@/components/atoms/ui-parts/table/TableView';
+import LoadingPulse from '@/components/atoms/ui-parts/lodaing-pulse/LoadingPulse';
 
 const ICON_SIZE = 28;
 
 interface MessageProps {
   message: Message;
+  isLoading: boolean;
 }
 
-export const ChatMessage: FC<MessageProps> = ({ message }) => {
+export const ChatMessage: FC<MessageProps> = ({ message, isLoading }) => {
   return (
     <div
       className={cn(
@@ -57,7 +59,13 @@ export const ChatMessage: FC<MessageProps> = ({ message }) => {
               {message.role === 'assistant' ? 'AI Assistant' : 'You'}
             </div>
           </div>
-          <MarkdownArea value={message.content} />
+          {isLoading ? (
+            <div className="w-full text-black p-3">
+              <LoadingPulse />
+            </div>
+          ) : (
+            <MarkdownArea value={message.content} />
+          )}
 
           {message.file?.content.length && (
             <div className="w-full flex flex-col text-black">
