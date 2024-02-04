@@ -8,6 +8,14 @@ interface ChatMessagesProps {
 
 export const ChatMessages: FC<ChatMessagesProps> = ({ chatMessages }) => {
   return chatMessages.map((message, index) => {
-    return <ChatMessage key={index} message={message} />;
+    return (
+      <ChatMessage
+        key={index}
+        message={message}
+        isLoading={
+          message.content.length === 0 && index === chatMessages.length - 1
+        }
+      />
+    );
   });
 };
