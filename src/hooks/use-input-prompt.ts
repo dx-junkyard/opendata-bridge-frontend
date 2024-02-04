@@ -30,6 +30,14 @@ export const postPrompt = async (
   }
   body.append('uuid', arg.uuid);
 
+  arg.setMessages((prev) => [
+    ...prev,
+    {
+      role: 'assistant',
+      content: 'Thinking now...\n',
+    },
+  ]);
+
   let response = await fetch('/api/chat', {
     method: 'POST',
     body,
@@ -45,14 +53,6 @@ export const postPrompt = async (
     .getReader();
 
   if (!reader) return;
-
-  arg.setMessages((prev) => [
-    ...prev,
-    {
-      role: 'assistant',
-      content: 'Thinking now...\n',
-    },
-  ]);
 
   while (true) {
     if (arg.checkCancel()) {
