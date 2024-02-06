@@ -58,6 +58,8 @@ export const ChatMessage: FC<MessageProps> = ({ message, isLoading }) => {
             <div className="font-semibold text-black">
               {message.role === 'assistant' ? 'AI Assistant' : 'You'}
             </div>
+
+            <div className="text-gray-400">{message.datetime}</div>
           </div>
           {isLoading ? (
             <div className="w-full text-black p-3">

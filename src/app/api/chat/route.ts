@@ -12,11 +12,9 @@ export async function POST(req: Request) {
 
   if (isGuest) {
     return new Response(
-      JSON.stringify({
-        status: 401,
-      }),
+      'data: {"message": "ゲストユーザーはAIとの会話ができません。ログインしてください。"}',
       {
-        status: 401,
+        status: 200,
       }
     );
   }
@@ -44,11 +42,9 @@ export async function POST(req: Request) {
     });
   } catch (err) {
     return new Response(
-      JSON.stringify({
-        status: 500,
-      }),
+      'data: {"message": "AIとの接続に失敗しました。時間をおいて試してください。"}',
       {
-        status: 500,
+        status: 200,
       }
     );
   }
@@ -58,9 +54,12 @@ export async function POST(req: Request) {
     .getReader();
 
   if (!reader) {
-    return new Response('Internal Server Error', {
-      status: 500,
-    });
+    return new Response(
+      'data: {"message": "AIとの接続に失敗しました。時間をおいて試してください。"}',
+      {
+        status: 200,
+      }
+    );
   }
 
   // 非同期で実行する

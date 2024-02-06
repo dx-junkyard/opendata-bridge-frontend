@@ -29,7 +29,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ja">
       <body className={`${inter.className}`}>
-        <Header user={user} />
+        <Header user={user} version={process.env.npm_package_version} />
         <div className="w-full pt-[80px] flex justify-center items-center max-w-[1000px] mx-auto">
           {children}
         </div>
