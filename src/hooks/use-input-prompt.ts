@@ -35,6 +35,7 @@ export const postPrompt = async (
     {
       role: 'assistant',
       content: '',
+      datetime: new Date().toLocaleString(),
     },
   ]);
 
@@ -115,6 +116,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
           {
             role: 'assistant',
             content: lastMessage.content + newMessage,
+            datetime: lastMessage.datetime,
           },
         ];
       } else {
@@ -139,6 +141,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
                   raw: file,
                 }
               : undefined,
+            datetime: lastMessage.datetime,
           },
         ];
       } else {
@@ -160,7 +163,12 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
       ...prev,
       {
         role: 'user',
-        content: prompt,
+        content:
+          prompt +
+          (fileList.length > 0
+            ? `  \n\n添付ファイル名 : ${fileList[0].name}`
+            : ''),
+        datetime: new Date().toLocaleString(),
       },
     ]);
 

@@ -8,12 +8,14 @@ import { GlobalUserMenu } from '@/components/atoms/global-menu/user/GlobalUserMe
 import Link from 'next/link';
 import { LoginModal } from '@/components/molecules/user/login-modal/LoginModal';
 import LogoutMenu from '@/components/molecules/user/logout-menu/LogoutMenu';
+import { GlobalVanillaMenu } from '@/components/atoms/global-menu/vanilla/GlobalVanillaMenu';
 
 interface HeaderProps {
   user?: User;
+  version?: string;
 }
 
-export const Header = ({ user }: HeaderProps) => {
+export const Header = ({ user, version }: HeaderProps) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const handleMenuOpen = () => {
     setOpen(!isOpen);
@@ -46,6 +48,11 @@ export const Header = ({ user }: HeaderProps) => {
         >
           {user ? (
             <>
+              {version && (
+                <li className="w-full">
+                  <GlobalVanillaMenu title={'v' + version} />
+                </li>
+              )}
               <li className="w-full">
                 <GlobalUserMenu user={user} />
               </li>
@@ -55,6 +62,11 @@ export const Header = ({ user }: HeaderProps) => {
             </>
           ) : (
             <>
+              {version && (
+                <li className="w-full">
+                  <GlobalVanillaMenu title={version} />
+                </li>
+              )}
               <li className="w-full">
                 <GlobalUserMenu user={undefined} />
               </li>
