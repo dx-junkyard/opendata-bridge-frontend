@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface DownloadButtonProps {
   filename: string;
-  value: string;
+  value: Blob;
 }
 
 const DownloadButton = ({ filename, value }: DownloadButtonProps) => {
@@ -12,8 +12,7 @@ const DownloadButton = ({ filename, value }: DownloadButtonProps) => {
       return;
     }
 
-    const blob = new Blob([value], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(value);
     const link = document.createElement('a');
     link.download = filename;
     link.href = url;

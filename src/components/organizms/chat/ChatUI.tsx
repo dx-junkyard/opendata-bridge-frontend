@@ -20,7 +20,7 @@ export const ChatUI: FC<ChatUIProps> = ({ project }) => {
     messages,
     isChatting,
     cancelChat,
-  } = useInputPrompt(project.recipes[0]?.prompt || '');
+  } = useInputPrompt(project.recipes[0]?.prompt || '', '');
 
   return (
     <div className="relative flex h-full flex-col items-center mb-[200px]">

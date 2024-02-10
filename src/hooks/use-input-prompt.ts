@@ -1,9 +1,6 @@
 import { useRef, useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 import { useFileList } from './use-file-list';
-import { v4 as uuidv4 } from 'uuid';
-import assetFetcher from '@/lib/fetch/asset-fetcher';
-import { parse } from 'csv-parse/sync';
 import { Message } from '@/types/message';
 
 export const postPrompt = async (
@@ -14,9 +11,10 @@ export const postPrompt = async (
     arg: {
       file?: File;
       prompt: string;
-      uuid: string;
       setMessages: (func: ((prev: Message[]) => Message[]) | Message[]) => void;
+      isFirst: boolean;
       updateLastMessage: (newMessage: string) => void;
+      updateLastMessageWithFile: (fileId: string) => void;
       checkCancel: () => boolean;
     };
   }
@@ -26,9 +24,9 @@ export const postPrompt = async (
 
   if (arg.file) {
     body.append('file', arg.file);
-    body.append('extension', arg.file.name.split('.').at(-1) || '');
   }
-  body.append('uuid', arg.uuid);
+
+  body.append('is_first', arg.isFirst ? 'true' : 'false');
 
   arg.setMessages((prev) => [
     ...prev,
@@ -39,14 +37,15 @@ export const postPrompt = async (
     },
   ]);
 
-  let response = await fetch('/api/chat', {
+  const response = await fetch('/api/chat', {
     method: 'POST',
     body,
   });
 
   if (response.status !== 200) {
-    alert('メッセージの受信に失敗しました。再度実行してください。');
-    return;
+    arg.updateLastMessage(
+      'AIとの接続に失敗しました。時間をおいて試してください。'
+    );
   }
 
   const reader = response?.body
@@ -55,9 +54,10 @@ export const postPrompt = async (
 
   if (!reader) return;
 
+  let fileId: string | undefined;
+
   while (true) {
     if (arg.checkCancel()) {
-      console.info();
       await reader.cancel();
       break;
     }
@@ -72,13 +72,10 @@ export const postPrompt = async (
       try {
         const json = JSON.parse(jsonString);
 
-        if (json.message || json.code) {
-          return json.message || json.code;
-        } else if (json['end_of_code']) {
-          return '\n```\n';
-        } else if (json['start_of_code']) {
-          return '\n```python\n';
-        } else {
+        if (json.message) {
+          return json.message;
+        } else if (json['file_id']) {
+          fileId = json['file_id'];
           return '';
         }
       } catch (e) {
@@ -88,14 +85,21 @@ export const postPrompt = async (
     });
     arg.updateLastMessage(messageList.join(''));
   }
+
+  if (fileId) {
+    arg.updateLastMessageWithFile(fileId);
+  }
 };
 
-export const useInputPrompt = (initialPrompt: string | undefined) => {
+export const useInputPrompt = (
+  initialPrompt: string | undefined,
+  instruction: string,
+  resetOnComplete: boolean = true
+) => {
   const [prompt, setPrompt] = useState<string>(initialPrompt || '');
   const { fileList, addFile, removeFile, resetFileList } = useFileList([]);
   const [isChatting, setIsChatting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [uuid, setUUid] = useState<string>(uuidv4());
 
   const isCancelRef = useRef(false);
 
@@ -125,7 +129,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     });
   };
 
-  const updateLastMessageWithFile = (file: string) => {
+  const updateLastMessageWithFile = (fileId: string) => {
     setMessages((prev) => {
       const lastMessage = prev[prev.length - 1];
       if (lastMessage.role === 'assistant') {
@@ -134,13 +138,7 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
           {
             role: 'assistant',
             content: lastMessage.content,
-            file: file
-              ? {
-                  name: 'output.csv',
-                  content: parseCsv(file),
-                  raw: file,
-                }
-              : undefined,
+            fileId: fileId,
             datetime: lastMessage.datetime,
           },
         ];
@@ -154,20 +152,23 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
 
   const cancelChat = () => {
     isCancelRef.current = true;
+    setIsChatting(false);
   };
 
   const actionUsePrompt = async () => {
     setIsChatting(true);
 
+    const content =
+      prompt +
+      (fileList.length > 0 ? `\n\n添付ファイル名 : ${fileList[0].name}` : '');
+
+    const isFirst = messages.length === 0;
+
     setMessages((prev) => [
       ...prev,
       {
         role: 'user',
-        content:
-          prompt +
-          (fileList.length > 0
-            ? `  \n\n添付ファイル名 : ${fileList[0].name}`
-            : ''),
+        content,
         datetime: new Date().toLocaleString(),
       },
     ]);
@@ -175,41 +176,27 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     try {
       await trigger({
         file: fileList[0],
-        prompt,
-        uuid,
+        prompt:
+          instruction.length > 0 ? instruction + '\n---\n' + content : content,
         setMessages,
+        isFirst,
         updateLastMessage,
+        updateLastMessageWithFile,
         checkCancel,
       });
     } catch (err) {
       console.error(err);
-      alert('エラーが発生しました。再度送信してください。');
+      updateLastMessage('エラーが発生しました。再度送信してください。');
       setIsChatting(false);
-      isCancelRef.current = false;
       return;
     }
 
-    if (isCancelRef.current) {
-      setIsChatting(false);
-      isCancelRef.current = false;
-      return;
-    }
-
-    // 一定時間待つ
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
-    try {
-      const data = await assetFetcher(uuid);
-      data.length > 0 && updateLastMessageWithFile(data);
-    } catch (e) {
-      alert('ファイルの取得に失敗しました。');
-      console.error(e);
-    }
-
-    setPrompt('');
-    resetFileList();
     setIsChatting(false);
-    isCancelRef.current = false;
+
+    if (resetOnComplete) {
+      setPrompt('');
+      resetFileList();
+    }
   };
 
   return {
@@ -224,13 +211,4 @@ export const useInputPrompt = (initialPrompt: string | undefined) => {
     isChatting,
     cancelChat,
   };
-};
-
-const parseCsv = (csv: string) => {
-  try {
-    return parse(csv, { columns: true });
-  } catch (e) {
-    alert('CSV変換に失敗しました。');
-    return [];
-  }
 };
