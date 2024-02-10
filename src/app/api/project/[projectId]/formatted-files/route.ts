@@ -1,14 +1,14 @@
-import { getDataset } from '@/service/get-dataset-service';
 import fetchAsset from '@/service/fetch-asset';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/next-auth/auth-options';
+import { getProject } from '@/service/get-project-service';
 
 export async function GET(
   req: Request,
   {
     params,
   }: {
-    params: { datasetId: string };
+    params: { projectId: string };
   }
 ) {
   console.info('GET ' + req.url);
@@ -28,21 +28,21 @@ export async function GET(
     );
   }
 
-  const dataset = await getDataset(params.datasetId);
+  const project = await getProject(params.projectId);
 
-  if (!dataset) {
+  if (!project) {
     return new Response(JSON.stringify({ status: 404 }), {
       status: 404,
     });
   }
 
-  const asset = await fetchAsset(dataset.assetUrl);
+  const asset = await fetchAsset(project.formattedFiles[0].url);
 
   return new Response(asset, {
     status: 200,
     headers: {
       'Content-Type': 'application/octet-stream',
-      'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(dataset.title)}`,
+      'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(project.formattedFiles[0].name)}`,
     },
   });
 }
