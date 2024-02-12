@@ -25,9 +25,9 @@ export async function POST(req: Request) {
   let apiUrl: string;
 
   if (formData.get('file')) {
-    apiUrl = `${process.env.CHAT_API || ''}/chat-with-file`;
+    apiUrl = `${process.env.CHAT_API || ''}/api/opendata-bridge-chat/chat/file`;
   } else {
-    apiUrl = `${process.env.CHAT_API || ''}/chat`;
+    apiUrl = `${process.env.CHAT_API || ''}/api/opendata-bridge-chat/chat`;
   }
 
   const response = await fetch(apiUrl, {

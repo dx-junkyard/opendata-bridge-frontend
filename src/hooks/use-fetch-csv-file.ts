@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { parse } from 'csv-parse/sync';
 import { CsvFile } from '@/types/csv-file';
-import useSWR from 'swr';
 import fileFetcher from '@/lib/fetch/file-fetcher';
+import useSWRImmutable from 'swr/immutable';
 
 export const useFetchCsvFile = (fileId: string) => {
   const [csvFile, setCsvFile] = useState<CsvFile>({
@@ -11,7 +11,7 @@ export const useFetchCsvFile = (fileId: string) => {
     raw: new Blob(),
   });
 
-  const { data, isLoading, error } = useSWR(
+  const { data, isLoading, error } = useSWRImmutable(
     [`/api/file/${fileId}`, fileId],
     ([_, fileId]) => fileFetcher(fileId)
   );

@@ -1,10 +1,10 @@
-import useSWR from 'swr';
 import datasetSearchFetcher, {
   searchDatasetPath,
 } from '@/lib/fetch/dataset-search-fetcher';
+import useSWRImmutable from 'swr/immutable';
 
 export const useFetchDataset = () => {
-  const { data, isLoading } = useSWR([searchDatasetPath, 1], ([_]) =>
+  const { data, isLoading } = useSWRImmutable([searchDatasetPath, 1], ([_]) =>
     datasetSearchFetcher()
   );
 

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 import { useFileList } from './use-file-list';
 import { Message } from '@/types/message';
@@ -10,23 +10,19 @@ export const postPrompt = async (
   }: {
     arg: {
       file?: File;
-      prompt: string;
+      script: string;
       setMessages: (func: ((prev: Message[]) => Message[]) | Message[]) => void;
-      isFirst: boolean;
       updateLastMessage: (newMessage: string) => void;
       updateLastMessageWithFile: (fileId: string) => void;
-      checkCancel: () => boolean;
     };
   }
 ) => {
   const body = new FormData();
-  body.append('message', arg.prompt);
+  body.append('script', arg.script);
 
   if (arg.file) {
     body.append('file', arg.file);
   }
-
-  body.append('is_first', arg.isFirst ? 'true' : 'false');
 
   arg.setMessages((prev) => [
     ...prev,
@@ -37,7 +33,7 @@ export const postPrompt = async (
     },
   ]);
 
-  const response = await fetch('/api/assistant/opendata-bridge-chat', {
+  const response = await fetch('/api/assistant/opendata-bridge-runner', {
     method: 'POST',
     body,
   });
@@ -57,11 +53,6 @@ export const postPrompt = async (
   let fileId: string | undefined;
 
   while (true) {
-    if (arg.checkCancel()) {
-      await reader.cancel();
-      break;
-    }
-
     const { value, done } = await reader.read();
     if (done) break;
 
@@ -91,24 +82,14 @@ export const postPrompt = async (
   }
 };
 
-export const useInputPrompt = (
-  initialPrompt: string | undefined,
-  instruction: string,
-  resetOnComplete: boolean = true
-) => {
-  const [prompt, setPrompt] = useState<string>(initialPrompt || '');
+export const useRunFile = (initialScript: string | undefined) => {
+  const [script, setScript] = useState<string>(initialScript || '');
   const { fileList, addFile, removeFile, resetFileList } = useFileList([]);
   const [isChatting, setIsChatting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const isCancelRef = useRef(false);
-
-  const updatePrompt = (newPrompt: string) => {
-    setPrompt(newPrompt);
-  };
-
-  const checkCancel = () => {
-    return isCancelRef.current;
+  const updateScript = (script: string) => {
+    setScript(script);
   };
 
   const updateLastMessage = (newMessage: string) => {
@@ -148,41 +129,21 @@ export const useInputPrompt = (
     });
   };
 
-  const { trigger, isMutating } = useSWRMutation('/chat', postPrompt);
+  const { trigger, isMutating } = useSWRMutation(
+    '/api/assistant/opendata-bridge-runner',
+    postPrompt
+  );
 
-  const cancelChat = () => {
-    isCancelRef.current = true;
-    setIsChatting(false);
-  };
-
-  const actionUsePrompt = async () => {
+  const actionRunScript = async () => {
     setIsChatting(true);
-
-    const content =
-      prompt +
-      (fileList.length > 0 ? `\n\n添付ファイル名 : ${fileList[0].name}` : '');
-
-    const isFirst = messages.length === 0;
-
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: 'user',
-        content,
-        datetime: new Date().toLocaleString(),
-      },
-    ]);
 
     try {
       await trigger({
         file: fileList[0],
-        prompt:
-          instruction.length > 0 ? instruction + '\n---\n' + content : content,
+        script,
         setMessages,
-        isFirst,
         updateLastMessage,
         updateLastMessageWithFile,
-        checkCancel,
       });
     } catch (err) {
       console.error(err);
@@ -192,23 +153,17 @@ export const useInputPrompt = (
     }
 
     setIsChatting(false);
-
-    if (resetOnComplete) {
-      setPrompt('');
-      resetFileList();
-    }
   };
 
   return {
-    prompt,
-    updatePrompt,
-    actionUsePrompt,
+    script,
+    updateScript,
+    actionRunScript,
     isLoading: isMutating,
     fileList,
     addFile,
     removeFile,
     messages,
     isChatting,
-    cancelChat,
   };
 };

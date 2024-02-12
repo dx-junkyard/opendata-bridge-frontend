@@ -1,11 +1,12 @@
 import { useFetchCsvFile } from '@/hooks/use-fetch-csv-file';
 import DownloadButton from '@/components/atoms/ui-parts/download-button/DownloadButton';
-import { TableView } from '@/components/atoms/ui-parts/table/TableView';
+import TableView from '@/components/atoms/ui-parts/table/TableView';
 import LoadingPulse from '@/components/atoms/ui-parts/lodaing-pulse/LoadingPulse';
 import React from 'react';
 
 const CsvFileTable = ({ fileId }: { fileId: string }) => {
   const { csvFile } = useFetchCsvFile(fileId);
+
   return (
     <div className="w-full flex flex-col text-black">
       <h3 className="text-left">整形されたデータ</h3>

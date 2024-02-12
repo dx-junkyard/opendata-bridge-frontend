@@ -25,7 +25,7 @@ export async function GET(
 
   const { fileId } = params;
   const response = await fetch(
-    `${process.env.CHAT_API || ''}/download/${fileId}`
+    `${process.env.CHAT_API || ''}/api/download/${session.user?.name}/${fileId}`
   ).then((res) => res.blob());
 
   return new Response(response, {

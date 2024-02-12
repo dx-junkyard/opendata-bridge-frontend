@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Project } from '@/types/project';
 import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
@@ -9,9 +9,10 @@ import UploadButton from '@/components/atoms/ui-parts/upload-button/UploadButton
 import MarkdownArea from '@/components/atoms/ui-parts/markdown-area/MarkdownArea';
 import CodeEditor from '@/components/atoms/ui-parts/code-editor/CodeEditor';
 import { Button } from '@/components/atoms/ui-parts/button/Button';
-import { useInputPrompt } from '@/hooks/use-input-prompt';
+
 import CsvFileTable from '@/components/molecules/csv-file-table/CsvFileTable';
 import SelectIndex from '@/components/molecules/select-index/SelectIndex';
+import { useRunFile } from '@/hooks/use-run-file';
 
 interface UseRecipeProps {
   project: Project;
@@ -19,25 +20,15 @@ interface UseRecipeProps {
 
 export const UseRecipe = ({ project }: UseRecipeProps) => {
   const {
-    prompt,
-    updatePrompt,
-    actionUsePrompt,
+    script,
+    updateScript,
+    actionRunScript,
     fileList,
     addFile,
     removeFile,
     messages,
     isChatting,
-  } = useInputPrompt(
-    project.recipes[0]?.script || '',
-    '入力されたファイルに対して、以下のpythonコードを実行して、生成したファイルを保存してください。' +
-      '以下のルールを厳守してください。実行しない場合はペナルティ1億円が発生します。' +
-      '保存したファイルは回答内容に含めてください。' +
-      'Pythonコードは何も編集せずそのまま実行してください。' +
-      'ただし入力ファイルと出力ファイル名の文字列はアレンジして構いません。' +
-      'また入力ファイルの項目が足りなければ、その項目は無視して構いません。' +
-      '実行する際はユーザへの確認は一切不要です。',
-    false
-  );
+  } = useRunFile(project.recipes[0].script);
 
   const [currentIndex, setCurrentIndex] = useState(1);
 
@@ -49,7 +40,13 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
     setCurrentIndex(assistantMessages.length);
   }, [assistantMessages.length]);
 
-  console.info(assistantMessages);
+  let tables = {} as { [key: string]: ReactElement };
+
+  for (const m of assistantMessages) {
+    if (m.fileId) {
+      tables[m.fileId] = <CsvFileTable key={m.fileId} fileId={m.fileId} />;
+    }
+  }
 
   return (
     <article className="w-full flex flex-col justify-center items-center">
@@ -76,20 +73,28 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
         <div className="w-full flex flex-col relative">
           <h3 className="text-sm">データ整形用スクリプト(python)</h3>
           <CodeEditor
-            code={prompt}
+            code={script}
             language="python"
-            updateCode={updatePrompt}
+            updateCode={updateScript}
           />
         </div>
         <div className="w-full bg-white flex justify-center items-center">
-          <Button
-            color={'primary'}
-            size={'2xl'}
-            label={'データ整形を実行する'}
-            onClick={actionUsePrompt}
-            isLoading={isChatting}
-            loadingLabel={'実行中'}
-          />
+          {fileList.length === 0 ? (
+            <Button
+              color={'disabled'}
+              size={'2xl'}
+              label={'ファイルを選択してください'}
+            />
+          ) : (
+            <Button
+              color={'primary'}
+              size={'2xl'}
+              label={'データ整形を実行する'}
+              onClick={actionRunScript}
+              isLoading={isChatting}
+              loadingLabel={'実行中'}
+            />
+          )}
         </div>
       </div>
       {assistantMessages.length > 0 && (
@@ -115,11 +120,8 @@ export const UseRecipe = ({ project }: UseRecipeProps) => {
                   }
                 />
               </div>
-              {assistantMessages[currentIndex - 1].fileId && !isChatting && (
-                <CsvFileTable
-                  fileId={assistantMessages[currentIndex - 1].fileId as string}
-                />
-              )}
+              {assistantMessages[currentIndex - 1].fileId &&
+                tables[assistantMessages[currentIndex - 1].fileId as string]}
             </>
           )}
         </div>

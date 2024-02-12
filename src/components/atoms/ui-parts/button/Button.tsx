@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
-type ButtonColorType = 'primary' | 'secondary';
+type ButtonColorType = 'primary' | 'secondary' | 'disabled';
 
 type ButtonSizeType = '3xl' | '2xl' | 'xl' | 'large' | 'medium';
 
@@ -37,6 +37,8 @@ const selectColor = (color: ButtonColorType) => {
       return 'bg-blue-700 text-white';
     case 'secondary':
       return 'bg-white text-blue-700 border border-blue-700';
+    case 'disabled':
+      return 'bg-gray-300 text-gray-500';
   }
 };
 

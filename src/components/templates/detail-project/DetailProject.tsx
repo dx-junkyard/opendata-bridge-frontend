@@ -6,7 +6,7 @@ import { ActionCard } from '@/components/atoms/ui-parts/action-card/ActionCard';
 import { ProjectTags } from '@/components/molecules/project/project-tags/ProjectTags';
 import DatasetLinkCardList from '@/components/molecules/project/dataset-link-card-list/DatasetLinkCardList';
 import { CsvFile } from '@/types/csv-file';
-import { TableView } from '@/components/atoms/ui-parts/table/TableView';
+import TableView from '@/components/atoms/ui-parts/table/TableView';
 import DownloadButton from '@/components/atoms/ui-parts/download-button/DownloadButton';
 import fetchAsset from '@/service/fetch-asset';
 import { parse } from 'csv-parse/sync';
