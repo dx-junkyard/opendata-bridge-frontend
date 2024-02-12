@@ -1,6 +1,6 @@
 {
-  "name": "next-starter",
-  "version": "0.0.1-beta",
+  "name": "opendata-bridge-frontend",
+  "version": "0.0.2-beta",
   "private": true,
   "scripts": {
     "dev": "next dev",
