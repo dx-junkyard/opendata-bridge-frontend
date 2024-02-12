@@ -10,7 +10,7 @@ import TableView from '@/components/atoms/ui-parts/table/TableView';
 import DownloadButton from '@/components/atoms/ui-parts/download-button/DownloadButton';
 import fetchAsset from '@/service/fetch-asset';
 import { parse } from 'csv-parse/sync';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 interface DetailProjectProps {
   project: Project;
@@ -33,7 +33,7 @@ export const DetailProject = ({
   project,
   isLogin = false,
 }: DetailProjectProps) => {
-  const { data } = useSWR(
+  const { data } = useSWRImmutable(
     [`/api/project/${project.id}/formattedFiles`, project],
     ([_, project]) => fetchCsvFile(project)
   );
