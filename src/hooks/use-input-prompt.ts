@@ -164,26 +164,32 @@ export const useInputPrompt = (
   const actionUsePrompt = async () => {
     setIsChatting(true);
 
-    const content =
-      prompt +
-      (fileList.length > 0 ? `\n\n添付ファイル名 : ${fileList[0].name}` : '');
-
     const isFirst = messages.length === 0;
 
     setMessages((prev) => [
       ...prev,
       {
         role: 'user',
-        content,
+        content:
+          prompt +
+          (fileList.length > 0
+            ? `\n\n添付ファイル名 : ${fileList[0].name}`
+            : ''),
         datetime: new Date().toLocaleString(),
       },
     ]);
+
+    const extensionPrompt =
+      fileList.length > 0
+        ? `ファイルの拡張子:${fileList[0].name.split('.').pop()}\n\n`
+        : '';
 
     try {
       await trigger({
         file: fileList[0],
         prompt:
-          instruction.length > 0 ? instruction + '\n---\n' + content : content,
+          (instruction.length > 0 ? instruction + '\n---\n' + prompt : prompt) +
+          extensionPrompt,
         setMessages,
         isFirst,
         updateLastMessage,
