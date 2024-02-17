@@ -21,7 +21,7 @@ const TableView = memo(({ defaultData }: TableViewProps) => {
   // キーに基づいて列を動的に生成する
   const columns = Object.keys(defaultDataWithNumbering[0]).map((key) =>
     columnHelper.accessor(key, {
-      header: key,
+      header: key || 'Unnamed',
       cell: (info) => info.getValue(),
     })
   );
