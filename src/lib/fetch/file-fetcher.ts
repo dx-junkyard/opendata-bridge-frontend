@@ -1,5 +1,5 @@
 export default async function fileFetcher(fileId: string): Promise<Blob> {
-  return await fetch('/api/file/' + fileId).then(async (res) => {
+  return await fetch('/api/file/').then(async (res) => {
     if (res.status === 200) {
       return await res.blob();
     } else {

@@ -25,9 +25,9 @@ export async function POST(req: Request) {
   let apiUrl: string;
 
   if (formData.get('file')) {
-    apiUrl = `${process.env.CHAT_API || ''}/api/opendata-bridge-chat/chat/file`;
+    apiUrl = `${process.env.CHAT_API || ''}/api/chat/file`;
   } else {
-    apiUrl = `${process.env.CHAT_API || ''}/api/opendata-bridge-chat/chat`;
+    apiUrl = `${process.env.CHAT_API || ''}/api/chat`;
   }
 
   const response = await fetch(apiUrl, {
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 
   if (!reader || response.status !== 200) {
     return new Response(
-      'data: {"message": "AIとの接続に失敗しました。時間をおいて試してください。"}',
+      `data: {"message": "AIとの接続に失敗しました。時間をおいて試してください。ステータス: ${response.status}"}\n\n`,
       {
         status: 200,
       }

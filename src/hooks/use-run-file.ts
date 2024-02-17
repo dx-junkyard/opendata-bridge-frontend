@@ -12,17 +12,20 @@ export const postPrompt = async (
       file?: File;
       script: string;
       setMessages: (func: ((prev: Message[]) => Message[]) | Message[]) => void;
+      isFirst: boolean;
       updateLastMessage: (newMessage: string) => void;
       updateLastMessageWithFile: (fileId: string) => void;
     };
   }
 ) => {
   const body = new FormData();
-  body.append('script', arg.script);
+  body.append('message', buildPrompt(arg.script));
 
   if (arg.file) {
     body.append('file', arg.file);
   }
+
+  body.append('is_first', arg.isFirst ? 'true' : 'false');
 
   arg.setMessages((prev) => [
     ...prev,
@@ -33,7 +36,7 @@ export const postPrompt = async (
     },
   ]);
 
-  const response = await fetch('/api/assistant/opendata-bridge-runner', {
+  const response = await fetch('/api/chat', {
     method: 'POST',
     body,
   });
@@ -63,8 +66,12 @@ export const postPrompt = async (
       try {
         const json = JSON.parse(jsonString);
 
-        if (json.message) {
-          return json.message;
+        if (json.message || json.code) {
+          return json.message || json.code;
+        } else if (json['end_of_code']) {
+          return '\n```\n';
+        } else if (json['start_of_code']) {
+          return '\n```python\n';
         } else if (json['file_id']) {
           fileId = json['file_id'];
           return '';
@@ -137,11 +144,14 @@ export const useRunFile = (initialScript: string | undefined) => {
   const actionRunScript = async () => {
     setIsChatting(true);
 
+    const isFirst = messages.length === 0;
+
     try {
       await trigger({
         file: fileList[0],
         script,
         setMessages,
+        isFirst,
         updateLastMessage,
         updateLastMessageWithFile,
       });
@@ -166,4 +176,29 @@ export const useRunFile = (initialScript: string | undefined) => {
     messages,
     isChatting,
   };
+};
+
+const buildPrompt = (script: string) => {
+  return `
+各計画は一度に全て実行してください。コードを書いたあとは必ず実行してください。
+各ステップでユーザを待った場合は罰金1億円のペナルティが発生します。
+
+# タスク
+(1)
+サーバの情報にアクセスするようなコードが存在しないかチェックしてください。
+
+(2)
+受け取ったファイル編集用のコードにファイルの入出力に関するコードがあれば、
+入力ファイル名及び出力ファイル名を変更してください。
+pandasのto_csvの引数にはindex=Noneを指定してください。
+それ以外のコードは絶対に変更してはいけません。
+
+(3)
+ファイル編集用のコードを実行してください。
+
+(4)
+ファイル編集が終わったら、これまでのタスクの実行結果全てを表示してください。
+===
+${script}
+ `;
 };

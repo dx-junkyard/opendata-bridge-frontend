@@ -65,26 +65,12 @@ export const ChatMessage: FC<MessageProps> = ({ message, isLoading }) => {
               <LoadingPulse />
             </div>
           ) : (
-            <MarkdownArea
-              value={
-                message.fileId
-                  ? replaceFileLink(message.content, message.fileId)
-                  : message.content
-              }
-            />
+            <MarkdownArea value={message.content} />
           )}
 
           {message.fileId && <CsvFileTable fileId={message.fileId} />}
         </div>
       </div>
     </div>
-  );
-};
-
-const replaceFileLink = (content: string, fileId: string) => {
-  return content.replace(
-    // sandbox:\/mnt\/data\/[a-zA-Z_]+\.[a-zA-Z]+の正規表現に一致したものを入れ替える
-    /sandbox:\/mnt\/data\/.+\.[a-zA-Z]+/g,
-    `/api/file/${fileId}`
   );
 };
