@@ -1,6 +1,6 @@
 {
   "name": "opendata-bridge-frontend",
-  "version": "0.0.2-beta",
+  "version": "0.0.2-multi-session",
   "private": true,
   "scripts": {
     "dev": "next dev",
