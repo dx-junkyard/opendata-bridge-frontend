@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import projectSearchFetcher, {
   searchProjectPath,
@@ -6,23 +6,35 @@ import projectSearchFetcher, {
 import { useFilterTag } from '@/hooks/use-filter-tag';
 import { ProjectTag } from '@/types/project-tag';
 import { Project } from '@/types/project';
+import {
+  QueryContext,
+  QueryDispatchContext,
+} from '@/components/atoms/context-provider/QueryContextProvider';
 
 export const useSearchProject = (
   projectTags: ProjectTag[],
   initialProjectList: Project[]
 ) => {
-  const [query, setQuery] = useState<string>('');
+  const query = useContext(QueryContext);
+  const dispatch = useContext(QueryDispatchContext);
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const { tags, updateTagState } = useFilterTag(projectTags);
   const [enableTags, updateEnableTags] = useState<string>('');
 
   const { data, isLoading } = useSWR(
     !isTyping ? [searchProjectPath, query, enableTags] : null,
-    ([_, query, enableTags]) => projectSearchFetcher(query, enableTags),
+    ([_, query, enableTags]) => projectSearchFetcher(query.value, enableTags),
     { fallbackData: initialProjectList }
   );
 
-  const updateQuery = (q: string) => setQuery(q);
+  const updateQuery = (q: string) => {
+    if (dispatch) {
+      dispatch({
+        type: 'update',
+        payload: { value: q },
+      });
+    }
+  };
 
   const updateIsTyping = (isTyping: boolean) => setIsTyping(isTyping);
 
@@ -36,7 +48,7 @@ export const useSearchProject = (
   }, [tags]);
 
   return {
-    query,
+    query: query.value,
     tags,
     updateQuery,
     updateIsTyping,

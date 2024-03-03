@@ -6,6 +6,7 @@ import { ProjectCard } from '@/components/molecules/project/project-card/Project
 import { LoadingProjectCard } from '@/components/molecules/project/loading-project-card/LoadingProjectCard';
 import { ProjectTag } from '@/types/project-tag';
 import { TagMap } from '@/hooks/use-filter-tag';
+import Sge from '@/components/molecules/sge/Sge';
 
 interface SearchProjectProps {
   query: string;
@@ -38,6 +39,7 @@ export const SearchProject = ({
         tags={tags}
         updateTagState={updateTagState}
       />
+      {query.length > 0 && !isLoading && !isTyping && <Sge />}
       <div className="w-full bg-white text-black px-[10px] py-[50px] flex flex-col">
         {!isLoading && !isTyping ? (
           <>

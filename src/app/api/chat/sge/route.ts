@@ -1,38 +1,18 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/next-auth/auth-options';
 import { readStream } from '@/util/read-stream-util';
 
+const apiUrl = `${process.env.CHAT_API || ''}/api/sge`;
+
 export async function POST(req: Request) {
-  const formData = await req.formData();
+  const query = (await req.formData()).get('query') as string;
 
-  console.info(`POST:${req.url} extension:${formData.get('extension')} `);
+  const formData = new FormData();
+  formData.append('query', query);
 
-  const session = await getServerSession(authOptions);
-
-  const isGuest = !session?.user?.name;
-
-  if (isGuest) {
-    return new Response(
-      'data: {"message": "ゲストユーザーはAIとの会話ができません。ログインしてください。"}',
-      {
-        status: 200,
-      }
-    );
-  }
+  console.info(`POST:${req.url}`);
 
   // レスポンス用のストリームを作成
   const responseStream = new TransformStream();
   const writer = responseStream.writable.getWriter();
-
-  // リクエストをchat-apiに転送
-
-  let apiUrl: string;
-
-  if (formData.get('file') && formData.get('extension')) {
-    apiUrl = `${process.env.CHAT_API || ''}/chat/file`;
-  } else {
-    apiUrl = `${process.env.CHAT_API || ''}/chat`;
-  }
 
   let response;
 

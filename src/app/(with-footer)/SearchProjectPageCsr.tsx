@@ -3,6 +3,7 @@ import { ProjectTag } from '@/types/project-tag';
 import { useSearchProject } from '@/hooks/use-search-project';
 import { SearchProject } from '@/components/templates/search-project/SearchProject';
 import { Project } from '@/types/project';
+import QueryContextProvider from '@/components/atoms/context-provider/QueryContextProvider';
 
 interface SearchProjectPageCsrProps {
   projectTags: ProjectTag[];
@@ -38,4 +39,10 @@ const SearchProjectPageCsr = ({
   );
 };
 
-export default SearchProjectPageCsr;
+const SearchProjectCsrWithProvider = (props: SearchProjectPageCsrProps) => (
+  <QueryContextProvider>
+    <SearchProjectPageCsr {...props} />
+  </QueryContextProvider>
+);
+
+export default SearchProjectCsrWithProvider;
