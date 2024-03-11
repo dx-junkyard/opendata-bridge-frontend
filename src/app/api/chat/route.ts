@@ -30,9 +30,25 @@ export async function POST(req: Request) {
     apiUrl = `${process.env.CHAT_API || ''}/api/chat`;
   }
 
+  if (formData.get('is_first') === 'true') {
+    const resetForm = new FormData();
+    resetForm.append('user_id', formData.get('user_id') as string);
+    resetForm.append('history', new Blob(['[]'], { type: 'text/plain' }));
+
+    await fetch(`${process.env.CHAT_API}/api/chat/reset`, {
+      method: 'POST',
+      body: resetForm,
+    });
+  }
+
+  const newFormData = new FormData();
+  newFormData.append('user_id', formData.get('user_id') as string);
+  newFormData.append('message', formData.get('message') as string);
+  newFormData.append('file', formData.get('file') as Blob);
+
   const response = await fetch(apiUrl, {
     method: 'POST',
-    body: formData,
+    body: newFormData,
   });
 
   const reader = response?.body

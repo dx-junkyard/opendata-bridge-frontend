@@ -1,14 +1,15 @@
 import React, { FC } from 'react';
 import { ChatInput } from './ChatInput';
 import { ChatMessages } from './ChatMessages';
+import { Project } from '@/types/project';
+import { ProjectCard } from '@/components/molecules/project/project-card/ProjectCard';
 import { useInputPrompt } from '@/hooks/use-input-prompt';
-import { Message } from '@/types/message';
 
-interface ChatUIProps {
-  history: Message[];
+interface DevelopChatUIProps {
+  project: Project;
 }
 
-const ChatUI: FC<ChatUIProps> = ({ history }) => {
+export const DevelopChatUI: FC<DevelopChatUIProps> = ({ project }) => {
   const {
     prompt,
     updatePrompt,
@@ -19,12 +20,20 @@ const ChatUI: FC<ChatUIProps> = ({ history }) => {
     messages,
     isChatting,
     cancelChat,
-  } = useInputPrompt('', '');
+  } = useInputPrompt(project.recipes[0]?.prompt || '', '');
 
   return (
     <div className="relative flex h-full flex-col items-center mb-[200px]">
       <div className="flex h-full w-full flex-col">
-        <ChatMessages chatMessages={messages} />
+        {messages.length > 0 ? (
+          <ChatMessages chatMessages={messages} />
+        ) : (
+          <div className="w-[99vw] h-full bg-white text-black flex justify-center">
+            <div className="w-full md:w-[768px] flex justify-center flex-col mx-3">
+              <ProjectCard project={project} />
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="fixed z-50 bottom-0 items-end w-[99vw] text-black bg-white border-t flex justify-center">
@@ -44,5 +53,3 @@ const ChatUI: FC<ChatUIProps> = ({ history }) => {
     </div>
   );
 };
-
-export default ChatUI;
