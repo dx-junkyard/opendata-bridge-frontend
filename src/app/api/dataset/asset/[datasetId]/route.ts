@@ -40,5 +40,9 @@ export async function GET(
 
   return new Response(asset, {
     status: 200,
+    headers: {
+      'Content-Type': 'application/octet-stream',
+      'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(dataset.title)}`,
+    },
   });
 }

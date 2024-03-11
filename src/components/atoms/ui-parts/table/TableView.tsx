@@ -1,5 +1,5 @@
 import { createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
-import { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { flexRender, useReactTable } from '@tanstack/react-table';
 import classes from './TableView.module.scss';
 import { GenericDataType } from '@/types/csv-file';
@@ -8,7 +8,7 @@ interface TableViewProps {
   defaultData: GenericDataType[];
 }
 
-export const TableView = ({ defaultData }: TableViewProps) => {
+const TableView = memo(({ defaultData }: TableViewProps) => {
   const columnHelper = createColumnHelper<GenericDataType>();
 
   const defaultDataWithNumbering = defaultData.map((data, index) => {
@@ -32,6 +32,16 @@ export const TableView = ({ defaultData }: TableViewProps) => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  table.getRowModel().rows.map((row) =>
+    row.getVisibleCells().map((cell) => {
+      console.info(
+        cell.column.columnDef.header,
+        cell.column.columnDef.cell,
+        cell.column.columnDef.id
+      );
+    })
+  );
 
   return (
     <div className="bg-white text-black">
@@ -66,4 +76,7 @@ export const TableView = ({ defaultData }: TableViewProps) => {
       </table>
     </div>
   );
-};
+});
+TableView.displayName = 'TableView';
+
+export default TableView;

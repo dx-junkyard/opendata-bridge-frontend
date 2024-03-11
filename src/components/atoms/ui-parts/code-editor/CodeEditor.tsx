@@ -24,7 +24,7 @@ const CodeEditor = memo(({ code, updateCode, language }: CodeEditorProps) => {
       <div className="flex items-center justify-between w-full px-6 py-3 bg-zinc-800 text-zinc-100">
         <span className="text-xs lowercase">{language}</span>
         <div className="flex items-center space-x-2">
-          <DownloadButton filename={'transform.py'} value={code} />
+          <DownloadButton filename={'transform.py'} value={new Blob([code])} />
           <CopyButton value={code} />
         </div>
       </div>

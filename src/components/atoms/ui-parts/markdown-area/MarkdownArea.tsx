@@ -36,10 +36,17 @@ const MarkdownArea = ({ value }: MarkdownAreaProps) => {
             return <li className="mb-2 last:mb-0">{children}</li>;
           },
           a({ children, ...props }) {
+            const href = props.href;
+
+            // リンクの中身がない場合はリンクを表示しない
+            if (href === undefined || href === '') {
+              return <>{children}</>;
+            }
+
             return (
               <Link
                 className="text-blue-700"
-                href={props.href || '/'}
+                href={href}
                 rel="noopener noreferrer"
                 target="_blank"
               >

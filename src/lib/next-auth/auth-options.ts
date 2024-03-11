@@ -44,9 +44,12 @@ export const authOptions: NextAuthOptions = {
 
           const data = await response.json();
 
+          console.info(data.jwt);
+
           return {
             id: data.user.id,
             name: data.user.username,
+            jwt: data.jwt,
           };
         } catch (error) {
           throw error;

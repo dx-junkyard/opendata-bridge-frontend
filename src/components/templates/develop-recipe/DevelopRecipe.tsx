@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Project } from '@/types/project';
-import { ChatUI } from '@/components/organizms/chat/ChatUI';
+import { DevelopChatUI } from '@/components/organizms/chat/DevelopChatUI';
 
 interface DevelopRecipeProps {
   project: Project;
@@ -10,7 +10,7 @@ interface DevelopRecipeProps {
 export const DevelopRecipe = ({ project }: DevelopRecipeProps) => {
   return (
     <article className="w-full flex flex-col justify-center items-center">
-      <ChatUI project={project} />
+      <DevelopChatUI project={project} />
     </article>
   );
 };

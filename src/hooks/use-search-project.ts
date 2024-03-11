@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import useSWR from 'swr';
 import projectSearchFetcher, {
   searchProjectPath,
 } from '@/lib/fetch/project-search-fetcher';
 import { useFilterTag } from '@/hooks/use-filter-tag';
 import { ProjectTag } from '@/types/project-tag';
 import { Project } from '@/types/project';
+import useSWRImmutable from 'swr/immutable';
 
 export const useSearchProject = (
   projectTags: ProjectTag[],
@@ -16,7 +16,7 @@ export const useSearchProject = (
   const { tags, updateTagState } = useFilterTag(projectTags);
   const [enableTags, updateEnableTags] = useState<string>('');
 
-  const { data, isLoading } = useSWR(
+  const { data, isLoading } = useSWRImmutable(
     !isTyping ? [searchProjectPath, query, enableTags] : null,
     ([_, query, enableTags]) => projectSearchFetcher(query, enableTags),
     { fallbackData: initialProjectList }

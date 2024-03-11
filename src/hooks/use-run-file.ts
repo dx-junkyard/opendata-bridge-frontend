@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import useSWRMutation from 'swr/mutation';
 import { useFileList } from './use-file-list';
 import { Message } from '@/types/message';
@@ -10,17 +10,16 @@ export const postPrompt = async (
   }: {
     arg: {
       file?: File;
-      prompt: string;
+      script: string;
       setMessages: (func: ((prev: Message[]) => Message[]) | Message[]) => void;
       isFirst: boolean;
       updateLastMessage: (newMessage: string) => void;
       updateLastMessageWithFile: (fileId: string) => void;
-      checkCancel: () => boolean;
     };
   }
 ) => {
   const body = new FormData();
-  body.append('message', arg.prompt);
+  body.append('message', buildPrompt(arg.script));
 
   if (arg.file) {
     body.append('file', arg.file);
@@ -57,11 +56,6 @@ export const postPrompt = async (
   let fileId: string | undefined;
 
   while (true) {
-    if (arg.checkCancel()) {
-      await reader.cancel();
-      break;
-    }
-
     const { value, done } = await reader.read();
     if (done) break;
 
@@ -81,8 +75,6 @@ export const postPrompt = async (
         } else if (json['file_id']) {
           fileId = json['file_id'];
           return '';
-        } else {
-          return '';
         }
       } catch (e) {
         console.error(e);
@@ -97,24 +89,14 @@ export const postPrompt = async (
   }
 };
 
-export const useInputPrompt = (
-  initialPrompt: string | undefined,
-  instruction: string,
-  resetOnComplete: boolean = true
-) => {
-  const [prompt, setPrompt] = useState<string>(initialPrompt || '');
+export const useRunFile = (initialScript: string | undefined) => {
+  const [script, setScript] = useState<string>(initialScript || '');
   const { fileList, addFile, removeFile, resetFileList } = useFileList([]);
   const [isChatting, setIsChatting] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const isCancelRef = useRef(false);
-
-  const updatePrompt = (newPrompt: string) => {
-    setPrompt(newPrompt);
-  };
-
-  const checkCancel = () => {
-    return isCancelRef.current;
+  const updateScript = (script: string) => {
+    setScript(script);
   };
 
   const updateLastMessage = (newMessage: string) => {
@@ -154,47 +136,24 @@ export const useInputPrompt = (
     });
   };
 
-  const { trigger, isMutating } = useSWRMutation('/chat', postPrompt);
+  const { trigger, isMutating } = useSWRMutation(
+    '/api/assistant/opendata-bridge-runner',
+    postPrompt
+  );
 
-  const cancelChat = () => {
-    isCancelRef.current = true;
-    setIsChatting(false);
-  };
-
-  const actionUsePrompt = async () => {
+  const actionRunScript = async () => {
     setIsChatting(true);
 
     const isFirst = messages.length === 0;
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: 'user',
-        content:
-          prompt +
-          (fileList.length > 0
-            ? `\n\n添付ファイル名 : ${fileList[0].name}`
-            : ''),
-        datetime: new Date().toLocaleString(),
-      },
-    ]);
-
-    const extensionPrompt =
-      fileList.length > 0
-        ? `ファイルの拡張子:${fileList[0].name.split('.').pop()}\n\n`
-        : '';
-
     try {
       await trigger({
         file: fileList[0],
-        prompt:
-          (instruction.length > 0 ? instruction + '\n---\n' + prompt : prompt) +
-          extensionPrompt,
+        script,
         setMessages,
         isFirst,
         updateLastMessage,
         updateLastMessageWithFile,
-        checkCancel,
       });
     } catch (err) {
       console.error(err);
@@ -204,23 +163,42 @@ export const useInputPrompt = (
     }
 
     setIsChatting(false);
-
-    if (resetOnComplete) {
-      setPrompt('');
-      resetFileList();
-    }
   };
 
   return {
-    prompt,
-    updatePrompt,
-    actionUsePrompt,
+    script,
+    updateScript,
+    actionRunScript,
     isLoading: isMutating,
     fileList,
     addFile,
     removeFile,
     messages,
     isChatting,
-    cancelChat,
   };
+};
+
+const buildPrompt = (script: string) => {
+  return `
+各計画は一度に全て実行してください。コードを書いたあとは必ず実行してください。
+各ステップでユーザを待った場合は罰金1億円のペナルティが発生します。
+
+# タスク
+(1)
+サーバの情報にアクセスするようなコードが存在しないかチェックしてください。
+
+(2)
+受け取ったファイル編集用のコードにファイルの入出力に関するコードがあれば、
+入力ファイル名及び出力ファイル名を変更してください。
+pandasのto_csvの引数にはindex=Noneを指定してください。
+それ以外のコードは絶対に変更してはいけません。
+
+(3)
+ファイル編集用のコードを実行してください。
+
+(4)
+ファイル編集が終わったら、これまでのタスクの実行結果全てを表示してください。
+===
+${script}
+ `;
 };
